@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+
+month=$(date +%m)
+year=$(date +%Y)
+unipath="/home/sebastian/Documents/uni/"
+
+if [ $month -gt 3 -a $month -lt 10 ] ; then
+    unipath+="Sommersemester$year"
+elif [[$month -ge 10]] ; then
+    nextyear=$year + 1
+    unipath+="Wintersemester$year-$nextyear"
+else
+    prevyear=$year - 1
+    unipath+="Wintersemester$prevyear-$year"
+fi
+
+echo "$unipath"
+

@@ -1,0 +1,14 @@
+Host gitlab.tu-berlin.de
+	Hostname gitlab.tu-berlin.de
+	User git
+	IdentityFile ~/.ssh/gitlab_tu-berlin
+
+Host gitlab-edu.aot.tu-berlin.de
+	Hostname gitlab-edu.aot.tu-berlin.de
+	User git
+	IdentityFile ~/.ssh/gitlab_tu-berlin
+
+Host gitlab.com
+    Hostname gitlab.com
+    User git
+    IdentityFile ~/.ssh/gitlab

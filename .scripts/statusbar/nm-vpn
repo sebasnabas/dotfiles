@@ -1,0 +1,4 @@
+#!/bin/sh
+status=$(nmcli -t connection show --active)
+echo $status | awk -F ':' '/vpn0/{vpn="ON"} /vpn/{name=$1} {if(vpn) printf("%s\n%s\n", name, vpn)}'
+

@@ -1,0 +1,201 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" __   __   ___   __  __             ___     ___    _  _      ___    ___     ___  "
+" \ \ / /  |_ _| |  \/  |    o O O  / __|   / _ \  | \| |    | __|  |_ _|   / __| "
+"  \ V /    | |  | |\/| |   o      | (__   | (_) | | .` |    | _|    | |   | (_ | "
+"  _\_/_   |___| |_|__|_|  TS__[O]  \___|   \___/  |_|\_|   _|_|_   |___|   \___| "
+"_|""""|_|"""""|_|"""""| {======|_|"""""|_|"""""|_|"""""|_|""""|_|"""""|_|"""""|  "
+"`-0-0-'"`-0-0-'"`-0-0-'./o--000'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let mapleader =","
+
+"""""' Plugins '""""""""
+call plug#begin('~/.local/share/nvim/plugged')
+
+" Color scheme
+Plug 'romainl/Apprentice'
+
+" Utility
+Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle'}
+"Plug 'majutsushi/tagbar'
+Plug 'ervandew/supertab'
+"Plug 'SirVer/ultisnips'
+"Plug 'tpope/vim-dispatch'
+"Plug 'neomake/neomake'
+Plug 'junegunn/goyo.vim'
+
+
+" Generic Programming Support
+Plug 'Townk/vim-autoclose'
+Plug 'tomtom/tcomment_vim'
+Plug 'vim-syntastic/syntastic'
+"Plug 'joonty/vdebug'
+
+"" Markdown / Writing
+"Plug 'vim-scripts/LanguageTool'
+
+"" Git Support
+Plug 'tpope/vim-fugitive'
+
+"" Interface
+Plug 'ryanoasis/vim-devicons'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+"" i3 config file support
+"Plug 'PoatoesMaster/i3-vim-syntax'
+
+"" Vim Wiki
+Plug 'vimwiki/vimwiki'
+
+call plug#end()
+
+
+"""' NERDTree '"""
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * NERDTree | wincmd p
+let NERDTreeStatusline="%{exists('b:NERDTree')?fnamemodify(b:NERDTree.root.path.str(), ':~'):''}"
+
+" the ignore patterns are regular expression strings and seprated by comma
+let NERDTreeIgnore = ['\.pyc$', '^__pycache__$']
+
+map <C-n> :NERDTreeToggle <CR>
+
+" Show Dotfiles
+let NERDTreeShowHidden=1
+
+"""' Neomake '"""
+" When writing a buffer (no delay).
+"call neomake#configure#automake('w')
+" When writing a buffer (no delay), and on normal mode changes (after 750ms).
+"call neomake#configure#automake('nw', 750)
+" When reading a buffer (after 1s), and when writing (no delay).
+"call neomake#configure#automake('rw', 1000)
+" Full config: when writing or reading a buffer, and on changes in insert and
+" normal mode (after 1s; no delay when writing).
+"call neomake#configure#automake('nrwi', 500)
+
+"""' Syntastic '"""
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"""' Vim-Airline Configuration '"""
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme='base16'
+
+"""' devicons '"""
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_nerdtree = 1
+" adding the column to vimfiler
+let g:webdevicons_enable_vimfiler = 1
+" adding to vim-airline’s tabline
+let g:webdevicons_enable_airline_tabline = 1
+" adding to vim-airline’s statusline
+let g:webdevicons_enable_airline_statusline = 1
+" ctrlp glyphs
+let g:webdevicons_enable_ctrlp = 1
+" enable open and close folder/directory glyph flags (disabled by default with 0)
+let g:DevIconsEnableFoldersOpenClose = 1
+" enable folder/directory glyph flag (disabled by default with 0)
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+
+""""" END Plug Configuration
+
+
+""""""""""""""""""""""""""""""""""""""
+"" Configuration Section
+""""""""""""""""""""""""""""""""""""""
+set nocompatible
+filetype plugin indent on
+syntax on
+set wrap
+set encoding=utf8
+
+" Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
+	vnoremap <C-c> "+y
+    map <C-p> "+P
+
+nnoremap t <C-]>
+
+"" Show linenumbers
+    set number
+    set ruler
+
+"" Set Proper Tabs
+    set tabstop=4
+    set shiftwidth=4
+    set smarttab
+    set expandtab
+
+"" Always display the status line
+    set laststatus=2
+
+"" Enable highlighting of the current line
+    set cursorline
+
+"" Enable autocompletion:
+"    set wildmode=longest,list,full
+
+"" Search while typing
+    set incsearch
+
+"" Disables automatic commenting on newline
+
+"" Spell-check set to <leader>o,'o' for orthography
+    map <leader>o :setlocal spell! spelllang=en_us<CR>
+
+"" Grammar-check set to <leader>g, 'g' for grammar
+    map <leader>g :LanguageToolCheck <CR>
+
+"" Splits open at the bottom and right
+    set splitbelow splitright
+
+"" Shortcutting split navigation
+    map <C-h> <C-w>h
+    map <C-j> <C-w>j
+    map <C-k> <C-w>k
+    map <C-l> <C-w>l
+
+"" Runs a script that cleans out tex build files whenever I close out of a tex file.
+    autocmd VimLeave *.tex !texclear %
+
+"" Compile document
+    map <leader>c :w! \| !compiler <c-r>%<CR><CR>
+
+"" Open corresponding pdf/.html or preview
+    map <leader>p :!opout <c-r>%<CR><CR>
+
+"" Automatically deletes all trailing whitespace
+    autocmd BufWritePre * %s/\s\+$//e
+
+"" Jump to <++>
+    inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
+
+"" nohlsearch
+    map <leader>s :nohlsearch <Enter>
+
+" Exit modes
+    map <Esc> <C-Space>
+
+"" Theme and Styling
+set t_Co=256
+
+function! MyHighlights() abort
+    highlight Comment ctermfg=green "245
+endfunction
+
+augroup MyColors
+    autocmd!
+    autocmd ColorScheme * call MyHighlights()
+augroup END
+
+colo apprentice
+hi Normal ctermbg=none
+

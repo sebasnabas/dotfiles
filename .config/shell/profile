@@ -1,0 +1,25 @@
+
+export PATH="~/.scripts/tools":$PATH
+export PATH="~/.scripts/i3cmds":$PATH
+
+export BROWSER="firefox"
+export MAIL_CLIENT="thunderbird"
+export TERM="konsole"
+export EDITOR="nvim"
+export READER="okular"
+
+# mpc format
+export MPC_FORMAT="[[%artist% - ]%title%]"
+
+### Aliases ###
+
+alias sudo="sudoer_lecture.py && sudo"
+alias vim="nvim"
+
+alias uni="cd $(getcurrentunipath)"
+alias c="cd ~/Documents/code"
+alias m="cd ~/Documents/Magda"
+alias p="cd ~/Pictures"
+alias ctrain="cd ~/Videos/coding/the_coding_train"
+alias code="cd ~/Documents/code"
+

@@ -1,0 +1,22 @@
+# Everything
+/*
+
+# but not these files/directories
+!.gitignore
+!.scripts
+
+!.config
+.config/*
+
+!.config/dunst
+!.config/git
+!.config/i3/
+!.config/i3blocks
+!.config/konsolerc
+!.config/latte
+!.config/lattedockrc
+!.config/nvim
+!.config/shell
+!.config/ssh
+!.config/x
+

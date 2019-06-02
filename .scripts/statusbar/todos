@@ -1,0 +1,22 @@
+#!/usr/bin/bash
+
+number="$(grep -c '\[ \]' ~/vimwiki/Todos.wiki)"
+
+green='\33[0;32m'
+
+echo $number
+
+if [[ $number -lt 1 ]]; then
+    echo "#60b48a"
+elif [[ $number -ge 1 ]]; then
+    echo "#FFF600"
+elif [[ $number -ge 5 ]]; then
+    echo "#FFAE00"
+else
+    echo "#FF0000"
+fi
+
+case $BLOCK_BUTTON in
+    1) pgrep -x dunst >/dev/null && notify-send "Todos" "$(cat ~/vimwiki/Todos.wiki)" ;;
+esac
+

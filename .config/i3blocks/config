@@ -1,0 +1,63 @@
+command=~/.scripts/statusbar/$BLOCK_NAME
+separator_block_width=15
+markup=pango
+
+[mediaplayer]
+color=#60b48a
+interval=5
+
+[pacman-updates]
+command=~/.scripts/statusbar/pacman-updates -a -b \#60b48a
+label=📦
+interval= 1800
+
+#[public-ip]
+#command=wget -qO - icanhazip.com
+#color=#60b48a
+#interval=30
+
+[weather]
+color=#60b48ba
+interval=360
+
+[disk]
+command=~/.scripts/statusbar/disk /
+color=#60b48a
+interval=60
+
+[nm-vpn]
+label=vpn:
+color=#60b48a
+interval=5
+
+[wifi]
+label=📶
+interval=5
+
+[brightness]
+color=#60b48a
+interval=2
+
+[microphone]
+label=🎤:
+color=#60b48a
+interval=once
+interval=2
+
+[volume]
+color=#60b48a
+interval=2
+
+[power]
+interval=15
+color=#60b48a
+
+[time]
+command=~/.scripts/statusbar/clock
+interval=1
+color=#3498db
+
+[Mango]
+command=echo "🥭"
+interval=3600
+
