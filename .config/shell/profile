@@ -5,6 +5,7 @@ export PATH="~/.scripts/i3cmds":$PATH
 export BROWSER="firefox"
 export MAIL_CLIENT="thunderbird"
 export TERM="konsole"
+export TERMINAL="konsole"
 export EDITOR="nvim"
 export READER="okular"
 

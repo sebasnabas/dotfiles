@@ -1,4 +1,4 @@
-Host gitlab.tu-berlin.de
+Host gitlab.tubit.tu-berlin.de
 	Hostname gitlab.tu-berlin.de
 	User git
 	IdentityFile ~/.ssh/gitlab_tu-berlin

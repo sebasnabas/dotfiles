@@ -20,8 +20,8 @@ no_focus [class="plasmashell"]
 
 # #---Basic Definitions---# #
 for_window [class="^.*"] border pixel 2
-gaps inner 15 
-gaps outer 15 
+gaps inner 15
+gaps outer 15
 set $term --no-startup-id $TERMINAL
 set $mod Mod4
 set $shutdown shutdown -h now
@@ -96,7 +96,7 @@ bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec -
 # bindsym $mod+w			exec $term -e nmtui
 bindsym $mod+w		    exec --no-startup-id $BROWSER
 
-bindsym $mod+m		    exec --no-startup-id $MAIL_CLIENT 
+bindsym $mod+m		    exec --no-startup-id $MAIL_CLIENT
 
 bindsym $mod+Shift+m    exec --no-startup-id $tools/messaging-launcher
 
@@ -158,15 +158,15 @@ bindsym $mod+g			gaps outer current plus 5
 bindsym $mod+Shift+g		gaps outer current minus 5
 
 bindsym $mod+x			exec --no-startup-id mpc toggle
-#bindsym $mod+Shift+x		
+#bindsym $mod+Shift+x
 bindsym $mod+v			exec --no-startup-id $term -e $EDITOR -c "VimwikiIndex"
 #bindsym $mod+Shift+v
 
 bindsym $mod+b			bar mode toggle
 bindsym $mod+Shift+b		floating toggle; sticky toggle; exec --no-startup-id hover left
 
-bindsym $mod+n			exec --no-startup-id networkmanager_dmenu 
-bindsym $mod+Shift+n		floating toggle; sticky toggle; exec --no-startup-id hover right
+bindsym $mod+n			exec --no-startup-id networkmanager_dmenu
+bindsym $mod+Shift+n		exec --no-startup-id netbeans #floating toggle; sticky toggle; exec --no-startup-id hover right
 
 ##bindsym $mod+m 			exec --no-startup-id $term -e ncmpcpp
 
