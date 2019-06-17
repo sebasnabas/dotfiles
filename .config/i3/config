@@ -1,3 +1,6 @@
+for_window [class="firefox"]    border none
+
+
 ## Plasma Integration
 # Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everything)
 exec --no-startup-id wmctrl -c Plasma
@@ -14,6 +17,26 @@ for_window [class="Klipper"]        floating enable
 for_window [class="Plasmoidviewer"] floating enable
 no_focus [class="plasmashell"]
 
+## Colors ##
+# color defines for zenburn styled i3
+set $bg     #2c2c2e
+set $fg     #9f9f9f
+set $hi     #efef8f
+set $ac     #1abc9c
+set $tx     #040404
+set $ia     #8f8f8f
+set $be     #8faf9f
+set $yw     #ccdc90
+set $gn     #88b090
+set $rd     #e89393
+
+# set some nice colors      border     background  text
+client.focused              $ac        $ac         $tx
+client.unfocused            $bg        $bg         $ia
+client.focused_inactive     $bg        $bg         $ac
+client.urgent               $rd        $rd         $tx
+
+##################
 
 # vim: filetype=i3
 # File originally by Luke Smith <https://lukesmith.xyz>
@@ -44,6 +67,9 @@ for_window [instance="dropdown_dropdowncalc"] border pixel 2
 for_window [instance="dropdown_*"] move position center
 
 # #---Starting External Scripts---# #
+
+# polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # mpd startup
 exec --no-startup-id mopidy
 # Setting the background:
@@ -52,22 +78,6 @@ exec --no-startup-id $tools/setbg
 exec --no-startup-id dunst
 # Composite manager:
 exec --no-startup-id compton
-# Runs the key remapping scripts
-#exec --no-startup-id remaps
-# Unclutter makes the mouse invisible after a brief period
-#exec --no-startup-id unclutter
-# Run the script to update the mpd i3block on change.
-#exec_always --no-startup-id mpdupdate
-# Podboat automatic queue and download
-#exec_always --no-startup-id podentr
-
-bar {
-	font pango:mono 11
-	status_command i3blocks
-	position top
-	mode dock
-	modifier None
-}
 
 # #---Basic Bindings---# #
 bindsym $mod+Return 		exec $term
@@ -306,7 +316,7 @@ bindsym XF86Explorer		exec $term -e $FILE
 ##bindsym XF86Xfer		exec
 bindsym XF86WWW			exec --no-startup-id $BROWSER
 ##bindsym XF86DOS		exec
-bindsym XF86ScreenSaver		exec exec --no-startup-id lockscreen
+bindsym XF86ScreenSaver		exec --no-startup-id lockscreen
 ##bindsym XF86RotateWindows	exec
 ##bindsym XF86TaskPane		exec
 ##bindsym XF86Favorites		exec
