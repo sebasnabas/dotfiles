@@ -10,7 +10,7 @@
 
 !.config/dunst
 !.config/git
-!.config/i3/
+!.config/i3
 !.config/i3blocks
 !.config/konsolerc
 !.config/latte
@@ -19,4 +19,4 @@
 !.config/shell
 !.config/ssh
 !.config/x
-
+!.config/polybar
