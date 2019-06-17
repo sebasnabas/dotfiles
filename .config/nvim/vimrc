@@ -26,7 +26,7 @@ Plug 'junegunn/goyo.vim'
 
 
 " Generic Programming Support
-Plug 'Townk/vim-autoclose'
+Plug 'Raimondi/delimitMate'
 Plug 'tomtom/tcomment_vim'
 Plug 'vim-syntastic/syntastic'
 "Plug 'joonty/vdebug'
@@ -85,6 +85,8 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+map <C-s> :SyntasticToggleMode <CR>
+
 """' Vim-Airline Configuration '"""
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
@@ -125,7 +127,7 @@ set encoding=utf8
 nnoremap t <C-]>
 
 "" Show linenumbers
-    set number
+    set relativenumber
     set ruler
 
 "" Set Proper Tabs
