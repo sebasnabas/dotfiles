@@ -13,7 +13,9 @@ let mapleader =","
 call plug#begin('~/.local/share/nvim/plugged')
 
 " Color scheme
-Plug 'romainl/Apprentice'
+"Plug 'romainl/Apprentice'
+"Plug 'DankNeon/vim'
+Plug 'rakr/vim-one'
 
 " Utility
 Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle'}
@@ -189,15 +191,16 @@ nnoremap t <C-]>
 "" Theme and Styling
 set t_Co=256
 
-function! MyHighlights() abort
-    highlight Comment ctermfg=green "245
-endfunction
+"ifunction! MyHighlights() abort
+"    highlight Comment ctermfg=green "245
+"endfunction
 
-augroup MyColors
-    autocmd!
-    autocmd ColorScheme * call MyHighlights()
-augroup END
+"augroup MyColors
+""    autocmd!
+""    autocmd ColorScheme * call MyHighlights()
+"augroup END
 
-colo apprentice
-hi Normal ctermbg=none
+"colorscheme one
+"set background=dark
 
+hi Normal guibg=NONE ctermbg=NONE

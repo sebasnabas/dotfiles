@@ -1,6 +1,3 @@
-for_window [class="firefox"]    border none
-
-
 ## Plasma Integration
 # Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everything)
 exec --no-startup-id wmctrl -c Plasma
@@ -29,12 +26,12 @@ set $be     #8faf9f
 set $yw     #ccdc90
 set $gn     #88b090
 set $rd     #e89393
-
+set $tr     #00000000
 # set some nice colors      border     background  text
-client.focused              $ac        $ac         $tx
-client.unfocused            $bg        $bg         $ia
-client.focused_inactive     $bg        $bg         $ac
-client.urgent               $rd        $rd         $tx
+client.focused              $tr        $tr         $tx
+client.unfocused            $tr        $tr         $ia
+client.focused_inactive     $tr        $tr         $ac
+client.urgent               $tr        $tr         $tx
 
 ##################
 
@@ -77,7 +74,7 @@ exec --no-startup-id $tools/setbg
 # Starts dunst for notifications:
 exec --no-startup-id dunst
 # Composite manager:
-exec --no-startup-id compton
+exec --no-startup-id compton -b --config $HOME/.config/compton/compton.conf
 
 # #---Basic Bindings---# #
 bindsym $mod+Return 		exec $term
