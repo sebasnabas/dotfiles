@@ -67,14 +67,21 @@ for_window [instance="dropdown_*"] move position center
 
 # polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
 # mpd startup
 exec --no-startup-id mopidy
+
 # Setting the background:
 exec --no-startup-id $tools/setbg
+
 # Starts dunst for notifications:
 exec --no-startup-id dunst
+
 # Composite manager:
 exec --no-startup-id compton -b --config $HOME/.config/compton/compton.conf
+
+# Redshift for warmer light in the evening
+exec --no-startup-id redshift
 
 # #---Basic Bindings---# #
 bindsym $mod+Return 		exec $term
@@ -173,7 +180,9 @@ bindsym $mod+b			bar mode toggle
 bindsym $mod+Shift+b		floating toggle; sticky toggle; exec --no-startup-id hover left
 
 bindsym $mod+n			exec --no-startup-id networkmanager_dmenu
-bindsym $mod+Shift+n		exec --no-startup-id netbeans #floating toggle; sticky toggle; exec --no-startup-id hover right
+bindsym $mod+Shift+n		floating toggle; sticky toggle; exec --no-startup-id hover right
+
+bindsym $mod+c          exec --no-startup-id code-oss
 
 ##bindsym $mod+m 			exec --no-startup-id $term -e ncmpcpp
 
