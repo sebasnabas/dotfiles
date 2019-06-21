@@ -7,10 +7,10 @@ RemoveWindowTitleBarAndFrame=true
 ShowMenuBarByDefault=false
 
 [MainWindow]
-Height 1080=1013
+Height 1080=955
 MenuBar=Disabled
-State=AAAA/wAAAAD9AAAAAAAAB0IAAAO7AAAABAAAAAQAAAAIAAAACPwAAAAA
-Width 1920=636
+State=AAAA/wAAAAD9AAAAAAAAB3wAAAJeAAAABAAAAAQAAAAIAAAACPwAAAAA
+Width 1920=920
 
 [Notification Messages]
 CloseAllTabs=true
