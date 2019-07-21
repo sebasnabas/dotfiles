@@ -71,17 +71,20 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # mpd startup
 exec --no-startup-id mopidy
 
-# Setting the background:
-exec --no-startup-id $tools/setbg
-
 # Starts dunst for notifications:
 exec --no-startup-id dunst
+
+# Setting the background:
+exec_always --no-startup-id $tools/setbg
 
 # Composite manager:
 exec --no-startup-id compton -b --config $HOME/.config/compton/compton.conf
 
 # Redshift for warmer light in the evening
 exec --no-startup-id redshift
+
+# Set background
+bindsym $mod+Shift+Ctrl+s exec --no-startup-id setbg
 
 # #---Basic Bindings---# #
 bindsym $mod+Return 		exec $term
@@ -256,7 +259,7 @@ for_window [title="Default - Wine desktop"] floating enable
 #no_focus [title="mpvfloat"]
 
 # #---Function Buttons---# #
-bindsym $mod+F1	    exec --no-startup-id $i3cmds/prompt "Shutdown computer?" "$shutdown"
+bindsym $mod+F1	    exec --no-startup-id ~/.scripts/statusbar/polybar/powermenu
 bindsym $mod+F2		exec --no-startup-id $i3cmds/prompt "Reboot computer?" "$reboot"
 bindsym $mod+F3		exec --no-startup-id displayselect
 bindsym $mod+F5		exec --no-startup-id $netrefresh
@@ -271,16 +274,20 @@ bindsym $mod+Left		exec --no-startup-id mpc prev
 #bindsym $mod+Down		focus down
 #bindsym $mod+Up			focus up
 bindsym $mod+Right 		exec --no-startup-id mpc next
-bindsym $mod+Shift+Left		move left
-bindsym $mod+Shift+Down		move down
-bindsym $mod+Shift+Up		move up
-bindsym $mod+Shift+Right 	move right
+
+# move workspace between monitors
+bindsym $mod+Shift+Left		move workspace to output left
+bindsym $mod+Shift+Right 	move workspace to output right
 
 # #---Media Keys---# #
 # Volume keys
 bindsym $mod+less 		exec --no-startup-id lmc prev
 bindsym $mod+Shift+less		exec --no-startup-id lmc replay
 bindsym $mod+greater		exec --no-startup-id lmc next
+
+# Volume up/down
+bindsym $mod+Down	    exec --no-startup-id amixer -D pulse sset Master 5%-
+bindsym $mod+Up		exec --no-startup-id amixer -D pulse sset Master 5%+
 
 # For advancing forward/backward in an mpd song
 bindsym $mod+bracketleft 	exec --no-startup-id lmc back 10
