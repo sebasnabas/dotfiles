@@ -13,9 +13,11 @@
 !.config/i3
 !.config/i3blocks
 !.config/konsolerc
+!.config/kitty
 !.config/latte
 !.config/lattedockrc
 !.config/nvim
+!.config/networkmanager-dmenu
 !.config/shell
 !.config/ssh
 !.config/x
