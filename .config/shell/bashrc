@@ -84,9 +84,9 @@ if ${use_color} ; then
         #    directory_prompt="$directory_color"
         #    directory_prompt+="~/9/\W"
         #fi
-    
-        #PS1="\[\033[38;5;208m\][\[$(tput sgr0)\]\[\033[38;5;35m\]\u\[$(tput sgr0)\]\[\033[38;5;208m\]@\[$(tput sgr0)\]\[\033[38;5;39m\]\h\[$(tput sgr0)\]\[\033[38;5;208m\]:\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;35m\]\w\[$(tput sgr0)\]\[\033[38;5;208m\]]\[$(tput sgr0)\]\[\033[38;5;39m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]" 
-        PS1="\[\033[38;5;208m\][\[$(tput sgr0)\]\[\033[38;5;35m\]\u\[$(tput sgr0)\]\[\033[38;5;208m\]@\[$(tput sgr0)\]\[\033[38;5;39m\]\h\[$(tput sgr0)\]\[\033[38;5;208m\]:\[$(tput sgr0)\]\[\033[38;5;15m\] $directory_prompt\[$(tput sgr0)\]\[\033[38;5;208m\]]\[$(tput sgr0)\]\[\033[38;5;39m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]" 
+
+        #PS1="\[\033[38;5;208m\][\[$(tput sgr0)\]\[\033[38;5;35m\]\u\[$(tput sgr0)\]\[\033[38;5;208m\]@\[$(tput sgr0)\]\[\033[38;5;39m\]\h\[$(tput sgr0)\]\[\033[38;5;208m\]:\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;35m\]\w\[$(tput sgr0)\]\[\033[38;5;208m\]]\[$(tput sgr0)\]\[\033[38;5;39m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
+        PS1="\[\033[38;5;208m\][\[$(tput sgr0)\]\[\033[38;5;35m\]\u\[$(tput sgr0)\]\[\033[38;5;208m\]@\[$(tput sgr0)\]\[\033[38;5;39m\]\h\[$(tput sgr0)\]\[\033[38;5;208m\]:\[$(tput sgr0)\]\[\033[38;5;15m\] $directory_prompt\[$(tput sgr0)\]\[\033[38;5;208m\]]\[$(tput sgr0)\]\[\033[38;5;39m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
     fi
 	alias ls='ls --color=auto'
 	alias grep='grep --colour=auto'
@@ -151,5 +151,5 @@ ex ()
   fi
 }
 
-source ~/.profile
+source ~/.aliases
 
