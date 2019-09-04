@@ -89,6 +89,8 @@ source $ZSH/oh-my-zsh.sh
 # autoswitch_virtualenv
 export AUTOSWITCH_MESSAGE_FORMAT="$(tput setaf 2)Switching to %venv_name 🐍 %py_version $(tput sgr0)"
 
+setopt histignorespace
+
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
