@@ -302,10 +302,14 @@ bindsym $mod+Scroll_Lock	exec --no-startup-id "killall screenkey || screenkey"
 bindsym XF86Launch1		exec --no-startup-id xset dpms force off
 
 # #--Microphone--# #
-bindsym $mod+Shift+plus exec --no-startup-id amixer -q set Capture toggle
 bindsym $mod+plus exec --no-startup-id amixer -D pulse sset Capture 5%+
 bindsym $mod+minus exec --no-startup-id amixer -D pulse sset Capture 5%-
 
+# #--Audio Mute on Keyboard without XF86 Keys--# #
+bindsym $mod+F8		exec --no-startup-id amixer -q set Master toggle
+
+# #--Microphone Mute--# #
+bindsym $mod+F7     exec --no-startup-id amixer -q set Capture toggle
 
 # #---Extra XF86 Keys---# #
 bindsym XF86AudioMute		exec --no-startup-id amixer -q set Master toggle
