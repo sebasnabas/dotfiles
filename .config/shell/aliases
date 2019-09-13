@@ -1,18 +1,22 @@
 alias sudo="sudoer_lecture.py && sudo"
 alias vim="nvim"
 
-alias uni="cd $(getcurrentunipath)"
-alias c="cd ~/Documents/code"
-alias m="cd ~/Documents/Magda"
-alias p="cd ~/Pictures"
-alias ctrain="cd ~/Videos/coding/the_coding_train"
-alias code="cd ~/Documents/code"
+alias upgrade="sudo pacman -Syu"
 
+## directories
+alias uni="pushd $(getcurrentunipath)"
+alias c="pushd ~/Documents/code"
+alias m="pushd ~/Documents/Magda"
+alias p="pushd ~/Pictures"
+alias ctrain="pushd ~/Videos/coding/the_coding_train"
+alias code="pushd ~/Documents/code"
+alias pushdgo="code && pushd languages/go"
 
-# SmartOven project
-alias chatbot-frontend="uni && cd Ambient_Assisted_Living/integration/chatbot-frontend-vue && npm install && npm run build && cd server && npm install && sudo node server.js"
+## SmartOven project
+alias chatbot-frontend="uni && pushd Ambient_Assisted_Living/integration/chatbot-frontend-vue ; npm install && npm run build && pushd server && npm install && sudo node server.js ; popd"
 
-alias aal="uni && cd Ambient_Assisted_Living/integration"
+alias aal="uni && pushd Ambient_Assisted_Living/integration"
 alias mb="mvn clean install"
 alias mbs="mvn clean install -DskipTests"
+alias sonarqube="mvn sonar:sonar -Dsonar.host.url=http://sonar-aal.aot.tu-berlin.de/ -Dsonar.login=36488f1a0c8f463d90e705c81471bebefc864624"
 
