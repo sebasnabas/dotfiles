@@ -72,4 +72,8 @@ get_session(){
 	echo "dbus-launch ${dbus_args[*]}"
 }
 
+## siji font
+xset +fp /home/sebastian/.fonts
+xset fp rehash
+
 exec $(get_session)
