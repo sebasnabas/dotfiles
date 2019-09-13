@@ -1,4 +1,4 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " __   __   ___   __  __             ___     ___    _  _      ___    ___     ___  "
 " \ \ / /  |_ _| |  \/  |    o O O  / __|   / _ \  | \| |    | __|  |_ _|   / __| "
 "  \ V /    | |  | |\/| |   o      | (__   | (_) | | .` |    | _|    | |   | (_ | "
@@ -13,27 +13,17 @@ let mapleader =","
 call plug#begin('~/.local/share/nvim/plugged')
 
 " Color scheme
-"Plug 'DankNeon/vim'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
 " Utility
 Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle'}
-"Plug 'majutsushi/tagbar'
-Plug 'ervandew/supertab'
-"Plug 'SirVer/ultisnips'
-"Plug 'tpope/vim-dispatch'
-"Plug 'neomake/neomake'
 Plug 'junegunn/goyo.vim'
-
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/ReplaceWithRegister'
 
 " Generic Programming Support
-Plug 'Raimondi/delimitMate'
-Plug 'tomtom/tcomment_vim'
-Plug 'vim-syntastic/syntastic'
-"Plug 'joonty/vdebug'
-
-"" Markdown / Writing
-"Plug 'vim-scripts/LanguageTool'
+"" Comments
+Plug 'tpope/vim-commentary'
 
 "" Git Support
 Plug 'tpope/vim-fugitive'
@@ -43,19 +33,13 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-"" i3 config file support
-"Plug 'PoatoesMaster/i3-vim-syntax'
-
 "" Vim Wiki
 Plug 'vimwiki/vimwiki'
 
 """ Programming
 
-"" Go
-Plug 'fatih/vim-go'
-
 call plug#end()
-
+""""""""""""""""""""""""
 
 """' NERDTree '"""
 autocmd StdinReadPre * let s:std_in=1
@@ -69,6 +53,9 @@ map <C-n> :NERDTreeToggle <CR>
 
 " Show Dotfiles
 let NERDTreeShowHidden=1
+
+"""' Goyo '"""
+let g:goyo_linenr=1
 
 """' Syntastic '"""
 set statusline+=%#warningmsg#
@@ -117,11 +104,12 @@ set encoding=utf8
 
 " Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
 	vnoremap <C-c> "+y
-    inoremap <C-v> <Esc> "+P
+    inoremap <C-v> <Esc>"+P
 
 nnoremap t <C-]>
 
 "" Show linenumbers
+    set number
     set relativenumber
     set ruler
 
@@ -138,7 +126,7 @@ nnoremap t <C-]>
     set cursorline
 
 "" Enable autocompletion:
-"    set wildmode=longest,list,full
+    set wildmode=longest,list,full
 
 "" Search while typing
     set incsearch
@@ -150,6 +138,9 @@ nnoremap t <C-]>
 
 "" Grammar-check set to <leader>g, 'g' for grammar
     map <leader>g :LanguageToolCheck <CR>
+
+"" 'z' for zen
+    map <leader>z :Goyo <CR>
 
 "" Splits open at the bottom and right
     set splitbelow splitright
@@ -167,7 +158,7 @@ nnoremap t <C-]>
     map <leader>c :w! \| !compiler <c-r>%<CR><CR>
 
 "" Open corresponding pdf/.html or preview
-    map <leader>p :!opout <c-r>%<CR><CR>
+    map <leader>v :!opout <c-r>%<CR><CR>
 
 "" Automatically deletes all trailing whitespace
     autocmd BufWritePre * %s/\s\+$//e
@@ -182,12 +173,9 @@ nnoremap t <C-]>
     map <Esc> <C-Space>
 
 "" Theme and Styling
-"set t_Co=256
-
 colorscheme onehalfdark
 
 set bg=dark
-"hi Normal guibg=NONE ctermbg=NONE
 
 if exists('+termguicolors')
 
@@ -198,4 +186,5 @@ if exists('+termguicolors')
   set termguicolors
 
 endif
+
 
