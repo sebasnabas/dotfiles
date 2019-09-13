@@ -110,54 +110,23 @@ bindsym $mod+Insert		exec --no-startup-id showclip
 bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
 
-# bindsym $mod+w			exec $term -e nmtui
 bindsym $mod+w		    exec --no-startup-id $BROWSER
 
 bindsym $mod+m		    exec --no-startup-id $MAIL_CLIENT
 
 bindsym $mod+Shift+m    exec --no-startup-id $tools/messaging-launcher
 
-bindsym $mod+e			exec $term -e neomutt && pkill -RTMIN+12 i3blocks
+bindsym $mod+e 			exec $term -e $FILE
 
-bindsym $mod+r 			exec $term -e $FILE
-bindsym $mod+Shift+r		exec --no-startup-id $i3cmds/winresize
+bindsym $mod+r		exec --no-startup-id $i3cmds/winresize
 
 bindsym $mod+t			split toggle
 bindsym $mod+Shift+t		gaps inner current set 15; gaps outer current set 15
 
-bindsym $mod+y			exec $term -e calcurse -D ~/.config/calcurse
-bindsym $mod+Shift+y		exec --no-startup-id $i3cmds/i3resize left
-
-bindsym $mod+u			exec --no-startup-id ddspawn tmuxdd
-bindsym $mod+Shift+u		exec --no-startup-id $i3cmds/i3resize down
-
-bindsym $mod+i 			exec $term -e gotop
-bindsym $mod+Shift+i		exec --no-startup-id $i3cmds/i3resize up
-
-bindsym $mod+o			sticky toggle
-bindsym $mod+Shift+o		exec --no-startup-id $i3cmds/i3resize right
-
-bindsym $mod+p			exec lmc toggle
-bindsym $mod+Shift+p		exec --no-startup-id lmc pause
-
-bindsym $mod+a			exec --no-startup-id ddspawn dropdowncalc -f mono:pixelsize=24
-bindsym $mod+Shift+a		exec $term -e pulsemixer
-
-bindsym $mod+z			gaps inner current plus 5
-bindsym $mod+Shift+z		gaps inner current minus 5
-
-bindsym $mod+d			exec --no-startup-id dmenu_run
-bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
-
-bindsym $mod+s          exec --no-startup-id /usr/bin/systemsettings5
-
-set $freeze Distraction-free mode (super+shift+f to reactivate bindings)
-mode "$freeze" { bindsym $mod+Shift+f mode "default"
-}
-
-bindsym $mod+Shift+f			fullscreen toggle
-bindsym $mod+Ctrl+Shift+f		mode "$freeze" ;; exec --no-startup-id notify-send "Distraction-free mode activated." "Press Super+Shift+f to return."
-
+bindsym $mod+Ctrl+Shift+h		exec --no-startup-id $i3cmds/i3resize left
+bindsym $mod+Ctrl+Shift+j		exec --no-startup-id $i3cmds/i3resize down
+bindsym $mod+Ctrl+Shift+k		exec --no-startup-id $i3cmds/i3resize up
+bindsym $mod+Ctrl+Shift+l		exec --no-startup-id $i3cmds/i3resize right
 
 bindsym $mod+h			focus left
 bindsym $mod+Shift+h		move left 30
@@ -171,21 +140,42 @@ bindsym $mod+Shift+k		move up 30
 bindsym $mod+l			focus right
 bindsym $mod+Shift+l		move right 30
 
-bindsym $mod+g			gaps outer current plus 5
-bindsym $mod+Shift+g		gaps outer current minus 5
+bindsym $mod+g 			exec $term -e gotop
+
+bindsym $mod+o			sticky toggle
+
+bindsym $mod+p			exec lmc toggle
+bindsym $mod+Shift+p		exec --no-startup-id lmc pause
+
+bindsym $mod+z			gaps inner current plus 5
+bindsym $mod+Shift+z		gaps inner current minus 5
+
+bindsym $mod+d			exec --no-startup-id dmenu_run
+bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
+
+bindsym $mod+s          exec --no-startup-id /usr/bin/systemsettings5
+
+
+set $freeze Distraction-free mode (super+shift+f to reactivate bindings)
+mode "$freeze" { bindsym $mod+Shift+f mode "default"
+}
+
+bindsym $mod+Shift+f			fullscreen toggle
+bindsym $mod+Ctrl+Shift+f		mode "$freeze" ;; exec --no-startup-id notify-send "Distraction-free mode activated." "Press Super+Shift+f to return."
+
+
+bindsym $mod+u			gaps outer current plus 5
+bindsym $mod+Shift+u		gaps outer current minus 5
 
 bindsym $mod+x			exec --no-startup-id mpc toggle
-#bindsym $mod+Shift+x
+
 bindsym $mod+v			exec --no-startup-id $term -e $EDITOR -c "VimwikiIndex"
-#bindsym $mod+Shift+v
 
 bindsym $mod+b			bar mode toggle
 bindsym $mod+Shift+b		floating toggle; sticky toggle; exec --no-startup-id hover left
 
 bindsym $mod+n			exec --no-startup-id networkmanager_dmenu
 bindsym $mod+Shift+n		floating toggle; sticky toggle; exec --no-startup-id hover right
-
-bindsym $mod+c          exec --no-startup-id code-oss
 
 ##bindsym $mod+m 			exec --no-startup-id $term -e ncmpcpp
 
