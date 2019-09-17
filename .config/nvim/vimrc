@@ -177,6 +177,16 @@ set fileformat=unix
     set nofoldenable
     set foldlevel=2
 
+" Set tab shortcuts
+    nnoremap tn :tabnew <Space>
+    nnoremap tk :tabnext <CR>
+    nnoremap tj :tabprev <CR>
+    nnoremap th :tabfirst <CR>
+    nnoremap tl :tablast <CR>
+
+" Enable fast reloading of vimrc
+    map <leader>r :so $MYVIMRC <CR><CR>
+
 "" Theme and Styling
     colorscheme onehalfdark
 
