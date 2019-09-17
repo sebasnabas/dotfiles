@@ -20,7 +20,6 @@ Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle'}
 Plug 'junegunn/goyo.vim'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'powerman/vim-plugin-AnsiEsc'
 
 " Generic Programming Support
 "" Comments
