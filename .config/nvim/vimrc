@@ -104,6 +104,27 @@ set wrap
 set encoding=utf8
 set fileformat=unix
 
+"" hardmode - no arrows
+cnoremap <Down> <Nop>
+cnoremap <Left> <Nop>
+cnoremap <Right> <Nop>
+cnoremap <Up> <Nop>
+
+inoremap <Down> <Nop>
+inoremap <Left> <Nop>
+inoremap <Right> <Nop>
+inoremap <Up> <Nop>
+
+nnoremap <Down> <Nop>
+nnoremap <Left> <Nop>
+nnoremap <Right> <Nop>
+nnoremap <Up> <Nop>
+
+vnoremap <Down> <Nop>
+vnoremap <Left> <Nop>
+vnoremap <Right> <Nop>
+vnoremap <Up> <Nop>
+
 " Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
     vnoremap <C-c> "+y
     inoremap <C-v> <Esc>"+P
@@ -169,7 +190,7 @@ set fileformat=unix
     map <leader>s :nohlsearch <Enter>
 
 " Exit modes
-    map <Esc> <C-Space>
+    map <Esc> <A-e>
 
 " Enable folding
     set foldmethod=indent
