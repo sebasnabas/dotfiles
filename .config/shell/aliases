@@ -6,17 +6,6 @@ alias upgrade="sudo pacman -Syu"
 ## directories
 alias uni="pushd $(getcurrentunipath)"
 alias c="pushd ~/Documents/code"
-alias m="pushd ~/Documents/Magda"
 alias p="pushd ~/Pictures"
 alias ctrain="pushd ~/Videos/coding/the_coding_train"
-alias code="pushd ~/Documents/code"
-alias pushdgo="code && pushd languages/go"
-
-## SmartOven project
-alias chatbot-frontend="uni && pushd Ambient_Assisted_Living/integration/chatbot-frontend-vue ; npm install && npm run build && pushd server && npm install && sudo node server.js ; popd"
-
-alias aal="uni && pushd Ambient_Assisted_Living/integration"
-alias mb="mvn clean install"
-alias mbs="mvn clean install -DskipTests"
-alias sonarqube="mvn sonar:sonar -Dsonar.host.url=http://sonar-aal.aot.tu-berlin.de/ -Dsonar.login=36488f1a0c8f463d90e705c81471bebefc864624"
 
