@@ -7,7 +7,7 @@ if [ -z "${configPath// }" ] ; then
 fi
 
 packageManager="pacman -Syu"
-packages="which man xorg-server neovim i3-gaps kitty dunst zsh compton go libclang nodejs npm mono cmake make clang texlive-core biber texlive-bibtexextra texlive-fontsextra texlive-latexextra texlive-pictures texlive-scienc ghci pandoc redshift firefox thunderbird okular ranger hamster"
+packages="which man xorg-server neovim i3-gaps kitty dunst zsh compton go libclang nodejs npm mono cmake make clang texlive-core biber texlive-bibtexextra texlive-fontsextra texlive-latexextra texlive-pictures texlive-scienc ghci pandoc redshift firefox thunderbird okular ranger hamster dmenu"
 
 if [ $(hostnamectl) ] ; then
     operatingSystem=$(hostnamectl | grep 'Operating System:')
