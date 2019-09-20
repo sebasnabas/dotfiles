@@ -22,6 +22,7 @@
 !.config/ssh
 !.config/x
 !.config/polybar
+!.config/zathura
 
 dotconfigfiles/*
 !dotconfigfiles/install.sh
