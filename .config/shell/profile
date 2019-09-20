@@ -3,10 +3,11 @@ export PATH="/home/sebastian/.scripts/i3cmds":$PATH
 
 export BROWSER="firefox"
 export MAIL_CLIENT="thunderbird"
-export TERM=TERMINAL
 export TERMINAL="kitty"
+export TERM=TERMINAL
 export EDITOR="nvim"
 export READER="okular"
+export FILE="ranger"
 
 # mpc format
 export MPC_FORMAT="[[%artist% - ]%title%]"
