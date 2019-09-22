@@ -4,9 +4,9 @@ export PATH="/home/sebastian/.scripts/i3cmds":$PATH
 export BROWSER="firefox"
 export MAIL_CLIENT="thunderbird"
 export TERMINAL="kitty"
-export TERM=TERMINAL
+export TERM=$TERMINAL
 export EDITOR="nvim"
-export READER="okular"
+export READER="zathura"
 export FILE="ranger"
 
 # mpc format
