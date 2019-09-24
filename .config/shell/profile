@@ -1,6 +1,8 @@
 export PATH="/home/sebastian/.scripts/tools":$PATH
 export PATH="/home/sebastian/.scripts/i3cmds":$PATH
 
+export ZDOTDIR="$HOME/.config/shell/zsh"
+
 export BROWSER="firefox"
 export MAIL_CLIENT="thunderbird"
 export TERMINAL="kitty"
