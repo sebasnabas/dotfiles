@@ -80,9 +80,9 @@ let g:goyo_linenr=1
 """' Fugitive (Git Support) '"""
 set statusline+=%{FugitiveStatusline()}
 
-nnoremap gd :Gdiff<CR>
-nnoremap gD <C-w>h <C-W>c
-nnoremap gco :Gcommit<CR>
+map <leader>gd :Gdiff<CR>
+map <leader>gD <C-w>h <C-W>c
+map <leader>gco :Gcommit<CR>
 
 """' Syntastic '"""
 set statusline+=%#warningmsg#
@@ -132,12 +132,6 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
@@ -177,10 +171,8 @@ if exists('+termguicolors')
 endif
 
 " Display different types of white spaces.
-"set list
-set listchars=tab:›\·,space:·,eol:¬
-highlight ExtraWhitespace guifg=DarkGrey
-match ExtraWhitespace /\(\s\+\|$\)/
+set list listchars=tab:›\·,space:·,eol:¬,extends:›,precedes:‹
+highlight NonText guifg=#5c6370
 
 " speed up scrolling
 set ttyfast
@@ -264,6 +256,9 @@ vnoremap <Up> <Nop>
 "" Automatically deletes all trailing whitespace
     autocmd BufWritePre * %s/\s\+$//e
 
+"" Set working directory to directory of tab
+    autocmd BufEnter * lcd %:p:h
+
 "" Jump to <++>
     inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
 
@@ -285,9 +280,6 @@ vnoremap <Up> <Nop>
     nnoremap tj :tabprev <CR>
     nnoremap th :tabfirst <CR>
     nnoremap tl :tablast <CR>
-
-" Enable fast reloading of vimrc
-    map <leader>r :so $MYVIMRC <CR><CR>
 
 """' Python '"""
 " highlighting
