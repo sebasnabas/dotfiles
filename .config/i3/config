@@ -13,30 +13,34 @@ for_window [class="Kmix"]           floating enable
 for_window [class="Klipper"]        floating enable
 for_window [class="Plasmoidviewer"] floating enable
 no_focus [class="plasmashell"]
+###########################################
 
 ## Colors ##
-# color defines for zenburn styled i3
-set $bg     #2c2c2e
-set $fg     #9f9f9f
-set $hi     #efef8f
-set $ac     #1abc9c
-set $tx     #040404
-set $ia     #8f8f8f
-set $be     #8faf9f
-set $yw     #ccdc90
-set $gn     #88b090
-set $rd     #e89393
-set $tr     #00000000
-# set some nice colors      border     background  text
-client.focused              $tr        $tr         $tx
-client.unfocused            $tr        $tr         $ia
-client.focused_inactive     $tr        $tr         $ac
-client.urgent               $tr        $tr         $tx
+# onedark theme
+set $transparent     #00000000
+set $dark_grey #282c34
+set $pink #e06c75
+set $green #98c379
+set $yellow #e5c07b
+set $blue #61afef
+set $red #be5046
+set $turquoise #56b6c2
+set $black #393e48
+set $orange #d19a66
+set $light_grey #abb2bf
+set $white #ffffff
+
+#                           border     background text   indicator  child_border
+client.focused              $green     $transparent      $white     $turquoise
+client.unfocused            $dark_grey $black            $white     $dark_grey
+client.focused_inactive     $dark_grey $dark_grey        $white     $pink
+client.urgent               $red       $red              $white     $blue
 
 ##################
 
 # vim: filetype=i3
 # File originally by Luke Smith <https://lukesmith.xyz>
+# Modified by Sebastian Eberlein
 
 # #---Basic Definitions---# #
 for_window [class="^.*"] border pixel 2
@@ -164,8 +168,7 @@ bindsym $mod+Shift+f			fullscreen toggle
 bindsym $mod+Ctrl+Shift+f		mode "$freeze" ;; exec --no-startup-id notify-send "Distraction-free mode activated." "Press Super+Shift+f to return."
 
 
-bindsym $mod+u			gaps outer current plus 5
-bindsym $mod+Shift+u		gaps outer current minus 5
+bindsym $mod+u			exec kitty --session ~/.config/kitty/sessions/uni.conf
 
 bindsym $mod+x			exec --no-startup-id mpc toggle
 
