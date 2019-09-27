@@ -21,6 +21,9 @@ Plug 'junegunn/goyo.vim'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/ReplaceWithRegister'
 
+" CSV Support
+Plug 'chrisbra/csv.vim'
+
 " Generic Programming Support
 "" Comments
 Plug 'tpope/vim-commentary'
