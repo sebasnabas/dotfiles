@@ -9,3 +9,6 @@ alias c="pushd ~/Documents/code"
 alias p="pushd ~/Pictures"
 alias ctrain="pushd ~/Videos/coding/the_coding_train"
 
+## cool kitty stuff
+alias d="kitty +kitten diff"
+
