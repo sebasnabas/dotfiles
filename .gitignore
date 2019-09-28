@@ -26,3 +26,5 @@
 
 dotconfigfiles/*
 !dotconfigfiles/install.sh
+
+.zcompdump*
