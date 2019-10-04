@@ -262,6 +262,12 @@ vnoremap <Up> <Nop>
 "" Set working directory to directory of tab
     autocmd BufEnter * lcd %:p:h
 
+"" Enable syntax highlighting of rofi config
+    autocmd BufNewFile,BufRead /*.rasi setf css
+
+"" Enable syntax highlighting of svelte files
+    autocmd BufNewFile,BufRead /*.svelte setf html
+
 "" Jump to <++>
     inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
 
