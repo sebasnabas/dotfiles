@@ -1,3 +1,2 @@
 #!/usr/bin/sh
-pgrep -x dunst >/dev/null && notify-send "$(cal --color=always | sed "s/..7m/<b><span color=\"red\">/;s/..27m/<\/span><\/b>/")"
-
+date '+%Y %b %d (%a) %I:%M%p)'; pgrep -x dunst >/dev/null && notify-send "This Month" "$(cal --color=always | sed "s/..7m/<b><span color=\"red\">/;s/..27m/<\/span><\/b>/")"
