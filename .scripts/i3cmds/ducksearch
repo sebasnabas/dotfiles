@@ -1,11 +1,8 @@
 #!/bin/sh
-# Gives a dmenu prompt to search DuckDuckGo.
-# Without input, will open DuckDuckGo.com.
-#!/bin/sh
 
 browser=${BROWSER:-firefox}
 
-query="$(rofi -dmenu -p 'Search DuckDuckGo' <<< '')"
+query="$(rofi -dmenu -p 'Ask the duck' <<< '')"
 
 if [ -n "${query// }" ] ; then
     $browser "https://duckduckgo.com/?q=$query&t=ffab&atb=v1-1"
