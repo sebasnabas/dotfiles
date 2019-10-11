@@ -44,8 +44,7 @@ ln -s $configPath/.config/nvim/vimrc $HOME/.vimrc
 ln -s $configPath/.config/git/gitconfig $HOME/.gitconfig
 ln -s $configPath/.config/shell/bashrc $HOME/.bashrc
 ln -s $configPath/.config/shell/profile $HOME/.profile
-ln -s $configPath/.config/shell/zprofile $HOME/.zprofile
-ln -s $configPath/.config/shell/zshrc $HOME/.zshrc
+ln -s $configPath/.config/shell/profile $HOME/.zprofile
 ln -s $configPath/.config/shell/aliases $HOME/.aliases
 ln -s $configPath/.config/x/xinitrc $HOME/.xinitrc
 
