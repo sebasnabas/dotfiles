@@ -160,8 +160,8 @@ bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
 bindsym $mod+s          exec --no-startup-id /usr/bin/systemsettings5
 
 
-set $freeze Distraction-free mode (super+shift+f to reactivate bindings)
-mode "$freeze" { bindsym $mod+Shift+f mode "default"
+set $freeze Distraction-free mode (super+ctrl+shift+f to reactivate bindings)
+mode "$freeze" { bindsym $mod+Ctrl+Shift+f mode "default"
 }
 
 bindsym $mod+Shift+f			fullscreen toggle
@@ -180,7 +180,7 @@ bindsym $mod+Shift+b		floating toggle; sticky toggle; exec --no-startup-id hover
 bindsym $mod+n			exec --no-startup-id networkmanager_dmenu
 bindsym $mod+Shift+n		floating toggle; sticky toggle; exec --no-startup-id hover right
 
-##bindsym $mod+m 			exec --no-startup-id $term -e ncmpcpp
+# bindsym $mod+m 			exec --no-startup-id $term -e ncmpcpp
 
 # #---Workspace Bindings---# #
 bindsym $mod+Home		workspace $ws1
