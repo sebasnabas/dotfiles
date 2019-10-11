@@ -7,6 +7,7 @@
 
 !.config
 .config/*
+!.config/compton
 !.config/dunst
 !.config/git
 !.config/i3
@@ -17,6 +18,9 @@
 !.config/lattedockrc
 !.config/nvim
 !.config/networkmanager-dmenu
+!.config/ranger
+!.config/redshift
+!.config/rofi
 !.config/shell
 !.config/ssh
 !.config/x

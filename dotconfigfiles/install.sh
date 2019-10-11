@@ -7,7 +7,7 @@ if [ -z "${configPath// }" ] ; then
 fi
 
 packageManager="pacman -Syu"
-packages="base-devel man xorg-server xorg-xinit xorg-xwininfo xorg-xbacklight xclip calcurse libnotify xwallpaper ffmpeg gnome-keyring xorg-xprop mpd mpc ncmpcpp networkmanager pulseaudio pulseaudio-alsa pulsemixer gotop neofetch unzip youtube-dl python-ueberzug neovim i3-gaps kitty dunst zsh go libclang nodejs npm mono cmake make clang texlive-core biber texlive-bibtexextra texlive-fontsextra texlive-latexextra texlive-pictures texlive-scienc ghci pandoc redshift firefox thunderbird zathura zathura-pdf-mupdf ranger hamster dmenu"
+packages="base-devel man xorg-server xorg-xinit xorg-xwininfo xorg-xbacklight xclip calcurse libnotify xwallpaper ffmpeg gnome-keyring xorg-xprop mpd mpc mopidy ncmpcpp networkmanager pulseaudio pulseaudio-alsa pulsemixer gotop neofetch unzip youtube-dl neovim i3-gaps kitty dunst zsh go libclang nodejs npm mono cmake make texlive-most biber ghci pandoc redshift firefox thunderbird zathura zathura-pdf-mupdf ranger hamster dmenu redshift rofi"
 
 aurPackages="polybar siji compton-tryone-git"
 
