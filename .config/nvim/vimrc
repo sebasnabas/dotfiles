@@ -269,7 +269,7 @@ vnoremap <Up> <Nop>
     autocmd BufNewFile,BufRead /*.svelte setf html
 
 "" Jump to <++>
-    inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
+    map <leader>n <Esc>/<++><Enter>c4l
 
 "" nohlsearch
     map <leader>s :nohlsearch <Enter>
