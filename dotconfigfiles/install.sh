@@ -7,7 +7,7 @@ if [ -z "${configPath// }" ] ; then
 fi
 
 packageManager="pacman -Syu"
-packages="base-devel man xorg-server xorg-xinit xorg-xwininfo xorg-xbacklight xclip calcurse libnotify xwallpaper ffmpeg gnome-keyring xorg-xprop mpd mpc mopidy ncmpcpp networkmanager pulseaudio pulseaudio-alsa pulsemixer gotop neofetch unzip youtube-dl neovim i3-gaps kitty dunst zsh go libclang nodejs npm mono cmake make texlive-most biber ghci pandoc redshift firefox thunderbird zathura zathura-pdf-mupdf ranger hamster dmenu redshift rofi"
+packages="base-devel man xorg-server xorg-xinit xorg-xwininfo xorg-xbacklight xclip calcurse libnotify xwallpaper ffmpeg gnome-keyring xorg-xprop mpd mpc mopidy ncmpcpp networkmanager pulseaudio pulseaudio-alsa pulsemixer gotop neofetch unzip youtube-dl neovim i3-gaps kitty dunst zsh go libclang nodejs npm mono cmake make texlive-most biber ghci pandoc redshift firefox thunderbird zathura zathura-pdf-mupdf ranger hamster dmenu redshift rofi networkmanager-dmenu"
 
 aurPackages="polybar siji compton-tryone-git"
 
@@ -54,11 +54,7 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.g
 
 nvim -c 'PlugInstall'
 
-pushd $HOME/.local/share/nvim/plugged/YouCompleteMe/
-python3 install.py --clang-completer --system-libclang --go-completer --cs-completer --ts-completer
-popd
-
 echo "Making scripts executable..."
-for directory in .scripts/* ; do for file in $directory ; do chmod +x $file ; done ; done
+chmod +x .scripts/*
 
 
