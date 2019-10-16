@@ -1,3 +1,5 @@
+export ZDOTDIR="$HOME/.config/shell/zsh"
+
 autoload -U colors && colors
 
 HISTSIZE=10000

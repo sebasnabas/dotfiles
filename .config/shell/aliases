@@ -1,6 +1,8 @@
 alias sudo="sudoer_lecture.py && sudo"
 alias vim="nvim"
 
+alias vimconfig="nvim $HOME/.config/nvim/init.vim"
+
 alias upgrade="sudo pacman -Syu"
 
 ## directories
