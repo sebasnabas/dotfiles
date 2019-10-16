@@ -40,7 +40,6 @@ echo "Moving everything from $currentDirectory to $configPath"
 mv "$currentDirectory" "$configPath"
 
 echo "Creating symlinks..."
-ln -s $configPath/.config/nvim/vimrc $HOME/.vimrc
 ln -s $configPath/.config/git/gitconfig $HOME/.gitconfig
 ln -s $configPath/.config/shell/bashrc $HOME/.bashrc
 ln -s $configPath/.config/shell/profile $HOME/.profile
