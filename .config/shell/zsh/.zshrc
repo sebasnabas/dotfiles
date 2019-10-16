@@ -1,27 +1,25 @@
-export ZSH="/home/sebastian/.oh-my-zsh"
+autoload -U colors && colors
 
-ZSH_THEME="my_custom_zeta"
-
-plugins=(git virtualenv autoswitch_virtualenv zsh-syntax-highlighting)
-
-source $ZSH/oh-my-zsh.sh
-
- if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='vim'
- else
-   export EDITOR='nvim'
- fi
-
-export AUTOSWITCH_MESSAGE_FORMAT="$(tput setaf 2)Switching to %venv_name 🐍 %py_version $(tput sgr0)"
+HISTSIZE=10000
+SAVEHIST=10000
 
 setopt histignorespace
 
-alias zshconfig="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
+autoload -U compaudit compinit
+compinit
 
-alias mkvenv="mkvenv --system-site-packages"
+for config_file ($ZDOTDIR/lib/*.zsh); do
+  [ -f "$config_file" ] && source $config_file
+done
 
+# Basic tab/autocomplete
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+_comp_options+=(globdots)
 
+setopt extendedglob
+
+######
 # vi mode
 bindkey -v
 export KEYTIMEOUT=1
@@ -58,8 +56,31 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+ if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR='vim'
+ else
+   export EDITOR='nvim'
+ fi
+######
+
+export AUTOSWITCH_MESSAGE_FORMAT="$(tput setaf 2)Switching to %venv_name 🐍 %py_version $(tput sgr0)"
+
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+alias zshconfig="vim $ZDOTDIR/.zshrc"
+alias mkvenv="mkvenv --system-site-packages"
+
 # Completion for kitty
 kitty + complete setup zsh | source /dev/stdin
 
+[ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
 
-source ~/.aliases
+plugins=(git autoswitch_virtualenv zsh-syntax-highlighting)
+
+for plugin ($plugins); do
+    plugin_path="$ZDOTDIR/plugins/$plugin/$plugin.plugin.zsh"
+    [ -f $plugin_path ] && source $plugin_path
+done
+
+source $ZDOTDIR/theme.zsh-theme
+
