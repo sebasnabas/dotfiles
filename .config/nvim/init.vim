@@ -274,6 +274,9 @@ vnoremap <Up> <Nop>
 "" nohlsearch
     map <leader>s :nohlsearch <Enter>
 
+"" Help for word under cursor
+    noremap <leader>h :execute "tab h " . expand("<cword>")<CR>
+
 " Exit modes
     map <Esc> <A-e>
 
@@ -289,6 +292,7 @@ vnoremap <Up> <Nop>
     nnoremap tj :tabprev <CR>
     nnoremap th :tabfirst <CR>
     nnoremap tl :tablast <CR>
+    nnoremap tc :tabclose <CR>
 
 """' Python '"""
 " highlighting
