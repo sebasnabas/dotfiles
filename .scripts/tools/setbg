@@ -6,6 +6,6 @@ my_laptop_external_monitor=$(xrandr --query | grep 'HDMI1')
 if [[ $my_laptop_external_monitor = *connected* ]]; then
     xwallpaper --output eDP1 --zoom ~/.config/wall.png --output HDMI1 --zoom ~/.config/wall.png
 else
-    xwallpaper --output eDP1 --zoom ~/.config/wall.png
+    xwallpaper --output "HDMI-2" --zoom ~/.config/wall.png
 fi
 

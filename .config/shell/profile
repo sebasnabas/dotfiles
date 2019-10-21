@@ -1,9 +1,7 @@
 export PATH="/home/sebastian/.scripts/tools":$PATH
 export PATH="/home/sebastian/.scripts/i3cmds":$PATH
-
-export MYVIMRC=$"HOME/.config/nvim/init.vim"
-
 export BROWSER="firefox"
+
 export MAIL_CLIENT="thunderbird"
 export TERMINAL="kitty"
 export TERM=$TERMINAL
@@ -11,6 +9,12 @@ export EDITOR="nvim"
 export READER="zathura"
 export FILE="ranger"
 
-# mpc format
 export MPC_FORMAT="[[%artist% - ]%title%]"
 
+export MYVIMRC="$HOME/.config/nvim/init.vim"
+
+## zsh
+export ZDOTDIR="$HOME/.config/shell/zsh/"
+export HISTFILE="$HOME/.cache/zsh/zsh_history"
+
+exec startx

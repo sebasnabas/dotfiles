@@ -11,20 +11,17 @@
 !.config/dunst
 !.config/git
 !.config/i3
-!.config/i3blocks
-!.config/konsolerc
 !.config/kitty
-!.config/latte
-!.config/lattedockrc
 !.config/nvim
 !.config/networkmanager-dmenu
 !.config/ranger
 !.config/redshift
 !.config/rofi
 !.config/shell
-!.config/ssh
+!.config/ssh/config
 !.config/x
 !.config/polybar
+!.config/tmux
 !.config/zathura
 
 dotconfigfiles/*

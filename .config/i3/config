@@ -1,20 +1,3 @@
-## Plasma Integration
-# Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everything)
-exec --no-startup-id wmctrl -c Plasma
-for_window [title="Desktop — Plasma"] kill; floating enable; border none
-
-## Avoid tiling popups, dropdown windows from plasma
-# for the first time, manually resize them, i3 will remember the setting for floating windows
-for_window [class="plasmashell"]    floating enable
-for_window [class="Plasma"]         floating enable
-for_window [title="plasma-desktop"] floating enable
-for_window [class="krunner"]        floating enable
-for_window [class="Kmix"]           floating enable
-for_window [class="Klipper"]        floating enable
-for_window [class="Plasmoidviewer"] floating enable
-no_focus [class="plasmashell"]
-###########################################
-
 ## Colors ##
 # onedark theme
 set $transparent     #00000000
@@ -35,12 +18,6 @@ client.focused              $green     $transparent      $white     $turquoise
 client.unfocused            $dark_grey $black            $white     $dark_grey
 client.focused_inactive     $dark_grey $dark_grey        $white     $pink
 client.urgent               $red       $red              $white     $blue
-
-##################
-
-# vim: filetype=i3
-# File originally by Luke Smith <https://lukesmith.xyz>
-# Modified by Sebastian Eberlein
 
 # #---Basic Definitions---# #
 for_window [class="^.*"] border pixel 2
@@ -91,7 +68,7 @@ exec --no-startup-id redshift
 bindsym $mod+Shift+Ctrl+s exec --no-startup-id setbg
 
 # #---Basic Bindings---# #
-bindsym $mod+Return 		exec $term
+bindsym $mod+Return 		exec echo "launch tmux" | kitty --session -
 bindsym $mod+Shift+Return	exec --no-startup-id $i3cmds/samedir
 
 bindsym $mod+Shift+space 	floating toggle
