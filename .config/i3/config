@@ -68,14 +68,13 @@ exec --no-startup-id redshift
 bindsym $mod+Shift+Ctrl+s exec --no-startup-id setbg
 
 # #---Basic Bindings---# #
-bindsym $mod+Return 		exec echo "launch tmux" | kitty --session -
+bindsym $mod+Return 		exec echo "launch create-mochi-session" | kitty --session -
 bindsym $mod+Shift+Return	exec --no-startup-id $i3cmds/samedir
 
 bindsym $mod+Shift+space 	floating toggle
 bindsym $mod+space		focus mode_toggle
 
 bindsym $mod+Escape		workspace prev
-bindsym $mod+Shift+Escape 	exec --no-startup-id $i3cmds/prompt "Exit i3?" "i3-msg exit"
 
 bindsym $mod+BackSpace exec --no-startup-id i3-msg restart
 
