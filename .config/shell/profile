@@ -1,5 +1,7 @@
 export PATH="/home/sebastian/.scripts/tools":$PATH
 export PATH="/home/sebastian/.scripts/i3cmds":$PATH
+export PATH="/home/sebastian/.scripts/tmux":$PATH
+
 export BROWSER="firefox"
 
 export MAIL_CLIENT="thunderbird"
