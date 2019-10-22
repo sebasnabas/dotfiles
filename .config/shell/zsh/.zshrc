@@ -1,5 +1,3 @@
-export ZDOTDIR="$HOME/.config/shell/zsh"
-
 autoload -U colors && colors
 
 HISTSIZE=10000
@@ -69,7 +67,6 @@ export AUTOSWITCH_MESSAGE_FORMAT="$(tput setaf 2)Switching to %venv_name 🐍 %p
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-alias zshconfig="vim $ZDOTDIR/.zshrc"
 alias mkvenv="mkvenv --system-site-packages"
 
 # Completion for kitty

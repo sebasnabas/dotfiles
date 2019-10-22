@@ -1,15 +1,15 @@
 alias sudo="sudoer_lecture.py && sudo"
 alias vim="nvim"
 
-alias vimconfig="nvim $HOME/.config/nvim/init.vim"
+alias vimconfig="nvim $MYVIMRC"
+alias i3config="nvim ~/.config/i3/config"
+alias zshconfig="nvim ~/.config/shell/zsh/.zshrc"
 
 alias upgrade="sudo pacman -Syu"
 
 ## directories
 alias uni="pushd $(getcurrentunipath)"
 alias c="pushd ~/Documents/code"
-alias p="pushd ~/Pictures"
-alias ctrain="pushd ~/Videos/coding/the_coding_train"
 
 ## cool kitty stuff
 alias d="kitty +kitten diff"
