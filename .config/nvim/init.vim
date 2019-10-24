@@ -20,6 +20,7 @@ Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle'}
 Plug 'junegunn/goyo.vim'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'christoomey/vim-tmux-navigator'
 
 " CSV Support
 Plug 'chrisbra/csv.vim'
