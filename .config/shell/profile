@@ -2,6 +2,8 @@ export PATH="/home/sebastian/.scripts/tools":$PATH
 export PATH="/home/sebastian/.scripts/i3cmds":$PATH
 export PATH="/home/sebastian/.scripts/tmux":$PATH
 
+export ZDOTDIR="$HOME/.config/shell/zsh/"
+
 export MYVIMRC=$"HOME/.config/nvim/init.vim"
 
 export BROWSER="firefox"
