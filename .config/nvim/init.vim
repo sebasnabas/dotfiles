@@ -230,6 +230,9 @@ call plug#end()
 "" Splits open at the bottom and right
     set splitbelow splitright
 
+"" Save netrw history in cache directory
+    let g:netrw_home=$HOME/.cache/nvim/
+
 """""' Autocommands '""""""
 "" Runs a script that cleans out tex build files whenever I close out of a tex file.
     autocmd VimLeave *.tex !texclear %
