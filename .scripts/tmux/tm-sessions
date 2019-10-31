@@ -1,37 +1,41 @@
 #!/bin/sh
 
+script_directory="$HOME/.scripts/tmux"
+existing_create_scripts="$(ls $script_directory | grep 'create')"
+existing_create_session_names="$(echo $existing_create_scripts | awk -F - '{ print $2 hello }' | sed 's/$/(new)/')"
+tmux_sessions="$(tmux list-sessions -F "#S" 2>/dev/null | sed 's/$/(existing)/')"
 
 create_session(){
-    existing_create_scripts="$(ls $HOME/.scripts/tmux/ | grep 'create')"
-    existing_create_session_names= "$(echo $existing_create_scripts | awk -F - '{ print $2 }')"
+    echo "$1"
+    session_name=$1
+    session="$(echo $existing_create_scripts | grep $session_name)"
+    $session
 }
 
 # abort if we're already inside a TMUX session
 [ "$TMUX" == "" ] || exit 0
-# startup a "default" session if non currently exists
-# tmux has-session -t _default || tmux new-session -s _default -d
 
 # present menu for user to choose which workspace to open
 PS3="Please choose your session: "
-# shellcheck disable=SC2207
-options=($(tmux list-sessions -F "#S" 2>/dev/null) "New Session" "zsh")
+
+options=($tmux_sessions $existing_create_session_names "New Session")
+
 echo "Available sessions"
 echo "------------------"
 echo " "
+
 select opt in "${options[@]}"
 do
-	case $opt in
-		"New Session")
-			read -rp "Enter new session name: " SESSION_NAME
-			tmux new -s "$SESSION_NAME"
-			break
-			;;
-		"zsh")
-			zsh --login
-			break;;
-		*)
-			tmux attach-session -t "$opt"
-			break
-			;;
-	esac
+    case $opt in
+        "New Session")
+            read -rp "Enter new session name: " SESSION_NAME
+            tmux new -s "$SESSION_NAME"
+            break
+            ;;
+        *)
+            opt="$(echo $opt | sed 's/(existing)//' | sed 's/(new)//')"
+            tmux attach-session -t "$opt" &> /dev/null || create_session $opt
+            break
+            ;;
+    esac
 done
