@@ -6,7 +6,7 @@ export BROWSER="firefox"
 
 export MAIL_CLIENT="thunderbird"
 export TERMINAL="kitty"
-export TERM=$TERMINAL
+export TERM="xterm"
 export EDITOR="nvim"
 export READER="zathura"
 export FILE="ranger"
