@@ -1,24 +1,57 @@
 #!/bin/sh
 
 script_directory="$HOME/.scripts/tmux"
-existing_create_scripts="$(ls $script_directory | grep 'create')"
-existing_create_session_names="$(echo $existing_create_scripts | awk -F - '{ print $2 hello }' | sed 's/$/(new)/')"
-tmux_sessions="$(tmux list-sessions -F "#S" 2>/dev/null | sed 's/$/(existing)/')"
+
+get_available_session_scripts() {
+    local existing_create_scripts="$(ls $script_directory | grep 'create')"
+
+    echo "$existing_create_scripts"
+}
+
+get_available_sessions() {
+    local running_tmux_sessions="$(tmux list-sessions -F "#S" 2>/dev/null)"
+    local existing_create_session_names="$(echo $(get_available_session_scripts) | awk -F - '{ print $2 }')"
+
+    local all_tmux_sessions="$running_tmux_sessions"
+    local all_tmux_sessions+=" $existing_create_session_names"
+
+    # Filter duplicates
+    local all_tmux_sessions="$(echo ${all_tmux_sessions[@]} | tr ' ' '\n' | sort -fu)"
+
+    declare local tmux_sessions=""
+
+    for tmux_session in $all_tmux_sessions
+    do
+        for running_session in $running_tmux_sessions
+        do
+            if [[ $tmux_session =~ "$running_session" ]]
+            then
+                tmux_session+="(running)"
+            fi
+        done
+
+        tmux_sessions+="$tmux_session "
+    done
+
+    echo $tmux_sessions
+}
 
 create_session(){
-    echo "$1"
-    session_name=$1
-    session="$(echo $existing_create_scripts | grep $session_name)"
+    session_name="$(echo $1 | tr '[:upper:]' '[:lower:]')"
+    session="$($(get_available_session_scripts) | grep $session_name)"
+
+    echo "Creating $session_name..."
+
     $session
 }
 
 # abort if we're already inside a TMUX session
-[ "$TMUX" == "" ] || exit 0
+# [ "$TMUX" == "" ] || exit 0
 
 # present menu for user to choose which workspace to open
 PS3="Please choose your session: "
 
-options=($tmux_sessions $existing_create_session_names "New Session")
+options=($(get_available_sessions) "New Session")
 
 echo "Available sessions"
 echo "------------------"
@@ -33,9 +66,10 @@ do
             break
             ;;
         *)
-            opt="$(echo $opt | sed 's/(existing)//' | sed 's/(new)//')"
-            tmux attach-session -t "$opt" &> /dev/null || create_session $opt
+            opt="$(echo $opt | sed 's/(running)//')"
+            tmux attach-session -t "$opt" &> /dev/null || create_session "$opt"
             break
             ;;
     esac
 done
+
