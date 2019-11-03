@@ -247,9 +247,6 @@ call plug#end()
 "" Automatically deletes all trailing whitespace
     autocmd BufWritePre * %s/\s\+$//e
 
-"" Set working directory to directory of tab
-    autocmd BufEnter * lcd %:p:h
-
 "" Enable syntax highlighting of rofi config
     autocmd BufNewFile,BufRead /*.rasi setf css
 
@@ -305,16 +302,16 @@ call plug#end()
     map <leader>v :!opout <c-r>%<CR><CR>
 
 "" Jump to <++>
-    map <leader>n <Esc>/<++><Enter>c4l
+    map <leader>n <Esc>/<++><CR>c4l<Esc>:nohlsearch<CR><Esc>a
 
 "" nohlsearch
-    map <leader>s :nohlsearch <Enter>
+    map <leader>s :nohlsearch <CR>
 
 "" Help for word under cursor
     noremap <leader>h :execute "tab h " . expand("<cword>")<CR>
 
 " Exit modes
-    map <Esc> <A-e>
+    " map <Esc> <A-e>
 
 " Set tab shortcuts
     nnoremap tn :tabnew <Space>
@@ -347,7 +344,7 @@ call plug#end()
     nnoremap <F6> :call <SID>ToggleBreakpoint()<CR>
 
 " Start debugging - Split window and call ipdb with current file
-    nnoremap <F5> <C-w>s :term ipdb3 -c continue % <Enter> A
+    nnoremap <F5> <C-w>s :term ipdb3 -c continue % <CR> A
 
 " Remove all breakppoints when saving
     autocmd QuitPre *.py autocmd BufWritePre * silent g/^\s*import\sipdb\;\?\n*\s*ipdb\.set_trace()/normal dd
