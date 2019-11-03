@@ -78,7 +78,7 @@ call plug#end()
 
 """' NERDTree '"""
     autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * NERDTree | wincmd p
+    " autocmd VimEnter * NERDTree | wincmd p
 
     " display directory name in nerdtree statusline
     let NERDTreeStatusline="%{exists('b:NERDTree')?fnamemodify(b:NERDTree.root.path.str(), ':~'):''}"
@@ -177,6 +177,16 @@ call plug#end()
     set encoding=utf8
     set fileformat=unix
 
+    " Searcch down into subfolders
+    " Provides tab-completion for all file-related tasks
+    set path+=**
+
+    " Display all matching files when we tab complete
+    set wildmenu
+
+"" Enable autocompletion:
+    set wildmode=longest,list,full
+
     " Detect if a file is changed
     set autoread
 
@@ -214,9 +224,6 @@ call plug#end()
 
 "" Enable highlighting of the current line
     set cursorline
-
-"" Enable autocompletion:
-    set wildmode=longest,list,full
 
 " Searching
     set ignorecase " case insensitive searching
