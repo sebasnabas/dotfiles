@@ -1,5 +1,3 @@
-export ZDOTDIR="$HOME/.config/shell/zsh"
-
 autoload -U colors && colors
 
 HISTSIZE=10000
@@ -69,7 +67,6 @@ export AUTOSWITCH_MESSAGE_FORMAT="$(tput setaf 2)Switching to %venv_name 🐍 %p
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-alias zshconfig="vim $ZDOTDIR/.zshrc"
 alias mkvenv="mkvenv --system-site-packages"
 
 # Completion for kitty
@@ -77,7 +74,15 @@ kitty + complete setup zsh | source /dev/stdin
 
 [ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
 
-plugins=(git autoswitch_virtualenv zsh-syntax-highlighting)
+# Set fzf installation directory path
+export FZF_BASE=/path/to/fzf/install/dir
+
+# Uncomment the following line to disable fuzzy completion
+# export DISABLE_FZF_AUTO_COMPLETION="true"
+# Uncomment the following line to disable k
+# export DISABLE_FZF_KEY_BINDINGS="true"
+
+plugins=(git autoswitch_virtualenv zsh-syntax-highlighting fzf)
 
 for plugin ($plugins); do
     plugin_path="$ZDOTDIR/plugins/$plugin/$plugin.plugin.zsh"
