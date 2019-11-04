@@ -1,17 +1,17 @@
 #!/bin/zsh
 
-SESSIONNAME="Mochi"
+SESSIONNAME="Mango"
 
-create_mochi(){
+create_session(){
     tmux new-session -d -s $SESSIONNAME >/dev/null
     tmux rename-window -t $SESSIONNAME:0 'dotfiles'
     tmux send-keys -t $SESSIONNAME 'cd ~/.config' Enter
     tmux send-keys -t $SESSIONNAME 'nvim' Enter
     tmux splitw -v -p 30 -t $SESSIONNAME:0.0
     tmux splitw -h -t $SESSIONNAME:0.1
-    tmux send-keys -t $SESSIONNAME:0.1 'cd ~/.dotconfigfiles' Enter
+    tmux send-keys -t $SESSIONNAME:0.1 'cd ~/dotconfigfiles' Enter
     tmux send-keys -t $SESSIONNAME:0.1 'git log' Enter
-    tmux send-keys -t $SESSIONNAME:0.2 'cd ~/.dotconfigfiles' Enter
+    tmux send-keys -t $SESSIONNAME:0.2 'cd ~/dotconfigfiles' Enter
 
     tmux new-window -t $SESSIONNAME
     tmux rename-window -t $SESSIONNAME:1 'gotop'
@@ -36,7 +36,8 @@ create_mochi(){
 tmux has-session -t $SESSIONNAME &> /dev/null
 
 if [ $? != 0 ]; then
-    create_mochi
+    create_session
 fi
 
 tmux attach -t $SESSIONNAME
+
