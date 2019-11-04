@@ -70,7 +70,7 @@ for_window [instance="dropdown_*"] move position center
 # #---Starting External Scripts---# #
 
 # polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/mountains/launch.sh
 
 # mpd startup
 exec --no-startup-id mopidy
@@ -91,7 +91,7 @@ exec --no-startup-id redshift
 bindsym $mod+Shift+Ctrl+s exec --no-startup-id setbg
 
 # #---Basic Bindings---# #
-bindsym $mod+Return 		exec $term
+bindsym $mod+Return 		exec echo "launch tm-sessions" | kitty --session -
 bindsym $mod+Shift+Return	exec --no-startup-id $i3cmds/samedir
 
 bindsym $mod+Shift+space 	floating toggle
