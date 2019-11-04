@@ -12,136 +12,157 @@ let mapleader =","
 """""' Plugins '""""""""
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Color scheme
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
+    "" Color scheme
+    Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
-" Utility
-Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle'}
-Plug 'junegunn/goyo.vim'
-Plug 'tpope/vim-surround'
-Plug 'vim-scripts/ReplaceWithRegister'
+    "" Syntax highlighting
+    Plug 'sheerun/vim-polyglot'
 
-" CSV Support
-Plug 'chrisbra/csv.vim'
+    " Utility
+    "" File explorer
+    Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle'}
 
-" Generic Programming Support
-"" Comments
-Plug 'tpope/vim-commentary'
+    "" Zen mode
+    Plug 'junegunn/goyo.vim'
 
-"" Syntax checking
-Plug 'scrooloose/syntastic'
+    "" Easy change of surroundings
+    Plug 'tpope/vim-surround'
 
-"" Git Support
-Plug 'tpope/vim-fugitive'
+    "" Easy replacing
+    Plug 'vim-scripts/ReplaceWithRegister'
 
-"" Show tags/structure in separate window
-Plug 'majutsushi/tagbar'
+    "" Tmux
+    """ Tmux navigation
+    Plug 'christoomey/vim-tmux-navigator'
 
-"" Snippets
-" Track the engine.
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+    """ Run commands in separate pane
+    Plug 'benmills/vimux'
 
-" Snippets are separated from the engine. Add this if you want them:
-Plug 'honza/vim-snippets'
+    " Generic Programming Support
+    "" Comments
+    Plug 'tpope/vim-commentary'
 
-"" Interface
-Plug 'ryanoasis/vim-devicons'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+    "" Syntax checking
+    Plug 'scrooloose/syntastic'
 
-"" Vim Wiki
-Plug 'vimwiki/vimwiki'
+    "" Git Support
+    Plug 'tpope/vim-fugitive'
 
-"" Auto completion
-Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    "" Show tags/structure in separate window
+    Plug 'majutsushi/tagbar'
+
+    "" Snippets
+    " Track the engine.
+    Plug 'Shougo/neosnippet.vim'
+
+    " Snippets are separated from the engine. Add this if you want them:
+    Plug 'honza/vim-snippets'
+    Plug 'Shougo/neosnippet-snippets'
+
+    "" Interface
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+
+    "" Vim Wiki
+    Plug 'vimwiki/vimwiki'
+
+    "" Auto completion
+    Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+    " Python
+    Plug 'deoplete-plugins/deoplete-jedi'
 
 call plug#end()
 """"""""""""""""""""""""
 
 """' NERDTree '"""
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * NERDTree | wincmd p
+    autocmd StdinReadPre * let s:std_in=1
+    " autocmd VimEnter * NERDTree | wincmd p
 
-" display directory name in nerdtree statusline
-let NERDTreeStatusline="%{exists('b:NERDTree')?fnamemodify(b:NERDTree.root.path.str(), ':~'):''}"
+    " display directory name in nerdtree statusline
+    let NERDTreeStatusline="%{exists('b:NERDTree')?fnamemodify(b:NERDTree.root.path.str(), ':~'):''}"
 
-" the ignore patterns are regular expression strings and separated by comma
-let NERDTreeIgnore = ['\.pyc$', '^__pycache__$']
+    " the ignore patterns are regular expression strings and separated by comma
+    let NERDTreeIgnore = ['\.pyc$', '^__pycache__$']
 
-map <C-n> :NERDTreeToggle <CR>
+    map <C-n> :NERDTreeToggle <CR>
 
-" quit nerdtree if it's the last buffer left
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    " quit nerdtree if it's the last buffer left
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" Show Dotfiles
-let NERDTreeShowHidden=1
+    " Show Dotfiles
+    let NERDTreeShowHidden=1
 
 """' Goyo '"""
-let g:goyo_linenr=1
+    let g:goyo_linenr=1
 
 """' Fugitive (Git Support) '"""
-set statusline+=%{FugitiveStatusline()}
+    set statusline+=%{FugitiveStatusline()}
 
-map <leader>gd :Gdiff<CR>
-map <leader>gD <C-w>h <C-W>c
-map <leader>gco :Gcommit<CR>
+    map <leader>gd :Gdiff<CR>
+    map <leader>gD <C-w>h <C-W>c
+    map <leader>gco :Gcommit<CR>
 
 """' Syntastic '"""
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
 
-let g:syntastic_python_checkers = ['pylint']
+    let g:syntastic_python_checkers = ['pylint']
 
-map <C-s> :SyntasticToggleMode <CR>
+    map <C-s> :SyntasticToggleMode <CR>
 
 """' Vim-Airline Configuration '"""
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#branch#empty_message = ''
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline_powerline_fonts = 1
+    let g:airline#extensions#branch#enabled = 1
+    let g:airline#extensions#branch#empty_message = ''
 
 """' devicons '"""
-let g:webdevicons_enable = 1
-let g:webdevicons_enable_nerdtree = 1
-" adding the column to vimfiler
-let g:webdevicons_enable_vimfiler = 1
-" adding to vim-airline’s tabline
-let g:webdevicons_enable_airline_tabline = 1
-" adding to vim-airline’s statusline
-let g:webdevicons_enable_airline_statusline = 1
-" ctrlp glyphs
-let g:webdevicons_enable_ctrlp = 1
-" enable open and close folder/directory glyph flags (disabled by default with 0)
-let g:DevIconsEnableFoldersOpenClose = 1
-" enable folder/directory glyph flag (disabled by default with 0)
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+    let g:webdevicons_enable = 1
+    let g:webdevicons_enable_nerdtree = 1
+    " adding the column to vimfiler
+    let g:webdevicons_enable_vimfiler = 1
+    " adding to vim-airline’s tabline
+    let g:webdevicons_enable_airline_tabline = 1
+    " adding to vim-airline’s statusline
+    let g:webdevicons_enable_airline_statusline = 1
+    " ctrlp glyphs
+    let g:webdevicons_enable_ctrlp = 1
+    " enable open and close folder/directory glyph flags (disabled by default with 0)
+    let g:DevIconsEnableFoldersOpenClose = 1
+    " enable folder/directory glyph flag (disabled by default with 0)
+    let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 
 """' Deoplete '"""
-let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_at_startup = 1
 
 "" NeoSnippet
-let g:neosnippet#snippets_directory=[$HOME.'/.local/share/nvim/plugged/vim-snippets/UltiSnips']
+    let g:neosnippet#snippets_directory=[$HOME.'/.local/share/nvim/plugged/vim-snippets/UltiSnips']
 
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+    " Plugin key-mappings.
+    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
+    " For conceal markers.
+    if has('conceal')
+      set conceallevel=2 concealcursor=niv
+    endif
+
+"" Deoplete Jedi
+    let g:jedi#auto_close_doc = 1  " close preview window after completion
+
 
 """"" END Plug Configuration
 
@@ -149,61 +170,36 @@ endif
 """"""""""""""""""""""""""""""""""""""
 "" Configuration Section
 """"""""""""""""""""""""""""""""""""""
-set nocompatible
-filetype plugin indent on
-syntax on
-set wrap
-set encoding=utf8
-set fileformat=unix
+    set nocompatible
+    filetype plugin indent on
+    syntax on
+    set wrap
+    set encoding=utf8
+    set fileformat=unix
 
-set formatoptions=jtcrql
+    " Searcch down into subfolders
+    " Provides tab-completion for all file-related tasks
+    set path+=**
 
-"" Theme and Styling
-colorscheme onehalfdark
+    " Display all matching files when we tab complete
+    set wildmenu
 
-set background=dark
+"" Enable autocompletion:
+    set wildmode=longest,list,full
 
-if exists('+termguicolors')
+    " Detect if a file is changed
+    set autoread
 
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    " make backspace behave in a sane manner
+    set backspace=indent,eol,start
 
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-
-  set termguicolors
-
-endif
+    set formatoptions=jtcrql
 
 " Display different types of white spaces.
-set list listchars=tab:›\·,space:·,eol:¬,extends:›,precedes:‹
-highlight NonText guifg=#5c6370
+    set list listchars=tab:›\·,space:·,eol:¬,extends:›,precedes:‹
 
 " speed up scrolling
-set ttyfast
-
-"" hardmode - no arrows
-cnoremap <Down> <Nop>
-cnoremap <Left> <Nop>
-cnoremap <Right> <Nop>
-cnoremap <Up> <Nop>
-
-inoremap <Down> <Nop>
-inoremap <Left> <Nop>
-inoremap <Right> <Nop>
-inoremap <Up> <Nop>
-
-nnoremap <Down> <Nop>
-nnoremap <Left> <Nop>
-nnoremap <Right> <Nop>
-nnoremap <Up> <Nop>
-
-vnoremap <Down> <Nop>
-vnoremap <Left> <Nop>
-vnoremap <Right> <Nop>
-vnoremap <Up> <Nop>
-
-" Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
-    vnoremap <C-c> "+y
-    inoremap <C-v> <Esc>"+P
+    set ttyfast
 
 "" Show linenumbers
     set number
@@ -217,17 +213,53 @@ vnoremap <Up> <Nop>
     set expandtab
     set autoindent
 
+" Enable folding
+    set foldmethod=indent
+    set foldnestmax=10
+    set nofoldenable
+    set foldlevel=2
+
 "" Always display the status line
     set laststatus=2
 
 "" Enable highlighting of the current line
     set cursorline
 
-"" Enable autocompletion:
-    set wildmode=longest,list,full
+" Searching
+    set ignorecase " case insensitive searching
+    set smartcase " case-sensitive if expresson contains a capital letter
+    set hlsearch " highlight search results
+    set incsearch " set incremental search, like modern browsers
+    set nolazyredraw " don't redraw while executing macros
 
-"" Search while typing
-    set incsearch
+    set magic " Set magic on, for regex
+
+"" Splits open at the bottom and right
+    set splitbelow splitright
+
+"" Save netrw history in cache directory
+    let g:netrw_home="$HOME/.cache/nvim/"
+
+"""""' Autocommands '""""""
+"" Runs a script that cleans out tex build files whenever I close out of a tex file.
+    autocmd VimLeave *.tex !texclear %
+
+"" Automatically deletes all trailing whitespace
+    autocmd BufWritePre * %s/\s\+$//e
+
+"" Enable syntax highlighting of rofi config
+    autocmd BufNewFile,BufRead /*.rasi setf css
+
+"" Enable syntax highlighting of svelte files
+    autocmd BufNewFile,BufRead /*.svelte setf html
+
+
+"""""' Mappings '"""""
+"" Shortcutting split navigation
+    map <C-h> <C-w>h
+    map <C-j> <C-w>j
+    map <C-k> <C-w>k
+    map <C-l> <C-w>l
 
 "" Spell-check set to <leader>o,'o' for orthography
     map <leader>o :setlocal spell! spelllang=en_us<CR>
@@ -238,17 +270,30 @@ vnoremap <Up> <Nop>
 "" 'z' for zen
     map <leader>z :Goyo <CR>
 
-"" Splits open at the bottom and right
-    set splitbelow splitright
+" Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
+    vnoremap <C-c> "+y
+    inoremap <C-v> <Esc>"+p
 
-"" Shortcutting split navigation
-    map <C-h> <C-w>h
-    map <C-j> <C-w>j
-    map <C-k> <C-w>k
-    map <C-l> <C-w>l
+"" hardmode - no arrows
+    cnoremap <Down> <Nop>
+    cnoremap <Left> <Nop>
+    cnoremap <Right> <Nop>
+    cnoremap <Up> <Nop>
 
-"" Runs a script that cleans out tex build files whenever I close out of a tex file.
-    autocmd VimLeave *.tex !texclear %
+    inoremap <Down> <Nop>
+    inoremap <Left> <Nop>
+    inoremap <Right> <Nop>
+    inoremap <Up> <Nop>
+
+    nnoremap <Down> <Nop>
+    nnoremap <Left> <Nop>
+    nnoremap <Right> <Nop>
+    nnoremap <Up> <Nop>
+
+    vnoremap <Down> <Nop>
+    vnoremap <Left> <Nop>
+    vnoremap <Right> <Nop>
+    vnoremap <Up> <Nop>
 
 "" Compile document
     map <leader>c :w! \| !compiler <c-r>%<CR><CR>
@@ -256,35 +301,17 @@ vnoremap <Up> <Nop>
 "" Open corresponding pdf/.html or preview
     map <leader>v :!opout <c-r>%<CR><CR>
 
-"" Automatically deletes all trailing whitespace
-    autocmd BufWritePre * %s/\s\+$//e
-
-"" Set working directory to directory of tab
-    autocmd BufEnter * lcd %:p:h
-
-"" Enable syntax highlighting of rofi config
-    autocmd BufNewFile,BufRead /*.rasi setf css
-
-"" Enable syntax highlighting of svelte files
-    autocmd BufNewFile,BufRead /*.svelte setf html
-
 "" Jump to <++>
-    map <leader>n <Esc>/<++><Enter>c4l
+    map <leader>n <Esc>/<++><CR>c4l<Esc>:nohlsearch<CR><Esc>a
 
 "" nohlsearch
-    map <leader>s :nohlsearch <Enter>
+    map <leader>s :nohlsearch <CR>
 
 "" Help for word under cursor
     noremap <leader>h :execute "tab h " . expand("<cword>")<CR>
 
 " Exit modes
-    map <Esc> <A-e>
-
-" Enable folding
-    set foldmethod=indent
-    set foldnestmax=10
-    set nofoldenable
-    set foldlevel=2
+    " map <Esc> <A-e>
 
 " Set tab shortcuts
     nnoremap tn :tabnew <Space>
@@ -293,6 +320,8 @@ vnoremap <Up> <Nop>
     nnoremap th :tabfirst <CR>
     nnoremap tl :tablast <CR>
     nnoremap tc :tabclose <CR>
+
+"""""""""""""""""
 
 """' Python '"""
 " highlighting
@@ -315,7 +344,21 @@ vnoremap <Up> <Nop>
     nnoremap <F6> :call <SID>ToggleBreakpoint()<CR>
 
 " Start debugging - Split window and call ipdb with current file
-    nnoremap <F5> <C-w>s :term ipdb3 -c continue % <Enter> A
+    nnoremap <F5> <C-w>s :term ipdb3 -c continue % <CR> A
 
 " Remove all breakppoints when saving
     autocmd QuitPre *.py autocmd BufWritePre * silent g/^\s*import\sipdb\;\?\n*\s*ipdb\.set_trace()/normal dd
+
+""""""""""""""""""""
+
+"" Theme and Styling
+    colorscheme onehalfdark
+    set background=dark
+    if exists('+termguicolors')
+      let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+      let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+      set termguicolors
+    endif
+
+    highlight NonText guifg=#5c6370
+
