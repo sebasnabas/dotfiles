@@ -9,7 +9,6 @@ export MYVIMRC=$"HOME/.config/nvim/init.vim"
 export BROWSER="firefox"
 export MAIL_CLIENT="thunderbird"
 export TERMINAL="kitty"
-export TERM=$TERMINAL
 export EDITOR="nvim"
 export READER="zathura"
 export FILE="ranger"
