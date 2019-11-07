@@ -97,6 +97,10 @@ call plug#end()
 """' Goyo '"""
     let g:goyo_linenr=1
 
+"""' Vimux '"""
+    map <leader>vr :call VimuxRunCommand("run " . bufname("%")) <CR>
+    map <leader>vt :call VimuxRunCommand("test .") <CR>
+
 """' Fugitive (Git Support) '"""
     set statusline+=%{FugitiveStatusline()}
 
