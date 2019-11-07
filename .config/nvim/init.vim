@@ -159,11 +159,6 @@ call plug#end()
     smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
     \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-    " For conceal markers.
-    if has('conceal')
-      set conceallevel=2 concealcursor=niv
-    endif
-
 "" Deoplete Jedi
     let g:jedi#auto_close_doc = 1  " close preview window after completion
 
