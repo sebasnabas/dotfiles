@@ -1,10 +1,9 @@
 #!/bin/sh
-#
-# ~/.xinitrc
-#
 # Executed by startx (run your window manager from here)
 
 numlockx &
+
+setxkbmap -option 'caps:escape'
 
 exec i3
 
