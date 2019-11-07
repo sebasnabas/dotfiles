@@ -1,16 +1,9 @@
 #!/bin/sh
-#
-# ~/.xinitrc
-#
 # Executed by startx (run your window manager from here)
 
 ### i3
 export KDEWM=/bin/i3
 exec startkde
-###
-
-### Path and env variables
-source ~/.profile
 ###
 
 userresources=$HOME/.Xresources
@@ -72,8 +65,6 @@ get_session(){
 	echo "dbus-launch ${dbus_args[*]}"
 }
 
-## siji font
-xset +fp /home/sebastian/.fonts
-xset fp rehash
+setxkbmap -option 'caps:escape'
 
 exec $(get_session)
