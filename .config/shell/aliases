@@ -14,3 +14,5 @@ alias c="pushd ~/Documents/code"
 ## cool kitty stuff
 alias d="kitty +kitten diff"
 
+alias tmux="tmux -2"
+
