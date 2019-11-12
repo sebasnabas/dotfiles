@@ -14,3 +14,5 @@ alias ctrain="pushd ~/Videos/coding/the_coding_train"
 ## cool kitty stuff
 alias d="kitty +kitten diff"
 
+alias tmux="tmux -2"
+
