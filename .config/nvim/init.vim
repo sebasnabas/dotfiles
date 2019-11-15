@@ -32,6 +32,13 @@ call plug#begin('~/.local/share/nvim/plugged')
     "" Easy replacing
     Plug 'vim-scripts/ReplaceWithRegister'
 
+    "" Buffer navigation
+    Plug 'jeetsukumaran/vim-buffergator'
+
+    "" Fuzzy file finder
+    Plug '~/.fzf'
+    Plug 'junegunn/fzf.vim'
+
     "" Tmux
     """ Tmux navigation
     Plug 'christoomey/vim-tmux-navigator'
@@ -97,6 +104,31 @@ call plug#end()
 
 """' Goyo '"""
     let g:goyo_linenr=1
+
+    function! s:goyo_leave()
+        :so $MYVIMRC <CR>
+    endfunction
+
+    "" 'z' for zen
+    map <leader>z :Goyo <CR>
+
+    "" Fzf
+    " current file directory
+    nnoremap <leader>- :FZF <c-r>=fnameescape(expand('%:p:h'))<cr>/<cr>
+    " current working directory
+    nnoremap <leader>f+ :FZF<cr>
+    nnoremap <leader>fb :Buffers<cr>
+    nnoremap <leader>ff :Files<cr>
+    nnoremap <leader>fl :Lines<cr>
+    nnoremap <leader>fbl :BLines<cr>
+    nnoremap <leader>ft :Tags<cr>
+    nnoremap <leader>fr :History<cr>
+    nnoremap <leader>fh :Helptags<cr>
+    nnoremap <leader>f: :History:<cr>
+    nnoremap <leader>f/ :History/<cr>
+    nnoremap <leader>fg :GFiles<cr>
+    nnoremap <leader>fs :GFiles?<cr>
+    nnoremap <leader>fc :Commits<cr>
 
 """' Vimux '"""
     map <leader>vr :call VimuxRunCommand("run " . bufname("%")) <CR>
@@ -267,9 +299,6 @@ call plug#end()
 "" Grammar-check set to <leader>g, 'g' for grammar
     map <leader>g :LanguageToolCheck <CR>
 
-"" 'z' for zen
-    map <leader>z :Goyo <CR>
-
 " Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
     vnoremap <C-c> "+y
     inoremap <C-v> <Esc>"+p
@@ -309,9 +338,6 @@ call plug#end()
 
 "" Help for word under cursor
     noremap <leader>h :execute "tab h " . expand("<cword>")<CR>
-
-" Exit modes
-    " map <Esc> <A-e>
 
 " Set tab shortcuts
     nnoremap tn :tabnew <Space>
