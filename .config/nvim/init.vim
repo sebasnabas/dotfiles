@@ -21,6 +21,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     " Utility
     "" File explorer
     Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle'}
+    Plug 'Xuyuanp/nerdtree-git-plugin'
 
     "" Zen mode
     Plug 'junegunn/goyo.vim'
