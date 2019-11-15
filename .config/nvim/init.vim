@@ -156,11 +156,39 @@ call plug#end()
 
     map <C-s> :SyntasticToggleMode <CR>
 
-"""' Vim-Airline Configuration '"""
+"""' Vim-Airline '"""
     let g:airline#extensions#tabline#enabled = 1
     let g:airline_powerline_fonts = 1
     let g:airline#extensions#branch#enabled = 1
     let g:airline#extensions#branch#empty_message = ''
+
+"""' Vimwiki '"""
+    nnoremap <Leader>wf :VimwikiFollowLink<CR>
+
+    " Split and follow (create target wiki page if needed).
+    " nnoremap <Leader>ws <Plug>VimwikiSplitLink<CR>
+
+    " Vertical split and follow (create target wiki page if needed).
+    nnoremap <Leader>wv :VimwikiVSplitLink<CR>
+
+    " Follow wiki link (create target wiki page if needed), opening in a new tab.
+    " nnoremap <Leader>wt :VimwikiTabnewLink<CR>
+
+    " Go back to previously visited wiki page.
+    nnoremap <Leader>wb :VimwikiGoBackLink<CR>
+
+    " Find next link in the current page.
+    nnoremap <Leader>wn :VimwikiNextLink<CR>
+
+    " Find previous link in the current page.
+    nnoremap <Leader>wp :VimwikiPrevLink<CR>
+
+    " Delete wiki page you are in.
+    nnoremap <Leader>wd :VimwikiDeleteLink<CR>
+
+    " Rename wiki page you are in.
+    nnoremap <Leader>wr :VimwikiRenameLink<CR>
+
 
 """' devicons '"""
     let g:webdevicons_enable = 1
