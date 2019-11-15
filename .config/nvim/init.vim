@@ -140,6 +140,7 @@ call plug#end()
     map <leader>gd :Gdiff<CR>
     map <leader>gD <C-w>h <C-W>c
     map <leader>gco :Gcommit<CR>
+    map <leader>gs :Gstatus<CR>
 
 """' Syntastic '"""
     set statusline+=%#warningmsg#
