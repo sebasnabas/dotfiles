@@ -21,6 +21,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     " Utility
     "" File explorer
     Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle'}
+    Plug 'Xuyuanp/nerdtree-git-plugin'
 
     "" Zen mode
     Plug 'junegunn/goyo.vim'
@@ -30,6 +31,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 
     "" Easy replacing
     Plug 'vim-scripts/ReplaceWithRegister'
+
+    "" Buffer navigation
+    Plug 'jeetsukumaran/vim-buffergator'
+
+    "" Fuzzy file finder
+    Plug '~/.fzf'
+    Plug 'junegunn/fzf.vim'
 
     "" Tmux
     """ Tmux navigation
@@ -97,6 +105,31 @@ call plug#end()
 """' Goyo '"""
     let g:goyo_linenr=1
 
+    function! s:goyo_leave()
+        :so $MYVIMRC <CR>
+    endfunction
+
+    "" 'z' for zen
+    map <leader>z :Goyo <CR>
+
+    "" Fzf
+    " current file directory
+    nnoremap <leader>- :FZF <c-r>=fnameescape(expand('%:p:h'))<cr>/<cr>
+    " current working directory
+    nnoremap <leader>f+ :FZF<cr>
+    nnoremap <leader>fb :Buffers<cr>
+    nnoremap <leader>ff :Files<cr>
+    nnoremap <leader>fl :Lines<cr>
+    nnoremap <leader>fbl :BLines<cr>
+    nnoremap <leader>ft :Tags<cr>
+    nnoremap <leader>fr :History<cr>
+    nnoremap <leader>fh :Helptags<cr>
+    nnoremap <leader>f: :History:<cr>
+    nnoremap <leader>f/ :History/<cr>
+    nnoremap <leader>fg :GFiles<cr>
+    nnoremap <leader>fs :GFiles?<cr>
+    nnoremap <leader>fc :Commits<cr>
+
 """' Vimux '"""
     map <leader>vr :call VimuxRunCommand("run " . bufname("%")) <CR>
     map <leader>vt :call VimuxRunCommand("test .") <CR>
@@ -107,6 +140,7 @@ call plug#end()
     map <leader>gd :Gdiff<CR>
     map <leader>gD <C-w>h <C-W>c
     map <leader>gco :Gcommit<CR>
+    map <leader>gs :Gstatus<CR>
 
 """' Syntastic '"""
     set statusline+=%#warningmsg#
@@ -122,11 +156,39 @@ call plug#end()
 
     map <C-s> :SyntasticToggleMode <CR>
 
-"""' Vim-Airline Configuration '"""
+"""' Vim-Airline '"""
     let g:airline#extensions#tabline#enabled = 1
     let g:airline_powerline_fonts = 1
     let g:airline#extensions#branch#enabled = 1
     let g:airline#extensions#branch#empty_message = ''
+
+"""' Vimwiki '"""
+    nnoremap <Leader>wf :VimwikiFollowLink<CR>
+
+    " Split and follow (create target wiki page if needed).
+    " nnoremap <Leader>ws <Plug>VimwikiSplitLink<CR>
+
+    " Vertical split and follow (create target wiki page if needed).
+    nnoremap <Leader>wv :VimwikiVSplitLink<CR>
+
+    " Follow wiki link (create target wiki page if needed), opening in a new tab.
+    " nnoremap <Leader>wt :VimwikiTabnewLink<CR>
+
+    " Go back to previously visited wiki page.
+    nnoremap <Leader>wb :VimwikiGoBackLink<CR>
+
+    " Find next link in the current page.
+    nnoremap <Leader>wn :VimwikiNextLink<CR>
+
+    " Find previous link in the current page.
+    nnoremap <Leader>wp :VimwikiPrevLink<CR>
+
+    " Delete wiki page you are in.
+    nnoremap <Leader>wd :VimwikiDeleteLink<CR>
+
+    " Rename wiki page you are in.
+    nnoremap <Leader>wr :VimwikiRenameLink<CR>
+
 
 """' devicons '"""
     let g:webdevicons_enable = 1
@@ -266,9 +328,6 @@ call plug#end()
 "" Grammar-check set to <leader>g, 'g' for grammar
     map <leader>g :LanguageToolCheck <CR>
 
-"" 'z' for zen
-    map <leader>z :Goyo <CR>
-
 " Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
     vnoremap <C-c> "+y
     inoremap <C-v> <Esc>"+p
@@ -308,9 +367,6 @@ call plug#end()
 
 "" Help for word under cursor
     noremap <leader>h :execute "tab h " . expand("<cword>")<CR>
-
-" Exit modes
-    " map <Esc> <A-e>
 
 " Set tab shortcuts
     nnoremap tn :tabnew <Space>
