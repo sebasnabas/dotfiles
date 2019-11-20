@@ -89,5 +89,9 @@ for plugin ($plugins); do
     [ -f $plugin_path ] && source $plugin_path
 done
 
+# thefuck
+python -m pip freeze | grep thefuck || python -m pip install thefuck
+eval $(thefuck --alias)
+
 source $ZDOTDIR/theme.zsh-theme
 
