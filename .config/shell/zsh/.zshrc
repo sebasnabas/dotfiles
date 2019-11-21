@@ -90,7 +90,7 @@ for plugin ($plugins); do
 done
 
 # thefuck
-python -m pip freeze | grep thefuck || python -m pip install thefuck
+python -m pip freeze | grep thefuck > /dev/null || python -m pip install --user thefuck
 eval $(thefuck --alias)
 
 source $ZDOTDIR/theme.zsh-theme

@@ -3,6 +3,7 @@
 
 # but not these files/directories
 !.gitignore
+!.subtrees
 !.scripts
 
 !.config
