@@ -29,6 +29,8 @@ dotconfigfiles/*
 
 .zcompdump*
 
+.config/git/gitconfig-work
+
 # firefox
 !.mozilla
 .mozilla/*
