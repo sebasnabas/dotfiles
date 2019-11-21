@@ -1,3 +1,4 @@
+export PATH="/home/sebastian/.local/bin":$PATH
 export PATH="/home/sebastian/.scripts/tools":$PATH
 export PATH="/home/sebastian/.scripts/i3cmds":$PATH
 export PATH="/home/sebastian/.scripts/tmux":$PATH
