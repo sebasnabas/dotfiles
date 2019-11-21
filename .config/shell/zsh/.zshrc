@@ -77,11 +77,6 @@ kitty + complete setup zsh | source /dev/stdin
 # Set fzf installation directory path
 export FZF_BASE=/path/to/fzf/install/dir
 
-# Uncomment the following line to disable fuzzy completion
-# export DISABLE_FZF_AUTO_COMPLETION="true"
-# Uncomment the following line to disable k
-# export DISABLE_FZF_KEY_BINDINGS="true"
-
 plugins=(git autoswitch_virtualenv zsh-syntax-highlighting fzf)
 
 for plugin ($plugins); do
