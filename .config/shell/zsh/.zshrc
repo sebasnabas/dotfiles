@@ -70,7 +70,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 alias mkvenv="mkvenv --system-site-packages"
 
 # Completion for kitty
-kitty + complete setup zsh | source /dev/stdin
+which kitty > /dev/null 2>&1 && kitty + complete setup zsh | source /dev/stdin
 
 [ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
 
@@ -90,7 +90,7 @@ python_version="$(${python} --version 2>&1 | cut -d' ' -f2 | grep '^2\.')"
 if [ -n "$python_version" ]; then
     python="python3"
 fi
-${python} -m pip freeze 2>&1 | grep thefuck > /dev/null || ${python} -m pip install --user thefuck > /dev/null 2>&1 && echo "Installed thefuck."
+${python} -m pip freeze 2>&1 | grep thefuck > /dev/null || (${python} -m pip install --user thefuck > /dev/null 2>&1 && echo "Installed thefuck.")
 eval $(thefuck --alias)
 
 source $ZDOTDIR/theme.zsh-theme
