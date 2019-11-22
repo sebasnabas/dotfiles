@@ -53,6 +53,9 @@ let mapleader =","
             """ Run commands in separate pane
             Plug 'benmills/vimux'
 
+            """ Tmux statusline
+            Plug 'edkolev/tmuxline.vim'
+
             " Generic Programming Support
             "" Comments
             Plug 'tpope/vim-commentary'
@@ -475,5 +478,7 @@ let mapleader =","
       set termguicolors
     endif
     highlight NonText guifg=#5c6370
+
+    let g:airline_theme='base16'
 "}}}
 
