@@ -91,6 +91,9 @@ let mapleader =","
             " Python
             Plug 'deoplete-plugins/deoplete-jedi'
 
+            " Dotnet/CSharp
+            Plug 'OmniSharp/omnisharp-vim'
+
         call plug#end()
 "   }}}
 
