@@ -77,7 +77,7 @@ which kitty > /dev/null 2>&1 && kitty + complete setup zsh | source /dev/stdin
 # Set fzf installation directory path
 export FZF_BASE=/path/to/fzf/install/dir
 
-plugins=(git autoswitch_virtualenv zsh-syntax-highlighting fzf)
+plugins=(git autoswitch_virtualenv zsh-syntax-highlighting fzf zsh-autosuggestions)
 
 for plugin ($plugins); do
     plugin_path="$ZDOTDIR/plugins/$plugin/$plugin.plugin.zsh"
