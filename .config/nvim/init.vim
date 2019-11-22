@@ -61,7 +61,7 @@ let mapleader =","
             Plug 'tpope/vim-commentary'
 
             "" Syntax checking
-            Plug 'scrooloose/syntastic'
+            Plug 'dense-analysis/ale'
 
             "" Git Support
             Plug 'tpope/vim-fugitive'
@@ -179,26 +179,15 @@ let mapleader =","
             map <leader>gs :Gstatus<CR>
         "}}}
 
-        """' Syntastic '"""{{{
-            set statusline+=%#warningmsg#
-            set statusline+=%{SyntasticStatuslineFlag()}
-            set statusline+=%*
+        """' Ale '"""{{{
+            let g:airline#extensions#ale#enabled = 1
+            let g:ale_python_auto_pipenv = 1
 
-            let g:syntastic_always_populate_loc_list = 1
-            let g:syntastic_auto_loc_list = 1
-            let g:syntastic_check_on_open = 1
-            let g:syntastic_check_on_wq = 1
-
-            let g:syntastic_python_checkers = ['pylint']
-
-            " see :h syntastic-loclist-callback
-            function! SyntasticCheckHook(errors)
+            function! AleCheckHook(errors)
                 if !empty(a:errors)
-                    let g:syntastic_loc_list_height = min([len(a:errors), 10])
+                    let g:ale_loc_list_height = min([len(a:errors), 10])
                 endif
             endfunction
-
-            map <C-s> :SyntasticToggleMode <CR>
         "}}}
 
         """' Vim-Airline '"""{{{
