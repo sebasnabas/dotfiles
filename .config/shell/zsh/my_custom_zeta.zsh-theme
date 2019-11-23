@@ -3,7 +3,7 @@
 # Copyright: Skyler Lee, 2015
 # Modified by Sebastian Eberlein, 2019
 
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=247"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#696e77"
 
 # Colors: black|red|blue|green|yellow|magenta|cyan|white
 local black=$fg[black]
@@ -26,7 +26,7 @@ local white_bold=$fg_bold[white]
 
 local highlight_bg=$bg[red]
 
-local zeta='→'
+local zeta='»'
 
 # Machine name.
 function get_box_name {
