@@ -8,21 +8,22 @@
 
 !.config
 .config/*
+!.config/astrality
 !.config/compton
 !.config/dunst
 !.config/git
 !.config/i3
 !.config/kitty
-!.config/nvim
 !.config/networkmanager-dmenu
+!.config/nvim
 !.config/ranger
 !.config/redshift
 !.config/rofi
 !.config/shell
 !.config/ssh/config
-!.config/x
 !.config/polybar
 !.config/tmux
+!.config/x
 !.config/zathura
 
 dotconfigfiles/*
