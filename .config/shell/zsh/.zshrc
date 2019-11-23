@@ -74,15 +74,18 @@ which kitty > /dev/null 2>&1 && kitty + complete setup zsh | source /dev/stdin
 
 [ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
 
-# Set fzf installation directory path
-export FZF_BASE=/path/to/fzf/install/dir
-
-plugins=(git autoswitch_virtualenv zsh-syntax-highlighting fzf zsh-autosuggestions)
+plugins=(git fzf autoswitch_virtualenv zsh-syntax-highlighting zsh-autosuggestions)
 
 for plugin ($plugins); do
     plugin_path="$ZDOTDIR/plugins/$plugin/$plugin.plugin.zsh"
     [ -f $plugin_path ] && source $plugin_path
 done
+
+# fzf
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow -g '!.wine' -g'!*[sS]team*' -g '!lutris' -g '!Trash' -g '!.cache' 2>/dev/null . $HOME"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="--select-1 --exit-0"
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 # thefuck
 python="python"
