@@ -93,5 +93,19 @@ fi
 ${python} -m pip freeze 2>&1 | grep thefuck > /dev/null || (${python} -m pip install --user thefuck > /dev/null 2>&1 && echo "Installed thefuck.")
 eval $(thefuck --alias)
 
+# Codi
+# Usage: codi [filetype] [filename]
+codi() {
+  local syntax="${1:-python}"
+  shift
+  vim -c \
+    "let g:startify_disable_at_vimenter = 1 |\
+    set bt=nofile ls=0 noru nonu nornu |\
+    hi ColorColumn ctermbg=NONE |\
+    hi VertSplit ctermbg=NONE |\
+    hi NonText ctermfg=0 |\
+    Codi $syntax" "$@"
+}
+
 source $ZDOTDIR/theme.zsh-theme
 
