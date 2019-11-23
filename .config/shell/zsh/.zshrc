@@ -99,15 +99,17 @@ eval $(thefuck --alias)
 # Codi
 # Usage: codi [filetype] [filename]
 codi() {
-  local syntax="${1:-python}"
-  shift
-  vim -c \
-    "let g:startify_disable_at_vimenter = 1 |\
-    set bt=nofile ls=0 noru nonu nornu |\
-    hi ColorColumn ctermbg=NONE |\
-    hi VertSplit ctermbg=NONE |\
-    hi NonText ctermfg=0 |\
-    Codi $syntax" "$@"
+    local syntax="${1:-python}"
+    local filename="";
+
+    if [ $# -ge 1 ]; then
+        shift
+        filename="$1"
+    fi
+    if [ -z "$filename" ]; then
+        filename="/tmp/$RANDOM.py"
+    fi
+    vim -c "Codi $syntax" "$filename"
 }
 
 source $ZDOTDIR/theme.zsh-theme
