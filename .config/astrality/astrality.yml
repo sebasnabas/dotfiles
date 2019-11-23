@@ -1,0 +1,19 @@
+astrality:
+    hot_reload_config: true
+
+    startup_delay: 0
+
+
+modules:
+    requires_timeout: 1
+
+    run_timeout: 0
+
+    reprocess_modified_files: true
+
+    modules_directory: modules
+
+    enabled_modules:
+      - name: solar_desktop::*
+
+
