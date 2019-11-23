@@ -33,6 +33,9 @@ let mapleader =","
             "" Easy change of surroundings
             Plug 'tpope/vim-surround'
 
+            "" Repetition of plugin commands
+            Plug 'tpope/vim-repeat'
+
             "" Auto pairs
             Plug 'tmsvg/pear-tree'
 
@@ -41,6 +44,9 @@ let mapleader =","
 
             "" Buffer navigation
             Plug 'jeetsukumaran/vim-buffergator'
+
+            "" Undo tree
+            Plug 'simnalamburt/vim-mundo'
 
             "" Fuzzy file finder
             Plug '~/.fzf'
@@ -88,10 +94,14 @@ let mapleader =","
             "" Auto completion
             Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-            " Python
+            "" Codi scratchpad
+            Plug 'metakirby5/codi.vim'
+
+            "Programming Languages
+            "" Python
             Plug 'deoplete-plugins/deoplete-jedi'
 
-            " Dotnet/CSharp
+            "" Dotnet/C#
             Plug 'OmniSharp/omnisharp-vim'
 
         call plug#end()
@@ -149,13 +159,17 @@ let mapleader =","
 
         "}}}
 
+        """' vim-mundo '"""{{{
+            let g:mundo_right = 1
+            nnoremap <leader>u :MundoToggle<CR>
+        "}}}
+
         """' Fzf '"""{{{
             " current file directory
             nnoremap <leader>- :FZF <c-r>=fnameescape(expand('%:p:h'))<cr>/<cr>
             " current working directory
-            nnoremap <leader>f+ :FZF<cr>
             nnoremap <leader>fb :Buffers<cr>
-            nnoremap <leader>ff :Files<cr>
+            nnoremap <leader>ff :Files ~<cr>
             nnoremap <leader>fl :Lines<cr>
             nnoremap <leader>fbl :BLines<cr>
             nnoremap <leader>ft :Tags<cr>
@@ -166,6 +180,48 @@ let mapleader =","
             nnoremap <leader>fg :GFiles<cr>
             nnoremap <leader>fs :GFiles?<cr>
             nnoremap <leader>fc :Commits<cr>
+
+            let g:fzf_action = {
+              \ 'ctrl-t': 'tab split',
+              \ 'ctrl-s': 'split',
+              \ 'ctrl-v': 'vsplit' }
+
+            " [Buffers] Jump to the existing window if possible
+            let g:fzf_buffers_jump = 1
+
+            " [[B]Commits] Customize the options used by 'git log':
+            let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+            " [Tags] Command to generate tags file
+            let g:fzf_tags_command = 'ctags -R'
+
+            " Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+            command! -bang -nargs=* Rg
+              \ call fzf#vim#grep(
+              \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+              \   <bang>0 ? fzf#vim#with_preview('up:60%')
+              \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+              \   <bang>0)
+
+            " Likewise, Files command with preview window
+            command! -bang -nargs=? -complete=dir Files
+              \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+            " Customize fzf colors to match your color scheme
+            let g:fzf_colors =
+            \ { 'fg':      ['fg', 'Normal'],
+              \ 'bg':      ['bg', 'Normal'],
+              \ 'hl':      ['fg', 'Comment'],
+              \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+              \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+              \ 'hl+':     ['fg', 'Statement'],
+              \ 'info':    ['fg', 'PreProc'],
+              \ 'border':  ['fg', 'Ignore'],
+              \ 'prompt':  ['fg', 'Conditional'],
+              \ 'pointer': ['fg', 'Exception'],
+              \ 'marker':  ['fg', 'Keyword'],
+              \ 'spinner': ['fg', 'Label'],
+              \ 'header':  ['fg', 'Comment'] }
         "}}}
 
         """' Vimux '"""{{{
@@ -357,6 +413,7 @@ let mapleader =","
 
         "" Enable syntax highlighting of svelte files
         autocmd BufNewFile,BufRead /*.svelte setf html
+
     "}}}
 
 "}}}
@@ -424,6 +481,18 @@ let mapleader =","
     nnoremap th :tabfirst <CR>
     nnoremap tl :tablast <CR>
     nnoremap tc :tabclose <CR>
+    nnoremap <a-1> 1gt
+    nnoremap <a-2> 2gt
+    nnoremap <a-3> 3gt
+    nnoremap <a-4> 4gt
+    nnoremap <a-5> 5gt
+    nnoremap <a-6> 6gt
+    nnoremap <a-7> 7gt
+    nnoremap <a-8> 8gt
+    nnoremap <a-9> 9gt
+
+    " Easily edit vimrc
+    nnoremap <leader>ev :e $MYVIMRC <CR>
 
 "}}}
 
