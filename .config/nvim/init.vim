@@ -347,6 +347,9 @@ let mapleader =","
 "}}}
 
 """' Mappings '"""{{{
+    "" Why is this not default?
+    nnoremap Y y$
+
     "" Shortcutting split navigation
     map <C-h> <C-w>h
     map <C-j> <C-w>j
