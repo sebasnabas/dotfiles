@@ -48,6 +48,9 @@ let mapleader =","
             "" Undo tree
             Plug 'simnalamburt/vim-mundo'
 
+            "" Tags
+            Plug 'majutsushi/tagbar'
+
             "" Fuzzy file finder
             Plug '~/.fzf'
             Plug 'junegunn/fzf.vim'
@@ -150,10 +153,6 @@ let mapleader =","
         """' Goyo '""" {{{
             let g:goyo_linenr=1
 
-            function! s:goyo_leave()
-                :so $MYVIMRC <CR>
-            endfunction
-
             "" 'z' for zen
             map <leader>z :Goyo <CR>
 
@@ -162,6 +161,10 @@ let mapleader =","
         """' vim-mundo '"""{{{
             let g:mundo_right = 1
             nnoremap <leader>u :MundoToggle<CR>
+        "}}}
+
+        """' Tagbar '"""{{{
+            nnoremap <leader>t :TagbarToggle<CR>
         "}}}
 
         """' Fzf '"""{{{
