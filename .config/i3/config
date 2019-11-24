@@ -261,3 +261,8 @@ bindsym $mod+F8		exec --no-startup-id amixer -q set Master toggle
 # #--Microphone Mute--# #
 bindsym $mod+F7     exec --no-startup-id amixer -q set Capture toggle
 
+bindsym $mod+F9 exec "pomodoro_client start"
+bindsym $mod+F10 exec "pomodoro_client toggle"
+bindsym $mod+F11 exec "pomodoro_client skip"
+bindsym $mod+F12 exec "pomodoro_client stop"
+
