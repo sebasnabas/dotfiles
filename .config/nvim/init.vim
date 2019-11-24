@@ -117,8 +117,6 @@ let mapleader =","
             " the ignore patterns are regular expression strings and separated by comma
             let NERDTreeIgnore = ['\.pyc$', '^__pycache__$']
 
-            map <C-n> :NERDTreeToggle <CR>
-
             " quit nerdtree if it's the last buffer left
             autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -149,37 +147,13 @@ let mapleader =","
         """' Goyo '""" {{{
             let g:goyo_linenr=1
 
-            "" 'z' for zen
-            map <leader>z :Goyo <CR>
-
         "}}}
 
         """' vim-mundo '"""{{{
             let g:mundo_right = 1
-            nnoremap <leader>u :MundoToggle<CR>
-        "}}}
-
-        """' Tagbar '"""{{{
-            nnoremap <leader>t :TagbarToggle<CR>
         "}}}
 
         """' Fzf '"""{{{
-            " current file directory
-            nnoremap <leader>- :FZF <c-r>=fnameescape(expand('%:p:h'))<cr>/<cr>
-            " current working directory
-            nnoremap <leader>fb :Buffers<cr>
-            nnoremap <leader>ff :Files ~<cr>
-            nnoremap <leader>fl :Lines<cr>
-            nnoremap <leader>fbl :BLines<cr>
-            nnoremap <leader>ft :Tags<cr>
-            nnoremap <leader>fr :History<cr>
-            nnoremap <leader>fh :Helptags<cr>
-            nnoremap <leader>f: :History:<cr>
-            nnoremap <leader>f/ :History/<cr>
-            nnoremap <leader>fg :GFiles<cr>
-            nnoremap <leader>fs :GFiles?<cr>
-            nnoremap <leader>fc :Commits<cr>
-
             let g:fzf_action = {
               \ 'ctrl-t': 'tab split',
               \ 'ctrl-s': 'split',
@@ -223,18 +197,8 @@ let mapleader =","
               \ 'header':  ['fg', 'Comment'] }
         "}}}
 
-        """' Vimux '"""{{{
-            map <leader>vr :call VimuxRunCommand("run " . bufname("%")) <CR>
-            map <leader>vt :call VimuxRunCommand("test .") <CR>
-        "}}}
-
         """' Fugitive (Git Support) '"""{{{
             set statusline+=%{FugitiveStatusline()}
-
-            map <leader>gd :Gdiff<CR>
-            map <leader>gD <C-w>h <C-W>c
-            map <leader>gco :Gcommit<CR>
-            map <leader>gs :Gstatus<CR>
         "}}}
 
         """' Ale '"""{{{
@@ -253,34 +217,6 @@ let mapleader =","
             let g:airline_powerline_fonts = 1
             let g:airline#extensions#branch#enabled = 1
             let g:airline#extensions#branch#empty_message = ''
-        "}}}
-
-        """' Vimwiki '"""{{{
-            nnoremap <Leader>wf :VimwikiFollowLink<CR>
-
-            " Split and follow (create target wiki page if needed).
-            " nnoremap <Leader>ws <Plug>VimwikiSplitLink<CR>
-
-            " Vertical split and follow (create target wiki page if needed).
-            nnoremap <Leader>wv :VimwikiVSplitLink<CR>
-
-            " Follow wiki link (create target wiki page if needed), opening in a new tab.
-            " nnoremap <Leader>wt :VimwikiTabnewLink<CR>
-
-            " Go back to previously visited wiki page.
-            nnoremap <Leader>wb :VimwikiGoBackLink<CR>
-
-            " Find next link in the current page.
-            nnoremap <Leader>wn :VimwikiNextLink<CR>
-
-            " Find previous link in the current page.
-            nnoremap <Leader>wp :VimwikiPrevLink<CR>
-
-            " Delete wiki page you are in.
-            nnoremap <Leader>wd :VimwikiDeleteLink<CR>
-
-            " Rename wiki page you are in.
-            nnoremap <Leader>wr :VimwikiRenameLink<CR>
         "}}}
 
         """' devicons '"""{{{
@@ -310,15 +246,6 @@ let mapleader =","
 
             " Tell Neosnippet about the other snippets
             let g:neosnippet#snippets_directory=$HOME.'/.local/share/nvim/plugged/vim-snippets/snippets'
-
-            " Plugin key-mappings.
-            " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-            imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-            smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-            xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-            smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-            \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
         "}}}
 
         """' Deoplete Jedi '"""{{{
@@ -490,10 +417,89 @@ let mapleader =","
     " Easily edit vimrc
     nnoremap <leader>ev :e $MYVIMRC <CR>
 
+    """' Plugin Mappings '"""{{{
+        ""' Nerdtree: '"""{{{
+            map <C-n> :NERDTreeToggle <CR>
+        "}}}
+        "' Goyo: '"""{{{
+            " 'z' for zen
+            map <leader>z :Goyo <CR>
+        "}}}
+        ""' Mundo:"{{{
+            nnoremap <leader>u :MundoToggle<CR>
+        "}}}
+        ""' Tagbar '"""{{{
+            nnoremap <leader>t :TagbarToggle<CR>
+        "}}}
+        ""' Fzf '"""{{{
+            " current file directory
+            nnoremap <leader>- :FZF <c-r>=fnameescape(expand('%:p:h'))<cr>/<cr>
+            " current working directory
+            nnoremap <leader>fb :Buffers<cr>
+            nnoremap <leader>ff :Files ~<cr>
+            nnoremap <leader>fl :Lines<cr>
+            nnoremap <leader>fbl :BLines<cr>
+            nnoremap <leader>ft :Tags<cr>
+            nnoremap <leader>fr :History<cr>
+            nnoremap <leader>fh :Helptags<cr>
+            nnoremap <leader>f: :History:<cr>
+            nnoremap <leader>f/ :History/<cr>
+            nnoremap <leader>fg :GFiles<cr>
+            nnoremap <leader>fs :GFiles?<cr>
+            nnoremap <leader>fc :Commits<cr>
+        "}}}
+        ""' Vimux '""{{{
+            map <leader>vr :call VimuxRunCommand("run " . bufname("%")) <CR>
+            map <leader>vt :call VimuxRunCommand("test .") <CR>
+        "}}}
+        ""' Fugitive '"""{{{
+            map <leader>gd :Gdiff<CR>
+            map <leader>gD <C-w>h <C-W>c
+            map <leader>gco :Gcommit<CR>
+            map <leader>gs :Gstatus<CR>
+        "}}}
+        ""' Neosnippet '"""{{{
+            "' Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+            imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+            smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+            xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+            smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+                \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>
+        "}}}
+        """' Vimwiki '"""{{{
+            nnoremap <Leader>wf :VimwikiFollowLink<CR>
+
+            " Split and follow (create target wiki page if needed).
+            " nnoremap <Leader>ws <Plug>VimwikiSplitLink<CR>
+
+            " Vertical split and follow (create target wiki page if needed).
+            nnoremap <Leader>wv :VimwikiVSplitLink<CR>
+
+            " Follow wiki link (create target wiki page if needed), opening in a new tab.
+            " nnoremap <Leader>wt :VimwikiTabnewLink<CR>
+
+            " Go back to previously visited wiki page.
+            nnoremap <Leader>wb :VimwikiGoBackLink<CR>
+
+            " Find next link in the current page.
+            nnoremap <Leader>wn :VimwikiNextLink<CR>
+
+            " Find previous link in the current page.
+            nnoremap <Leader>wp :VimwikiPrevLink<CR>
+
+            " Delete wiki page you are in.
+            nnoremap <Leader>wd :VimwikiDeleteLink<CR>
+
+            " Rename wiki page you are in.
+            nnoremap <Leader>wr :VimwikiRenameLink<CR>
+        "}}}
+
+    "}}}
 "}}}
 
 """' Language specific settings '"""{{{
-    """' Python '"""{{{
+    ""' Python '""{{{
     " highlighting
         let python_highlight_all=1
 
@@ -510,14 +516,15 @@ let mapleader =","
             if getline('.')=~#'^\s*import\sipdb' | cal s:RemoveBreakpoint() | el | cal s:SetBreakpoint() | en
         endf
 
-    " Toggle breakpoint
-        nnoremap <F6> :call <SID>ToggleBreakpoint()<CR>
-
-    " Start debugging - Split window and call ipdb with current file
-        nnoremap <F5> <C-w>s :term ipdb3 -c continue % <CR> A
-
-    " Remove all breakppoints when saving
-        autocmd QuitPre *.py autocmd BufWritePre * silent g/^\s*import\sipdb\;\?\n*\s*ipdb\.set_trace()/normal dd
+        augroup python_auto
+            autocmd! python_auto
+            " Toggle breakpoint
+            autocmd FileType python nmap <F6> :call <SID>ToggleBreakpoint()<CR>
+            " Start debugging - Split window and call ipdb with current file
+            autocmd FileType python nmap <F5> <C-w>s :term ipdb3 -c continue % <CR> A
+            " Remove all breakppoints when saving
+            autocmd QuitPre *.py autocmd BufWritePre * silent g/^\s*import\sipdb\;\?\n*\s*ipdb\.set_trace()/normal dd
+        augroup end
     "}}}
 "}}}
 
