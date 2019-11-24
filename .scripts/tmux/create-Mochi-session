@@ -6,11 +6,11 @@ create_mochi(){
     tmux new-session -d -s $SESSIONNAME >/dev/null
     tmux rename-window -t $SESSIONNAME:0 'dotfiles'
     tmux send-keys -t $SESSIONNAME 'cd ~/.config' Enter
-    tmux send-keys -t $SESSIONNAME 'nvim' Enter
+    tmux send-keys -t $SESSIONNAME 'nvim nvim/init.vim' Enter
     tmux splitw -v -p 30 -t $SESSIONNAME:0.0
     tmux splitw -h -t $SESSIONNAME:0.1
     tmux send-keys -t $SESSIONNAME:0.1 'cd ~/.dotconfigfiles' Enter
-    tmux send-keys -t $SESSIONNAME:0.1 'git log' Enter
+    tmux send-keys -t $SESSIONNAME:0.1 'git log --graph --decorate --all' Enter
     tmux send-keys -t $SESSIONNAME:0.2 'cd ~/.dotconfigfiles' Enter
 
     tmux new-window -t $SESSIONNAME
@@ -18,16 +18,16 @@ create_mochi(){
     tmux send-keys -t $SESSIONNAME:1.0 'gotop' Enter
 
     tmux new-window -t $SESSIONNAME
-    tmux rename-window -t $SESSIONNAME:2 'uni'
-    tmux send-keys -t $SESSIONNAME:2.0 'uni' Enter
-    tmux send-keys -t $SESSIONNAME:2.0 'nvim' Enter
-    tmux splitw -v -p 40 -t $SESSIONNAME:2.0
-    tmux select-pane -t $SESSIONNAME:2.1
-    tmux send-keys 'uni' Enter
+    tmux rename-window -t $SESSIONNAME:2 'ncmpcpp'
+    tmux send-keys -t $SESSIONNAME:2 'ncmpcpp' Enter
 
     tmux new-window -t $SESSIONNAME
-    tmux rename-window -t $SESSIONNAME:3 'ncmpcpp'
-    tmux send-keys -t $SESSIONNAME:3 'ncmpcpp' Enter
+    tmux rename-window -t $SESSIONNAME:3 'uni'
+    tmux send-keys -t $SESSIONNAME:3.0 'uni' Enter
+    tmux send-keys -t $SESSIONNAME:3.0 'nvim' Enter
+    tmux splitw -v -p 40 -t $SESSIONNAME:3.0
+    tmux select-pane -t $SESSIONNAME:3.1
+    tmux send-keys 'uni' Enter
 
     tmux new-window -t $SESSIONNAME
 
