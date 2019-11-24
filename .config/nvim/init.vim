@@ -92,16 +92,18 @@ let mapleader =","
 
             "" Auto completion
             Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+            """ Python
+            Plug 'deoplete-plugins/deoplete-jedi'
 
             "" Codi scratchpad
             Plug 'metakirby5/codi.vim'
 
-            "Programming Languages
-            "" Python
-            Plug 'deoplete-plugins/deoplete-jedi'
-
+            "Languages
             "" Dotnet/C#
             Plug 'OmniSharp/omnisharp-vim'
+
+            "" Dockerfiles
+            Plug 'ekalinin/Dockerfile.vim'
 
         call plug#end()
 "   }}}
