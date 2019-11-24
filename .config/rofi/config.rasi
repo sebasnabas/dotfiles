@@ -7,8 +7,6 @@
  * User: me-benni
  *
  */
-
-
 * {
   black:      #000000;
   red:        #eb6e67;
@@ -32,12 +30,13 @@
 
 window {
   transparency: "real";
-  fullscreen: true;
+  /* fullscreen: true; */
+  height: 50%;
   background-color: #282c34dd;
 }
 
 mainbox {
-  padding: 30% 30%;
+  padding: 2% 2%;
 }
 
 inputbar {
