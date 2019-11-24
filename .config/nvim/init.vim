@@ -1,17 +1,13 @@
-" vim: set foldmethod=marker foldlevel=0
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " __   __   ___   __  __             ___     ___    _  _      ___    ___     ___  "
 " \ \ / /  |_ _| |  \/  |    o O O  / __|   / _ \  | \| |    | __|  |_ _|   / __| "
 "  \ V /    | |  | |\/| |   o      | (__   | (_) | | .` |    | _|    | |   | (_ | "
 "  _\_/_   |___| |_|__|_|  TS__[O]  \___|   \___/  |_|\_|   _|_|_   |___|   \___| "
 "_|""""|_|"""""|_|"""""| {======|_|"""""|_|"""""|_|"""""|_|""""|_|"""""|_|"""""|  "
 "`-0-0-'"`-0-0-'"`-0-0-'./o--000'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let mapleader =","
 
-"""""""""""""""""""""""""
-"""""' PLUGINS BEGIN '{{{
+"""' Plugins '"""{{{
     """' Plugins listing '"""{{{
         call plug#begin('~/.local/share/nvim/plugged')
 
@@ -331,9 +327,7 @@ let mapleader =","
     "}}}
 "}}}
 
-"""""""""""""""""""""""
-"""' Configuration '{{{
-"""""""""""""""""""""""
+"""' Configuration '"""{{{
     set nocompatible
     filetype plugin indent on
     syntax on
@@ -382,6 +376,8 @@ let mapleader =","
     set foldnestmax=10
     set nofoldenable
     set foldlevel=2
+    autocmd FileType python setlocal foldmethod=indent
+    autocmd FileType vim setlocal foldmethod=marker
 
     "" Always display the status line
     set laststatus=2
@@ -421,10 +417,7 @@ let mapleader =","
 
 "}}}
 
-
-""""""""""""""""""
-"""' Mappings '{{{
-""""""""""""""""""
+"""' Mappings '"""{{{
     "" Shortcutting split navigation
     map <C-h> <C-w>h
     map <C-j> <C-w>j
@@ -499,10 +492,7 @@ let mapleader =","
 
 "}}}
 
-""""""""""""""""""""""""""""""""""""
-"""' Language specific settings '"""
-""""""""""""""""""""""""""""""""""""
-"{{{
+"""' Language specific settings '"""{{{
     """' Python '"""{{{
     " highlighting
         let python_highlight_all=1
@@ -531,9 +521,7 @@ let mapleader =","
     "}}}
 "}}}
 
-"""""""""""""""""""""""""""
-"""' Theme and Styling '{{{
-"""""""""""""""""""""""""""
+"""' Theme and Styling '"""{{{
     colorscheme onehalfdark
     set background=dark
     if exists('+termguicolors')
