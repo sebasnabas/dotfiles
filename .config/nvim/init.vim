@@ -426,10 +426,10 @@ let mapleader =","
             map <leader>z :Goyo <CR>
         "}}}
         ""' Mundo:"{{{
-            nnoremap <leader>u :MundoToggle<CR>
+            nnoremap <C-u> :MundoToggle<CR>
         "}}}
         ""' Tagbar '"""{{{
-            nnoremap <leader>t :TagbarToggle<CR>
+            nnoremap <C-t> :TagbarToggle<CR>
         "}}}
         ""' Fzf '"""{{{
             " current file directory
