@@ -66,9 +66,6 @@ exec --no-startup-id compton -b --config $HOME/.config/compton/compton.conf
 # Redshift for warmer light in the evening
 exec --no-startup-id redshift
 
-# Set background
-bindsym $mod+Shift+Ctrl+s exec --no-startup-id setbg
-
 # #---Basic Bindings---# #
 bindsym $mod+Return 		exec echo "launch tm-sessions" | kitty --session -
 bindsym $mod+Shift+Return	exec --no-startup-id $i3cmds/samedir
