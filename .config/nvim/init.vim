@@ -425,6 +425,10 @@ let mapleader =","
     " Easily edit vimrc
     nnoremap <leader>ev :e $MYVIMRC <CR>
 
+    " Easy reload
+    nnoremap <leader>so :so
+    nnoremap <leader>sov :so $MYVIMRC<CR>
+
     " Folds
     nnoremap <silent> <leader>zj :call NextClosedFold('j')<cr>
     nnoremap <silent> <leader>zk :call NextClosedFold('k')<cr>
@@ -478,10 +482,16 @@ let mapleader =","
             map <leader>vt :call VimuxRunCommand("test .") <CR>
         "}}}
         ""' Fugitive '"""{{{
-            map <leader>gd :Gdiff<CR>
-            map <leader>gD <C-w>h <C-W>c
-            map <leader>gco :Gcommit<CR>
-            map <leader>gs :Gstatus<CR>
+            nnoremap <leader>gd :Gdiff<CR>
+            nnoremap <leader>gD <C-w>h <C-W>c
+            nnoremap <leader>gc :Gcommit<CR>
+            nnoremap <leader>gca :Gcommit --amend<CR>
+            nnoremap <leader>gs :Gstatus<CR>
+            nnoremap <leader>gw :Gwrite<CR>
+            nnoremap <leader>gp :Gpush<CR>
+            nnoremap <leader>gco :Git checkout
+            nnoremap <leader>gcb :Git checkout -b
+
         "}}}
         ""' Neosnippet '"""{{{
             "' Note: It must be "imap" and "smap".  It uses <Plug> mappings.
