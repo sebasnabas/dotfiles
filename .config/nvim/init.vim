@@ -70,6 +70,7 @@ let mapleader =","
 
             "" Git Support
             Plug 'tpope/vim-fugitive'
+            Plug 'airblade/vim-gitgutter'
 
             "" Show tags/structure in separate window
             Plug 'majutsushi/tagbar'
@@ -263,6 +264,7 @@ let mapleader =","
     set wrap
     set encoding=utf8
     set fileformat=unix
+    set updatetime=99
 
     " Search down into subfolders
     " Provides tab-completion for all file-related tasks
@@ -305,6 +307,7 @@ let mapleader =","
     set foldnestmax=10
     set nofoldenable
     set foldlevel=2
+    set foldtext=gitgutter#fold#foldtext()
     autocmd FileType python setlocal foldmethod=indent
     autocmd FileType vim setlocal foldmethod=marker
 
