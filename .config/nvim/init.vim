@@ -32,6 +32,9 @@ let mapleader =","
             "" Repetition of plugin commands
             Plug 'tpope/vim-repeat'
 
+            "" Moving from previous to next
+            Plug 'tpope/vim-unimpaired'
+
             "" Auto pairs
             Plug 'tmsvg/pear-tree'
 
@@ -359,12 +362,6 @@ let mapleader =","
     map <C-k> <C-w>k
     map <C-l> <C-w>l
 
-    "" Spell-check set to <leader>o,'o' for orthography
-    map <leader>o :setlocal spell! spelllang=en_us<CR>
-
-    "" Grammar-check set to <leader>g, 'g' for grammar
-    map <leader>g :LanguageToolCheck <CR>
-
     "" Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
     vnoremap <C-c> "+y
     inoremap <C-v> <Esc>"+p
@@ -447,6 +444,14 @@ let mapleader =","
     endfunction
 
     """' Plugin Mappings '"""{{{
+        ""' Unimpaired: '""{{{
+            nmap < [
+            nmap > ]
+            omap < [
+            omap > ]
+            xmap < [
+            xmap > ]
+        "}}}
         ""' Nerdtree: '"""{{{
             map <C-n> :NERDTreeToggle <CR>
         "}}}
