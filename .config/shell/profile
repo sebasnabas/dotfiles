@@ -1,7 +1,7 @@
-export PATH="/home/sebastian/.local/bin":$PATH
-export PATH="/home/sebastian/.scripts/tools":$PATH
-export PATH="/home/sebastian/.scripts/i3cmds":$PATH
-export PATH="/home/sebastian/.scripts/tmux":$PATH
+export PATH="$HOME/.local/bin":$PATH
+export PATH="$HOME/.scripts/tools":$PATH
+export PATH="$HOME/.scripts/i3cmds":$PATH
+export PATH="$HOME/.scripts/tmux":$PATH
 
 export BROWSER="firefox"
 
