@@ -262,6 +262,7 @@ let mapleader =","
 
         """' Deoplete Jedi '"""{{{
             let g:jedi#auto_close_doc = 1  " close preview window after completion
+            autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
         "}}}
     "}}}
 "}}}
