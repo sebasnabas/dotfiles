@@ -1,18 +1,14 @@
 alias sudo="sudoer_lecture.py && sudo"
+
 alias vim="nvim"
+alias tmux="tmux -2"
 
 alias vimconfig="nvim $MYVIMRC"
 alias i3config="nvim ~/.config/i3/config"
 alias zshconfig="nvim ~/.config/shell/zsh/.zshrc"
 
-alias upgrade="sudo pacman -Syu"
-
 ## directories
 alias uni="pushd $(getcurrentunipath)"
 alias c="pushd ~/Documents/code"
 
-## cool kitty stuff
-alias d="kitty +kitten diff"
-
-alias tmux="tmux -2"
 
