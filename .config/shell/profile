@@ -21,7 +21,7 @@ export MYVIMRC="$HOME/.config/nvim/init.vim"
 export ZDOTDIR="$HOME/.config/shell/zsh/"
 export HISTFILE="$HOME/.cache/zsh/zsh_history"
 
-if [ -n "$(uname -v | grep 'Arch')" ]; then
+if [ -n "$(uname -r | grep 'arch')" ]; then
     exec startx
 fi
 
