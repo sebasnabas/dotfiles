@@ -56,6 +56,9 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+bindkey '^n' end-of-line
+bindkey '^p' beginning-of-line
+
  if [[ -n $SSH_CONNECTION ]]; then
    export EDITOR='vim'
  else
