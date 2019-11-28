@@ -1,1 +1,1 @@
-/home/sebastian/.config/shell/zsh/my_custom_zeta.zsh-theme
+my_custom_zeta.zsh-theme
