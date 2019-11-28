@@ -452,12 +452,12 @@ let mapleader =","
 
     """' Plugin Mappings '"""{{{
         ""' Unimpaired: '""{{{
-            nmap < [
-            nmap > ]
-            omap < [
-            omap > ]
-            xmap < [
-            xmap > ]
+            nmap <M-k<M-j> [
+            nmap <M-j> ]
+            omap <M-k<M-j> [
+            omap <M-j> ]
+            xmap <M-k<M-j> [
+            xmap <M-j> ]
         "}}}
         ""' Nerdtree: '"""{{{
             map <C-n> :NERDTreeToggle <CR>
