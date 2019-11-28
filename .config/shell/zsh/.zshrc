@@ -112,5 +112,10 @@ codi() {
     vim -c "Codi $syntax" "$filename"
 }
 
+# mkdir and change to it
+mdc()  {
+    mkdir -p $1 && cd $_
+}
+
 source $ZDOTDIR/theme.zsh-theme
 
