@@ -104,8 +104,11 @@ let mapleader =","
             "" Dotnet/C#
             Plug 'OmniSharp/omnisharp-vim'
 
-            "" Dockerfiles
+            "" Docker
             Plug 'ekalinin/Dockerfile.vim'
+
+            "" Go
+            Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
         call plug#end()
 "   }}}
