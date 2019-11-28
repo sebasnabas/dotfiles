@@ -49,6 +49,7 @@ let mapleader =","
 
             "" Tags
             Plug 'majutsushi/tagbar'
+            Plug 'ludovicchabant/vim-gutentags'
 
             "" Fuzzy file finder
             Plug '~/.fzf'
@@ -74,9 +75,6 @@ let mapleader =","
             "" Git Support
             Plug 'tpope/vim-fugitive'
             Plug 'airblade/vim-gitgutter'
-
-            "" Show tags/structure in separate window
-            Plug 'majutsushi/tagbar'
 
             "" Snippets
             " Track the engine.
@@ -157,6 +155,11 @@ let mapleader =","
 
         """' vim-mundo '"""{{{
             let g:mundo_right = 1
+        "}}}
+
+        ""' Gutetags '""{{{
+            let g:gutentags_cache_dir='~/.cache/nvim/tags'
+            let g:gutentags_generate_on_write=1
         "}}}
 
         """' Fzf '"""{{{
@@ -273,10 +276,13 @@ let mapleader =","
     " Provides tab-completion for all file-related tasks
     set path+=**
 
+    " Tags
+    set tags='~/.cache/nvim/tags'
+
     " Display all matching files when we tab complete
     set wildmenu
 
-"" Enable autocompletion:
+    " Enable autocompletion:
     set wildmode=longest,list,full
 
     " Detect if a file is changed
@@ -395,9 +401,6 @@ let mapleader =","
 
     "" Jump to <++>
     map <leader>n <Esc>/<++><CR>c4l<Esc>:nohlsearch<CR><Esc>a
-
-    "" nohlsearch
-    map <leader>s :nohlsearch <CR>
 
     "" Help for word under cursor
     noremap <leader>h :execute "tab h " . expand("<cword>")<CR>
