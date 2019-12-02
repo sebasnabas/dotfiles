@@ -56,6 +56,9 @@ let mapleader = ","
             Plug '~/.fzf'
             Plug 'junegunn/fzf.vim'
 
+            "" Multiline-Singleline
+            Plug 'andrewradev/splitjoin.vim'
+
             "" Tmux
             """ Tmux navigation
             Plug 'christoomey/vim-tmux-navigator'
@@ -80,6 +83,9 @@ let mapleader = ","
             "" Highlighting yank
             Plug 'machakann/vim-highlightedyank'
 
+            "" Show hex colors
+            Plug 'chrisbra/Colorizer'
+
             "" Snippets
             " Track the engine.
             Plug 'Shougo/neosnippet.vim'
@@ -96,13 +102,15 @@ let mapleader = ","
             "" Vim Wiki
             Plug 'vimwiki/vimwiki'
 
+            "" Codi scratchpad
+            Plug 'metakirby5/codi.vim'
+
             "" Auto completion
             Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
             """ Python
             Plug 'deoplete-plugins/deoplete-jedi'
-
-            "" Codi scratchpad
-            Plug 'metakirby5/codi.vim'
+            """ Go
+            Plug 'zchee/deoplete-go', { 'do': 'make'}
 
             "Languages
             "" Dotnet/C#
@@ -120,7 +128,6 @@ let mapleader = ","
     """' Plugin configuration'"""{{{
         """' NERDTree '""" {{{
             autocmd StdinReadPre * let s:std_in=1
-            " autocmd VimEnter * NERDTree | wincmd p
 
             " display directory name in nerdtree statusline
             let NERDTreeStatusline="%{exists('b:NERDTree')?fnamemodify(b:NERDTree.root.path.str(), ':~'):''}"
@@ -157,14 +164,13 @@ let mapleader = ","
 
         """' Goyo '""" {{{
             let g:goyo_linenr=1
-
         "}}}
 
         """' vim-mundo '"""{{{
             let g:mundo_right = 1
         "}}}
 
-        ""' Gutetags '""{{{
+        ""' Gutentags '""{{{
             let g:gutentags_cache_dir='~/.cache/nvim/tags'
             let g:gutentags_generate_on_write=1
         "}}}
@@ -233,6 +239,7 @@ let mapleader = ","
             let g:airline_powerline_fonts = 1
             let g:airline#extensions#branch#enabled = 1
             let g:airline#extensions#branch#empty_message = ''
+            let g:airline#extensions#tabline#buffer_nr_show = 1
         "}}}
 
         """' devicons '"""{{{
@@ -252,16 +259,16 @@ let mapleader = ","
             let g:WebDevIconsUnicodeDecorateFolderNodes = 1
         "}}}
 
-        """' Deoplete '"""{{{
-            let g:deoplete#enable_at_startup = 1
-        "}}}
-
         """' NeoSnippet '"""{{{
             " Enable snipMate compatibility feature.
             let g:neosnippet#enable_snipmate_compatibility = 1
 
             " Tell Neosnippet about the other snippets
             let g:neosnippet#snippets_directory=$HOME.'/.local/share/nvim/plugged/vim-snippets/snippets'
+        "}}}
+
+        """' Deoplete '"""{{{
+            let g:deoplete#enable_at_startup = 1
         "}}}
 
         """' Deoplete Jedi '"""{{{
@@ -272,13 +279,15 @@ let mapleader = ","
 "}}}
 
 """' Configuration '"""{{{
-    set nocompatible
     filetype plugin indent on
     syntax on
     set wrap
     set encoding=utf8
     set fileformat=unix
     set updatetime=99
+
+    " Keep the cursor on the same column
+    set nostartofline
 
     " Search down into subfolders
     " Provides tab-completion for all file-related tasks
