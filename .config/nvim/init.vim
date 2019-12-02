@@ -5,7 +5,7 @@
 "_|""""|_|"""""|_|"""""| {======|_|"""""|_|"""""|_|"""""|_|""""|_|"""""|_|"""""|  "
 "`-0-0-'"`-0-0-'"`-0-0-'./o--000'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' "
 
-let mapleader =","
+let mapleader = ","
 
 """' Plugins '"""{{{
     """' Plugins listing '"""{{{
@@ -75,6 +75,9 @@ let mapleader =","
             "" Git Support
             Plug 'tpope/vim-fugitive'
             Plug 'airblade/vim-gitgutter'
+
+            "" Highlighting yank
+            Plug 'machakann/vim-highlightedyank'
 
             "" Snippets
             " Track the engine.
@@ -336,6 +339,9 @@ let mapleader =","
     set hlsearch " highlight search results
     set incsearch " set incremental search, like modern browsers
     set nolazyredraw " don't redraw while executing macros
+
+    "" Show live substitution feedback in current buffer
+    set inccommand=nosplit
 
     set magic " Set magic on, for regex
 
