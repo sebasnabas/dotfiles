@@ -101,6 +101,7 @@ let mapleader = ","
             Plug 'ryanoasis/vim-devicons'
             Plug 'vim-airline/vim-airline'
             Plug 'vim-airline/vim-airline-themes'
+            Plug 'bling/vim-bufferline'
 
             "" Vim Wiki
             Plug 'vimwiki/vimwiki'
@@ -110,10 +111,6 @@ let mapleader = ","
 
             "" Auto completion
             Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-            """ Python
-            Plug 'deoplete-plugins/deoplete-jedi'
-            """ Go
-            Plug 'zchee/deoplete-go', { 'do': 'make'}
 
             "Languages
             "" Dotnet/C#
@@ -123,7 +120,12 @@ let mapleader = ","
             Plug 'ekalinin/Dockerfile.vim'
 
             "" Go
+            Plug 'zchee/deoplete-go', { 'do': 'make'}
             Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+            "" Python
+            Plug 'deoplete-plugins/deoplete-jedi'
+            Plug 'jmcantrell/vim-virtualenv'
 
         call plug#end()
 "   }}}
@@ -240,9 +242,14 @@ let mapleader = ","
         """' Vim-Airline '"""{{{
             let g:airline#extensions#tabline#enabled = 1
             let g:airline_powerline_fonts = 1
-            let g:airline#extensions#branch#enabled = 1
-            let g:airline#extensions#branch#empty_message = ''
-            let g:airline#extensions#tabline#buffer_nr_show = 1
+        "}}}
+
+        """' Bufferline '"""{{{
+            let g:bufferline_echo = 0
+            let g:bufferline_active_buffer_left = '['
+            let g:bufferline_active_buffer_right = ']'
+            let g:bufferline_modified = '+'
+            let g:bufferline_fname_mod = ':p:.'
         "}}}
 
         """' devicons '"""{{{
@@ -277,6 +284,10 @@ let mapleader = ","
         """' Deoplete Jedi '"""{{{
             let g:jedi#auto_close_doc = 1  " close preview window after completion
             autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+        "}}}
+
+        """' Virtualenv '"""{{{
+            let g:virtualenv_stl_format = '(%n)'
         "}}}
     "}}}
 "}}}
