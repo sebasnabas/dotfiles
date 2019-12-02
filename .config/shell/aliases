@@ -9,6 +9,6 @@ alias zshconfig="nvim ~/.config/shell/zsh/.zshrc"
 
 ## directories
 alias uni="pushd $(getcurrentunipath)"
-alias c="pushd ~/Documents/code"
+alias p="pushd ~/Projects/"
 
 
