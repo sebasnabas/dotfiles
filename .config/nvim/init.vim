@@ -398,21 +398,22 @@ let mapleader = ","
     nnoremap Y y$
 
     "" Shortcutting split navigation
-    map <C-h> <C-w>h
-    map <C-j> <C-w>j
-    map <C-k> <C-w>k
-    map <C-l> <C-w>l
+    let g:tmux_navigator_no_mappings = 1
+    nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
+    nnoremap <silent> <C-j> :TmuxNavigateDown<CR>
+    nnoremap <silent> <C-k> :TmuxNavigateUp<CR>
+    nnoremap <silent> <C-l> :TmuxNavigateRight<CR>
+    nnoremap <silent> <C-\> :TmuxNavigatePrevious<CR>
+
+    "" Create splits
+    map <C-s> :vsplit<CR>
+    map <C-i> :isplit<CR>
 
     "" Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
     vnoremap <C-c> "+y
     inoremap <C-v> <Esc>"+p
 
     "" hardmode - no arrows
-    cnoremap <Down> <Nop>
-    cnoremap <Left> <Nop>
-    cnoremap <Right> <Nop>
-    cnoremap <Up> <Nop>
-
     inoremap <Down> <Nop>
     inoremap <Left> <Nop>
     inoremap <Right> <Nop>
@@ -483,12 +484,12 @@ let mapleader = ","
 
     """' Plugin Mappings '"""{{{
         ""' Unimpaired: '""{{{
-            nmap <M-k> [
-            nmap <M-j> ]
-            omap <M-k> [
-            omap <M-j> ]
-            xmap <M-k> [
-            xmap <M-j> ]
+            nmap <M-k> ]
+            nmap <M-j> [
+            omap <M-k> ]
+            omap <M-j> [
+            xmap <M-k> ]
+            xmap <M-j> [
         "}}}
         ""' Nerdtree: '"""{{{
             map <C-n> :NERDTreeToggle <CR>
@@ -521,8 +522,14 @@ let mapleader = ","
             nnoremap <leader>fc :Commits<cr>
         "}}}
         ""' Vimux '""{{{
-            map <leader>vr :call VimuxRunCommand("run " . bufname("%")) <CR>
-            map <leader>vt :call VimuxRunCommand("test .") <CR>
+            map <leader>vr :call VimuxRunCommand("clear; run " . expand("%:p")) <CR>
+            map <leader>vt :call VimuxRunCommand("clear; unittest " . &filetype) <CR>
+            map <Leader>vp :VimuxPromptCommand<CR>
+            map <Leader>vl :VimuxRunLastCommand<CR>
+            map <Leader>vi :VimuxInspectRunner<CR>
+            map <Leader>vq :VimuxCloseRunner<CR>
+            map <Leader>vx :VimuxInterruptRunner<CR>
+            map <Leader>vz :call VimuxZoomRunner()<CR>
         "}}}
         ""' Fugitive '"""{{{
             nnoremap <leader>gc :Gcommit<CR>
