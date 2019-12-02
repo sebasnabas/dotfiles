@@ -86,6 +86,9 @@ let mapleader = ","
             "" Show hex colors
             Plug 'chrisbra/Colorizer'
 
+            ""Show markers
+            Plug 'kshenoy/vim-signature'
+
             "" Snippets
             " Track the engine.
             Plug 'Shougo/neosnippet.vim'
