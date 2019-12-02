@@ -308,7 +308,8 @@ let mapleader = ","
     " make backspace behave in a sane manner
     set backspace=indent,eol,start
 
-    set formatoptions=jtcrql
+
+    au BufEnter * set fo-=l fo-=o
 
     " Display different types of white spaces.
     set list listchars=tab:›\·,space:·,eol:¬,extends:›,precedes:‹
@@ -468,11 +469,11 @@ let mapleader = ","
 
     """' Plugin Mappings '"""{{{
         ""' Unimpaired: '""{{{
-            nmap <M-k<M-j> [
+            nmap <M-k> [
             nmap <M-j> ]
-            omap <M-k<M-j> [
+            omap <M-k> [
             omap <M-j> ]
-            xmap <M-k<M-j> [
+            xmap <M-k> [
             xmap <M-j> ]
         "}}}
         ""' Nerdtree: '"""{{{
