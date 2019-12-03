@@ -413,8 +413,8 @@ let mapleader = ","
     nnoremap <silent> <C-\> :TmuxNavigatePrevious<CR>
 
     "" Create splits
-    map <C-s> :vsplit<CR>
-    map <C-i> :isplit<CR>
+    nnoremap <leader>sv :vsplit<CR>:enew<CR>
+    nnoremap <leader>sh :split<CR>:enew<CR>
 
     "" Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
     vnoremap <C-c> "+y
@@ -513,20 +513,22 @@ let mapleader = ","
         "}}}
         ""' Fzf '"""{{{
             " current file directory
-            nnoremap <leader>- :FZF <c-r>=fnameescape(expand('%:p:h'))<cr>/<cr>
+            nnoremap <leader>- :FZF <c-r>=fnameescape(expand('%:p:h'))<CR>/<CR>
             " current working directory
-            nnoremap <leader>fb :Buffers<cr>
-            nnoremap <leader>ff :Files ~<cr>
-            nnoremap <leader>fl :Lines<cr>
-            nnoremap <leader>fbl :BLines<cr>
-            nnoremap <leader>ft :Tags<cr>
-            nnoremap <leader>fr :History<cr>
-            nnoremap <leader>fh :Helptags<cr>
-            nnoremap <leader>f: :History:<cr>
-            nnoremap <leader>f/ :History/<cr>
-            nnoremap <leader>fg :GFiles<cr>
-            nnoremap <leader>fs :GFiles?<cr>
-            nnoremap <leader>fc :Commits<cr>
+            nnoremap <leader>fb :Buffers<CR>
+            nnoremap <leader>ff :Files<CR>
+            nnoremap <leader>fl :Lines<CR>
+            nnoremap <leader>fbl :BLines<CR>
+            nnoremap <leader>ft :Tags<CR>
+            nnoremap <leader>fr :History<CR>
+            nnoremap <leader>fh :Helptags<CR>
+            nnoremap <leader>f: :History:<CR>
+            nnoremap <leader>f/ :History/<CR>
+            nnoremap <leader>fg :GFiles<CR>
+            nnoremap <leader>fs :GFiles?<CR>
+            nnoremap <leader>fc :Commits<CR>
+            nnoremap <leader>fm :Marks<CR>
+            nnoremap <leader>fp :Maps<CR>
         "}}}
         ""' Vimux '""{{{
             map <leader>vr :call VimuxRunCommand("clear; run " . expand("%:p")) <CR>
