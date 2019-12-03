@@ -121,7 +121,7 @@ let mapleader = ","
 
             "" Go
             Plug 'zchee/deoplete-go', { 'do': 'make'}
-            Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+            Plug 'stamblerre/gocode', {'rtp': 'nvim/'}
 
             "" Python
             Plug 'deoplete-plugins/deoplete-jedi'
@@ -280,6 +280,13 @@ let mapleader = ","
         """' Deoplete '"""{{{
             let g:deoplete#enable_at_startup = 1
         "}}}
+
+        """' Vim-Go '"""{{{
+            " let g:go_gopls_enabled = 1
+            " let g:go_info_mode = 'gocode'
+            " let g:go_fmt_command = 'goimports'
+            " let g:go_snippet_engine = 'neosnippet'
+        " }}}
 
         """' Deoplete Jedi '"""{{{
             let g:jedi#auto_close_doc = 1  " close preview window after completion
