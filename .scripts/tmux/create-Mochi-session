@@ -9,7 +9,7 @@ create_mochi(){
     tmux send-keys -t $SESSIONNAME 'nvim nvim/init.vim' Enter
     tmux splitw -v -p 30 -t $SESSIONNAME:0.0
     tmux splitw -h -t $SESSIONNAME:0.1
-    tmux send-keys -t $SESSIONNAME:0.1 'cd ~/.dotconfigfiles' Enter
+    tmux send-keys -t $SESSIONNAME:0.1 'cd ~/.dotfiles' Enter
     tmux send-keys -t $SESSIONNAME:0.1 'git log --graph --decorate --all --stat' Enter
     tmux send-keys -t $SESSIONNAME:0.2 'cd ~/.dotconfigfiles' Enter
 
@@ -30,6 +30,9 @@ create_mochi(){
     tmux send-keys 'uni' Enter
 
     tmux new-window -t $SESSIONNAME
+    tmux rename-window -t $SESSIONNAME:4 'projects'
+    tmux send-keys -t $SESSIONNAME:4.0 "cd ~/Projects" Enter
+    tmux send-keys -t $SESSIONNAME:4.0 "ranger" Enter
 
 }
 
