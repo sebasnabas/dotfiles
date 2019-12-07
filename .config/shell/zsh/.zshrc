@@ -99,22 +99,6 @@ fi
 ${python} -m pip freeze 2>&1 | grep thefuck > /dev/null || (${python} -m pip install --user thefuck > /dev/null 2>&1 && echo "Installed thefuck.")
 eval $(thefuck --alias)
 
-# Codi
-# Usage: codi [filetype] [filename]
-codi() {
-    local syntax="${1:-python}"
-    local filename="";
-
-    if [ $# -ge 1 ]; then
-        shift
-        filename="$1"
-    fi
-    if [ -z "$filename" ]; then
-        filename="/tmp/$RANDOM.py"
-    fi
-    vim -c "Codi $syntax" "$filename"
-}
-
 # mkdir and change to it
 mdc()  {
     mkdir -p $1 && cd $_

@@ -277,6 +277,10 @@ let mapleader = ","
             let g:neosnippet#snippets_directory=$HOME.'/.local/share/nvim/plugged/vim-snippets/snippets'
         "}}}
 
+        """' Codi '"""{{{
+            let g:codi#width = 20
+        " }}}
+
         """' Deoplete '"""{{{
             let g:deoplete#enable_at_startup = 1
         "}}}
