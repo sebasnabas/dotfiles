@@ -290,6 +290,16 @@ let mapleader = ","
             " let g:go_info_mode = 'gocode'
             " let g:go_fmt_command = 'goimports'
             " let g:go_snippet_engine = 'neosnippet'
+            " let g:go_disable_autoinstall = 0
+            " let g:go_fmt_fai_silently = 0
+            " let g:go_doc_keywordprg_enabled = 0
+
+            " " Enable syntax highting on everything
+            " let g:go_highlight_functions = 1
+            " let g:go_highlight_methods = 1
+            " let g:go_highlight_structs = 1
+            " let g:go_highlight_operators = 1
+            " let g:go_highlight_build_constraints = 1
         " }}}
 
         """' Deoplete Jedi '"""{{{
