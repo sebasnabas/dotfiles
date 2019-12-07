@@ -152,6 +152,13 @@ bindsym $mod+Shift+n		floating toggle; sticky toggle; exec --no-startup-id hover
 
 bindsym $mod+f          exec --no-startup-id $i3cmds/ducksearch
 
+bindsym $mod+c          exec --no-startup-id $TERMINAL --class codi_scratchpad codi
+
+for_window [instance="^codi_scratchpad$"] \
+    floating enable, border none, \
+    resize set 1000 700, move position 400 100, \
+    move scratchpad, scratchpad show
+
 # #---Workspace Bindings---# #
 bindsym $mod+Home		workspace $ws1
 bindsym $mod+Shift+Home		move container to workspace $ws1
