@@ -8,6 +8,10 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 for monitor in $(polybar --list-monitors | cut -d ":" -f1); do
     MONITOR=$monitor polybar --reload top -c ~/.config/polybar/config-top.ini &
-    MONITOR=$monitor polybar --reload bottom -c ~/.config/polybar/config-bottom.ini &
+    if [ $(uname -r | grep 'arch')] ; then
+        MONITOR=$monitor polybar --reload bottom -c ~/.config/polybar/config-bottom.ini &
+    else
+        MONITOR=$monitor polybar --reload bottom -c ~/.config/polybar/config-bottom-work.ini &
+    fi
 done
 
