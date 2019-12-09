@@ -23,7 +23,6 @@ client.urgent               $red       $red              $white     $blue
 for_window [class="^.*"] border pixel 2
 gaps inner 15
 gaps outer 15
-set $term --no-startup-id $TERMINAL
 
 set $mod Mod4
 
@@ -66,8 +65,12 @@ exec --no-startup-id compton -b --config $HOME/.config/compton/compton.conf
 # Redshift for warmer light in the evening
 exec --no-startup-id redshift
 
+exec --no-startup-id i3-msg 'workspace 1; exec $TERMINAL tm-sessions'
+exec --no-startup-id i3-msg 'workspace 2; exec $BROWSER'
+exec --no-startup-id i3-msg 'workspace 10; exec $MAIL_CLIENT'
+
 # #---Basic Bindings---# #
-bindsym $mod+Return 		exec echo "launch tm-sessions" | kitty --session -
+bindsym $mod+Return 		exec --no-startup-id $TERMINAL tm-sessions
 bindsym $mod+Shift+Return	exec --no-startup-id $i3cmds/samedir
 
 bindsym $mod+Shift+space 	floating toggle
@@ -78,7 +81,7 @@ bindsym $mod+Escape		workspace prev
 bindsym $mod+BackSpace exec --no-startup-id i3-msg restart
 
 #STOP/HIDE EVERYTHING:
-bindsym $mod+Shift+Delete	exec --no-startup-id lmc truemute ; exec --no-startup-id lmc pause ; exec --no-startup-id pauseallmpv; workspace 0; exec $term -e htop ; exec $term -e $FILE
+bindsym $mod+Shift+Delete	exec --no-startup-id lmc truemute ; exec --no-startup-id lmc pause ; exec --no-startup-id pauseallmpv; workspace 0; exec --no-startup-id $TERMINAL -e htop ; exec --no-startup-id $TERMINAL -e $FILE
 
 # Show selection:
 bindsym $mod+Insert		exec --no-startup-id showclip
@@ -93,7 +96,7 @@ bindsym $mod+m		    exec --no-startup-id $MAIL_CLIENT
 
 bindsym $mod+Shift+m    exec --no-startup-id $tools/messaging-launcher
 
-bindsym $mod+e 			exec $term -e $FILE
+bindsym $mod+e 			exec --no-startup-id $TERMINAL -e $FILE
 
 bindsym $mod+r		exec --no-startup-id $i3cmds/winresize
 
@@ -117,7 +120,7 @@ bindsym $mod+Shift+k		move up 30
 bindsym $mod+l			focus right
 bindsym $mod+Shift+l		move right 30
 
-bindsym $mod+g 			exec $term -e gotop
+bindsym $mod+g 			exec --no-startup-id $TERMINAL -e gotop
 
 bindsym $mod+o			sticky toggle
 
@@ -139,7 +142,7 @@ mode "$freeze" { bindsym $mod+Ctrl+Shift+f mode "default"
 bindsym $mod+Shift+f			fullscreen toggle
 bindsym $mod+Ctrl+Shift+f		mode "$freeze" ;; exec --no-startup-id notify-send "Distraction-free mode activated." "Press Super+Ctrl+Shift+f to return."
 
-bindsym $mod+v			exec --no-startup-id $term -e $EDITOR -c "VimwikiIndex"
+bindsym $mod+v			exec --no-startup-id --no-startup-id $TERMINAL -e $EDITOR -c "VimwikiIndex"
 
 bindsym $mod+b			bar mode toggle
 bindsym $mod+Shift+b		floating toggle; sticky toggle; exec --no-startup-id hover left
@@ -148,6 +151,13 @@ bindsym $mod+n			exec --no-startup-id networkmanager_dmenu
 bindsym $mod+Shift+n		floating toggle; sticky toggle; exec --no-startup-id hover right
 
 bindsym $mod+f          exec --no-startup-id $i3cmds/ducksearch
+
+bindsym $mod+c          exec --no-startup-id $TERMINAL --class codi_scratchpad codi
+
+for_window [instance="^codi_scratchpad$"] \
+    floating enable, border none, \
+    resize set 1000 700, move position 400 100, \
+    move scratchpad, scratchpad show
 
 # #---Workspace Bindings---# #
 bindsym $mod+Home		workspace $ws1
@@ -163,9 +173,9 @@ bindsym $mod+XF86Back		workspace prev
 bindsym $mod+Shift+XF86Back	move container to workspace prev
 bindsym $mod+XF86Forward	workspace next
 bindsym $mod+Shift+XF86Forward	move container to workspace next
-bindsym $mod+semicolon	split vertical ;; exec $term
-bindsym $mod+apostrophe		split horizontal ;; exec $term
-bindsym $mod+comma		split vertical ;; exec $term
+bindsym $mod+semicolon	split vertical ;; exec --no-startup-id $TERMINAL
+bindsym $mod+apostrophe		split horizontal ;; exec --no-startup-id $TERMINAL
+bindsym $mod+comma		split vertical ;; exec --no-startup-id $TERMINAL
 bindsym $mod+Shift+slash	kill
 bindsym $mod+backslash		workspace back_and_forth
 

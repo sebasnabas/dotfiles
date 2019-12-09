@@ -11,4 +11,5 @@ alias zshconfig="nvim ~/.config/shell/zsh/.zshrc"
 alias uni="pushd $(getcurrentunipath)"
 alias p="pushd ~/Projects/"
 
+alias l="ls -lAht"
 

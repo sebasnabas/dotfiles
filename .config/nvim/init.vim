@@ -277,6 +277,10 @@ let mapleader = ","
             let g:neosnippet#snippets_directory=$HOME.'/.local/share/nvim/plugged/vim-snippets/snippets'
         "}}}
 
+        """' Codi '"""{{{
+            let g:codi#width = 20
+        " }}}
+
         """' Deoplete '"""{{{
             let g:deoplete#enable_at_startup = 1
         "}}}
@@ -286,6 +290,16 @@ let mapleader = ","
             " let g:go_info_mode = 'gocode'
             " let g:go_fmt_command = 'goimports'
             " let g:go_snippet_engine = 'neosnippet'
+            " let g:go_disable_autoinstall = 0
+            " let g:go_fmt_fai_silently = 0
+            " let g:go_doc_keywordprg_enabled = 0
+
+            " " Enable syntax highting on everything
+            " let g:go_highlight_functions = 1
+            " let g:go_highlight_methods = 1
+            " let g:go_highlight_structs = 1
+            " let g:go_highlight_operators = 1
+            " let g:go_highlight_build_constraints = 1
         " }}}
 
         """' Deoplete Jedi '"""{{{
@@ -316,6 +330,9 @@ let mapleader = ","
 
     " Tags
     set tags='~/.cache/nvim/tags'
+
+    " Use persistent history.
+    set undofile
 
     " Display all matching files when we tab complete
     set wildmenu
@@ -415,6 +432,24 @@ let mapleader = ","
     "" Create splits
     nnoremap <leader>sv :vsplit<CR>:enew<CR>
     nnoremap <leader>sh :split<CR>:enew<CR>
+
+    "" Terminal
+    if has("nvim")
+      " Make escape work in the Neovim terminal.
+      tnoremap <Esc> <C-\><C-n>
+
+      " Make navigation into and out of Neovim terminal splits nicer.
+      tnoremap <C-h> <C-\><C-N><C-w>h
+      tnoremap <C-j> <C-\><C-N><C-w>j
+      tnoremap <C-k> <C-\><C-N><C-w>k
+      tnoremap <C-l> <C-\><C-N><C-w>l
+
+  " I like relative numbering when in normal mode.
+  autocmd TermOpen * setlocal conceallevel=0 colorcolumn=0 relativenumber
+
+  " Prefer Neovim terminal insert mode to normal mode.
+  autocmd BufEnter term://* startinsert
+endif
 
     "" Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
     vnoremap <C-c> "+y
