@@ -16,6 +16,7 @@ done
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 _comp_options+=(globdots)
+zstyle ':completion:*' special-dirs false
 
 setopt extendedglob
 
