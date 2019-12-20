@@ -230,7 +230,11 @@ let mapleader = ","
 
         """' Ale '"""{{{
             let g:airline#extensions#ale#enabled = 1
-            let g:ale_python_auto_pipenv = 1
+
+            let g:ale_linters = {
+                  \ 'python': ['flake8']
+                  \}
+            let g:ale_virtualenv_dir_names = ['.venv']
 
             function! AleCheckHook(errors)
                 if !empty(a:errors)
