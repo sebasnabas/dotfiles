@@ -286,6 +286,12 @@ let mapleader = ","
 
         """' Codi '"""{{{
             let g:codi#width = 20
+            let g:codi#interpreters = {
+                  \ 'python': {
+                      \ 'bin': 'python3',
+                      \ 'prompt': '^\(>>>\|\.\.\.\) ',
+                      \ },
+                  \ }
         " }}}
 
         """' Deoplete '"""{{{
