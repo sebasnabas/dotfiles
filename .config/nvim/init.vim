@@ -230,7 +230,11 @@ let mapleader = ","
 
         """' Ale '"""{{{
             let g:airline#extensions#ale#enabled = 1
-            let g:ale_python_auto_pipenv = 1
+
+            let g:ale_linters = {
+                  \ 'python': ['flake8']
+                  \}
+            let g:ale_virtualenv_dir_names = ['.venv']
 
             function! AleCheckHook(errors)
                 if !empty(a:errors)
@@ -242,14 +246,17 @@ let mapleader = ","
         """' Vim-Airline '"""{{{
             let g:airline#extensions#tabline#enabled = 1
             let g:airline_powerline_fonts = 1
+            let g:airline#extensions#branch#format = 2
+            let g:airline#extensions#branch#displayed_head_limit = 10
         "}}}
 
         """' Bufferline '"""{{{
             let g:bufferline_echo = 0
+            let g:bufferline_pathshorten = 1
             let g:bufferline_active_buffer_left = '['
             let g:bufferline_active_buffer_right = ']'
             let g:bufferline_modified = '+'
-            let g:bufferline_fname_mod = ':p:.'
+            let g:bufferline_fname_mod = ':t'
         "}}}
 
         """' devicons '"""{{{
@@ -279,6 +286,12 @@ let mapleader = ","
 
         """' Codi '"""{{{
             let g:codi#width = 20
+            let g:codi#interpreters = {
+                  \ 'python': {
+                      \ 'bin': 'python3',
+                      \ 'prompt': '^\(>>>\|\.\.\.\) ',
+                      \ },
+                  \ }
         " }}}
 
         """' Deoplete '"""{{{
@@ -667,8 +680,7 @@ let mapleader = ","
             " Start debugging - Split window and call ipdb with current file
             autocmd FileType python nmap <F5> <C-w>s :term ipdb3 -c continue % <CR> A
             " Remove all breakppoints when saving
-            autocmd QuitPre *.py autocmd BufWritePre * silent g/^\s*import\sipdb\;\?\n*\s*ipdb\.set_trace()/normal dd
-        augroup end
+
     "}}}
 "}}}
 

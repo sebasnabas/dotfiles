@@ -3,7 +3,7 @@
 # Copyright: Skyler Lee, 2015
 # Modified by Sebastian Eberlein, 2019
 
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#696e77"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 
 # Colors: black|red|blue|green|yellow|magenta|cyan|white
 local black=$fg[black]
