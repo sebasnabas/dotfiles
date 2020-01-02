@@ -6,6 +6,8 @@
 !.subtrees
 !.scripts
 
+__pycache__
+
 !.config
 .config/*
 !.config/astrality
