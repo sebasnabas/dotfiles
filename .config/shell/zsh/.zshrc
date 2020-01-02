@@ -15,9 +15,13 @@ done
 # Basic tab/autocomplete
 zstyle ':completion:*' menu select
 zmodload zsh/complist
-_comp_options+=(globdots)
+_comp_options+=(globdots)  # show hidden files and directories
+zstyle ':completion:*' special-dirs false  # don't show '.' and '..'
 
 setopt extendedglob
+
+# Renaming
+autoload -Uz zmv
 
 ######
 # vi mode
