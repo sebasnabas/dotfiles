@@ -1,3 +1,5 @@
+font pango:Noto Mono 11
+
 ## Colors ##
 # onedark theme
 set $transparent     #00000000
@@ -13,13 +15,18 @@ set $orange #d19a66
 set $light_grey #abb2bf
 set $white #ffffff
 
+set $petrol #005f5f
+
 #                           border     background text   indicator  child_border
-client.focused              $green     $dark_grey      $white     $turquoise
+client.focused              $petrol    $petrol           $white     $turquoise
 client.unfocused            $dark_grey $black            $white     $dark_grey
 client.focused_inactive     $dark_grey $dark_grey        $white     $pink
 client.urgent               $red       $red              $white     $blue
 
 # #---Basic Definitions---# #
+# print all window titles bold
+for_window [class="^.*"] title_format " <b>%class</b> - %title"
+
 for_window [class="^.*"] border pixel 2
 gaps inner 15
 gaps outer 15
@@ -65,9 +72,11 @@ exec --no-startup-id compton -b --config $HOME/.config/compton/compton.conf
 # Redshift for warmer light in the evening
 exec --no-startup-id redshift
 
+exec --no-startup-id setsid protonmail-bridge --no-window
+
 exec --no-startup-id i3-msg 'workspace 1; exec $TERMINAL tm-sessions'
 exec --no-startup-id i3-msg 'workspace 2; exec $BROWSER'
-exec --no-startup-id i3-msg 'workspace 10; exec $MAIL_CLIENT'
+exec --no-startup-id i3-msg 'workspace 3; exec $MAIL_CLIENT'
 
 # #---Basic Bindings---# #
 bindsym $mod+Return 		exec --no-startup-id $TERMINAL tm-sessions
@@ -154,11 +163,6 @@ bindsym $mod+f          exec --no-startup-id $i3cmds/ducksearch
 
 bindsym $mod+c          exec --no-startup-id $TERMINAL --class codi_scratchpad codi
 
-for_window [instance="^codi_scratchpad$"] \
-    floating enable, border none, \
-    resize set 1000 700, move position 400 100, \
-    move scratchpad, scratchpad show
-
 # #---Workspace Bindings---# #
 bindsym $mod+Home		workspace $ws1
 bindsym $mod+Shift+Home		move container to workspace $ws1
@@ -214,12 +218,13 @@ bindsym $mod+Shift+8	move container to workspace $ws8
 bindsym $mod+Shift+9	move container to workspace $ws9
 bindsym $mod+Shift+0	move container to workspace $ws10
 
-# for_window [class="Pinentry"] sticky enable
-# for_window [class="sent"] border pixel 0px
-# for_window [title="GIMP Startup"] move workspace $ws5
-# for_window [class="Gimp"] move workspace $ws5
-# for_window [window_role="GtkFileChooserDialog"] resize set 800 600
-# for_window [window_role="GtkFileChooserDialog"] move position center
+# #---Window Settings---# #
+for_window [instance="^codi_scratchpad$"] \
+    floating enable, border none, \
+    resize set 1000 700, move position 400 100, \
+    move scratchpad, scratchpad show
+
+for_window [title="^Steam$"] move workspace $ws9
 for_window [title="Default - Wine desktop"] floating enable
 
 # Bindings to make the webcam float and stick.
