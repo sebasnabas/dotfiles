@@ -11,18 +11,6 @@ host:
             handle: HDMI1
             dpi: 96
 
-    interfaces:
-        wlan:
-            # You can also use command substitution in order to insert the
-            # standard output of a shell command into a configuration option.
-            #
-            # This is also used by the polybar template to point the
-            # wireless-internet polybar module to the correct interface.
-            handle: {{ 'ip link | cut -d" " -f2 | grep -o "^w.*" | sed "s/://"' | shell }}
-
-        ethernet:
-          handle: {{ 'ip link | cut -d" " -f2 | grep -o "^e.*" | sed "s/://"' | shell }}
-
     commands:
         shutdown: systemctl poweroff -i
         reboot: systemctl reboot -i
