@@ -11,7 +11,7 @@ create_mochi(){
     tmux splitw -h -t $SESSIONNAME:0.1
     tmux send-keys -t $SESSIONNAME:0.1 'cd ~/.dotfiles' Enter
     tmux send-keys -t $SESSIONNAME:0.1 'git log --graph --decorate --all --stat' Enter
-    tmux send-keys -t $SESSIONNAME:0.2 'cd ~/.dotconfigfiles' Enter
+    tmux send-keys -t $SESSIONNAME:0.2 'cd ~/.dotfiles' Enter
 
     tmux new-window -t $SESSIONNAME
     tmux rename-window -t $SESSIONNAME:1 'gotop'
@@ -22,17 +22,11 @@ create_mochi(){
     tmux send-keys -t $SESSIONNAME:2 'ncmpcpp' Enter
 
     tmux new-window -t $SESSIONNAME
-    tmux rename-window -t $SESSIONNAME:3 'uni'
-    tmux send-keys -t $SESSIONNAME:3.0 'uni' Enter
-    tmux send-keys -t $SESSIONNAME:3.0 'nvim' Enter
-    tmux splitw -v -p 40 -t $SESSIONNAME:3.0
-    tmux select-pane -t $SESSIONNAME:3.1
-    tmux send-keys 'uni' Enter
+    tmux rename-window -t $SESSIONNAME:3 'projects'
+    tmux send-keys -t $SESSIONNAME:3.0 "cd ~/Projects" Enter
+    tmux send-keys -t $SESSIONNAME:3.0 "ranger" Enter
 
     tmux new-window -t $SESSIONNAME
-    tmux rename-window -t $SESSIONNAME:4 'projects'
-    tmux send-keys -t $SESSIONNAME:4.0 "cd ~/Projects" Enter
-    tmux send-keys -t $SESSIONNAME:4.0 "ranger" Enter
 
 }
 
