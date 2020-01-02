@@ -21,7 +21,6 @@ __pycache__
 !.config/redshift
 !.config/rofi
 !.config/shell
-!.config/ssh/config
 !.config/polybar
 !.config/tmux
 !.config/x
