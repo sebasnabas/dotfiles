@@ -5,8 +5,7 @@
 !.gitignore
 !.subtrees
 !.scripts
-
-__pycache__
+!README.md
 
 !.config
 .config/*
@@ -30,6 +29,8 @@ dotconfigfiles/*
 !dotconfigfiles/install.sh
 
 .zcompdump*
+
+__pycache__
 
 .config/git/gitconfig-work
 
