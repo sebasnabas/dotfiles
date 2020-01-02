@@ -433,6 +433,10 @@ let mapleader = ","
     nnoremap <leader>sv :vsplit<CR>:enew<CR>
     nnoremap <leader>sh :split<CR>:enew<CR>
 
+    "" Terminal split
+    nnoremap <leader>svt :vsplit<CR>:term<CR>:startinsert<CR>
+    nnoremap <leader>sht :split<CR>:term<CR>:startinsert<CR>
+
     "" Terminal
     if has("nvim")
       " Make escape work in the Neovim terminal.
@@ -444,12 +448,21 @@ let mapleader = ","
       tnoremap <C-k> <C-\><C-N><C-w>k
       tnoremap <C-l> <C-\><C-N><C-w>l
 
-  " I like relative numbering when in normal mode.
-  autocmd TermOpen * setlocal conceallevel=0 colorcolumn=0 relativenumber
+      " I like relative numbering when in normal mode.
+      autocmd TermOpen * setlocal conceallevel=0 colorcolumn=0 relativenumber
 
-  " Prefer Neovim terminal insert mode to normal mode.
-  autocmd BufEnter term://* startinsert
-endif
+      " Prefer Neovim terminal insert mode to normal mode.
+      autocmd BufEnter term://* startinsert
+    endif
+
+    "" Create and change directory
+    function! Mdc(directory) "{{{
+        execute '!mkdir ' . a:directory
+        execute 'chdir ' . a:directory
+    endfunction "}}}
+    command! -nargs=1 Mdc call Mdc( '<args>' )
+
+    nnoremap <leader>mdc :Mdc<Space>
 
     "" Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
     vnoremap <C-c> "+y
