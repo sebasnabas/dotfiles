@@ -1,8 +1,3 @@
-# Zeta theme for oh-my-zsh
-# Tested on Linux, Unix and Windows under ANSI colors.
-# Copyright: Skyler Lee, 2015
-# Modified by Sebastian Eberlein, 2019
-
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 
 # Colors: black|red|blue|green|yellow|magenta|cyan|white
@@ -26,7 +21,7 @@ local white_bold=$fg_bold[white]
 
 local highlight_bg=$bg[red]
 
-local zeta='»'
+local zeta='→'
 
 # Machine name.
 function get_box_name {
@@ -112,9 +107,9 @@ function print_prompt_head {
     local left_prompt="\
 %{$cyan_bold%}$(get_virtualenv)\
 %{$green_bold%}$(get_usr_name)\
-%{$blue%}@\
-%{$cyan_bold%}$(get_box_name): \
-%{$yellow_bold%}$(get_current_dir)%{$reset_color%}\
+%{$cyan_bold%}@\
+%{$blue_bold%}$(get_box_name): \
+%{$yellow%}$(get_current_dir)%{$reset_color%}\
 $(get_git_prompt) "
     local right_prompt="%{$blue%}($(get_time_stamp))%{$reset_color%} "
     print -rP "$left_prompt$(get_space $left_prompt $right_prompt)$right_prompt"
@@ -122,9 +117,9 @@ $(get_git_prompt) "
 
 function get_prompt_indicator {
     if [[ $? -eq 0 ]]; then
-        echo "%{$magenta_bold%}$zeta %{$reset_color%}"
+        echo "%{$cyan%}$zeta %{$reset_color%}"
     else
-        echo "%{$red_bold%}$zeta %{$reset_color%}"
+        echo "%{$red%}$zeta %{$reset_color%}"
     fi
 }
 
