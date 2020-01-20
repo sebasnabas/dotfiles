@@ -94,15 +94,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--select-1 --exit-0"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
-# thefuck
-python="python"
-python_version="$(${python} --version 2>&1 | cut -d' ' -f2 | grep '^2\.')"
-if [ -n "$python_version" ]; then
-    python="python3"
-fi
-${python} -m pip freeze 2>&1 | grep thefuck > /dev/null || (${python} -m pip install --user thefuck > /dev/null 2>&1 && echo "Installed thefuck.")
-eval $(thefuck --alias)
-
 # mkdir and change to it
 mdc()  {
     mkdir -p $1 && cd $_
