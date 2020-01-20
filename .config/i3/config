@@ -73,6 +73,8 @@ exec --no-startup-id redshift
 
 exec --no-startup-id setsid protonmail-bridge --no-window
 
+exec --no-startup-id pomodoro_client daemon -d reddit.com -d youtube.com -w 9 --nagbar &
+
 exec --no-startup-id i3-msg 'workspace 1; exec $TERMINAL tm-sessions'
 exec --no-startup-id i3-msg 'workspace 2; exec $BROWSER'
 exec --no-startup-id i3-msg 'workspace 3; exec $MAIL_CLIENT'
