@@ -7,6 +7,7 @@
   mangenta:   #d886f3;
   cyan:       #6cdcf7;
   petrol:     #005f5f;
+  petrol-dark: #004242;
   emphasis:   #327e7e;
   text:       #dfdfdf;
   text-alt:   #b2b2b2;
@@ -35,7 +36,7 @@ inputbar {
 }
 
 prompt {
-  text-color: @white;
+  text-color: @petrol-dark;
 }
 
 textbox-prompt-colon {
@@ -46,6 +47,7 @@ textbox-prompt-colon {
 
 entry {
   margin: 0px 10px;
+  text-color: @petrol-dark;
 }
 
 listview {
