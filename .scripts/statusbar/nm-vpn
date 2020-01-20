@@ -1,4 +1,8 @@
 #!/bin/sh
-status=$(nmcli -t connection show --active)
-echo $status | awk -F ':' '/vpn0/{vpn="ON"} /vpn/{name=$1} {if(vpn) printf("%s\n", name)}'
+vpn=$(nmcli -t con show --active | grep vpn | cut -d : -f 1)
+if [ $vpn ]; then
+    echo "%{T8}列%{T-}$vpn"
+else
+    echo ""
+fi
 
