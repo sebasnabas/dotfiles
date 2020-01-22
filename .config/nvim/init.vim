@@ -593,8 +593,13 @@ let mapleader = ","
             nnoremap <leader>fc :Commits<CR>
             nnoremap <leader>fm :Marks<CR>
             nnoremap <leader>fp :Maps<CR>
-        "}}}
-        ""' Vimux '""{{{
+
+            command! -bang -nargs=* Rg
+              \ call fzf#vim#grep(
+              \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+              \   fzf#vim#with_preview(), <bang>0)
+            "}}}
+            ""' Vimux '""{{{
             map <leader>vr :call VimuxRunCommand("clear; run " . expand("%:p")) <CR>
             map <leader>vt :call VimuxRunCommand("clear; unittest " . &filetype) <CR>
             map <Leader>vp :VimuxPromptCommand<CR>
