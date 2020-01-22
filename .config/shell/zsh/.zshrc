@@ -84,6 +84,9 @@ alias mkvenv="mkvenv --system-site-packages"
 # Completion for kitty
 which kitty > /dev/null 2>&1 && kitty + complete setup zsh | source /dev/stdin
 
+[ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
+[ -f "$HOME/.aliases_work" ] && source "$HOME/.aliases_work"
+
 plugins=(git fzf autoswitch_virtualenv zsh-syntax-highlighting zsh-autosuggestions)
 
 for plugin ($plugins); do
