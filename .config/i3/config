@@ -1,4 +1,4 @@
-font pango:Noto Mono 11
+font pango:Fira Code 11
 
 ## Colors ##
 # onedark theme
@@ -18,10 +18,12 @@ set $white #ffffff
 set $petrol #005f5f
 
 #                           border     background text   indicator  child_border
-client.focused              $petrol    $petrol           $white     $turquoise
-client.unfocused            $dark_grey $black            $white     $dark_grey
-client.focused_inactive     $dark_grey $dark_grey        $white     $pink
+client.focused              $petrol    $petrol           $white     $petrol
+client.unfocused            $black     $black            $white     $black
+client.focused_inactive     $black     $black            $white     $red
 client.urgent               $red       $red              $white     $blue
+client.placeholder          $black     $black            $white     $black
+client.background           $black
 
 # #---Basic Definitions---# #
 # print all window titles bold
