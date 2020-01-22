@@ -73,12 +73,7 @@ bindkey '^e' edit-command-line
 bindkey '^n' end-of-line
 bindkey '^p' beginning-of-line
 
- if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='vim'
- else
-   export EDITOR='nvim'
- fi
-######
+bindkey -s '^s' ' ranger\n'
 
 export AUTOSWITCH_MESSAGE_FORMAT="$(tput setaf 2)Switching to %venv_name 🐍 %py_version $(tput sgr0)"
 
@@ -89,8 +84,6 @@ alias mkvenv="mkvenv --system-site-packages"
 # Completion for kitty
 which kitty > /dev/null 2>&1 && kitty + complete setup zsh | source /dev/stdin
 
-[ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
-
 plugins=(git fzf autoswitch_virtualenv zsh-syntax-highlighting zsh-autosuggestions)
 
 for plugin ($plugins); do
@@ -98,16 +91,22 @@ for plugin ($plugins); do
     [ -f $plugin_path ] && source $plugin_path
 done
 
+# thefuck
+eval $(thefuck --alias)
+
 # fzf
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow -g '!.git' -g '!.wine' -g'!*[sS]team*' -g '!lutris' -g '!Trash' -g '!.cache' 2>/dev/null . $HOME"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--select-1 --exit-0"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+export FZF_COMPLETION_OPTS='+c -x'
 
 # mkdir and change to it
 mdc()  {
     mkdir -p $1 && cd $_
 }
+
+[ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
 
 source $ZDOTDIR/theme.zsh-theme
 
