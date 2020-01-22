@@ -6,8 +6,9 @@
   blue:       #6eaafb;
   mangenta:   #d886f3;
   cyan:       #6cdcf7;
-  petrol:     #005f5f;
-  petrol-dark: #004242;
+  petrol-light: #005f5f;
+  petrol: #004242;
+  petrol-dark: #002121;
   emphasis:   #327e7e;
   text:       #dfdfdf;
   text-alt:   #b2b2b2;
@@ -24,6 +25,7 @@
 window {
   transparency: "real";
   height: 50%;
+  background-color: @petrol-dark;
 }
 
 mainbox {
@@ -36,7 +38,7 @@ inputbar {
 }
 
 prompt {
-  text-color: @petrol-dark;
+  text-color: @white;
 }
 
 textbox-prompt-colon {
