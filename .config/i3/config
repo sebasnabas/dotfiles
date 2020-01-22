@@ -63,8 +63,7 @@ exec --no-startup-id mopidy
 # Starts dunst for notifications:
 exec --no-startup-id dunst
 
-# Setting the background dynamically:
-exec_always --no-startup-id astrality
+exec --no-startup-id setbg ~/.config/wall.png
 
 # Composite manager:
 exec --no-startup-id compton -b --config $HOME/.config/compton/compton.conf
@@ -73,6 +72,8 @@ exec --no-startup-id compton -b --config $HOME/.config/compton/compton.conf
 exec --no-startup-id redshift
 
 exec --no-startup-id setsid protonmail-bridge --no-window
+
+exec --no-startup-id pomodoro_client daemon -d reddit.com -d youtube.com -w 9 --nagbar &
 
 exec --no-startup-id i3-msg 'workspace 1; exec $TERMINAL tm-sessions'
 exec --no-startup-id i3-msg 'workspace 2; exec $BROWSER'
@@ -144,7 +145,7 @@ bindsym $mod+Shift+p        exec --no-startup-id lmc pause
 bindsym $mod+z            gaps inner current plus 5
 bindsym $mod+Shift+z        gaps inner current minus 5
 
-bindsym $mod+d            exec --no-startup-id rofi -show drun
+bindsym $mod+d            exec --no-startup-id ~/.scripts/statusbar/launcher
 bindsym $mod+Shift+d        gaps inner current set 0; gaps outer current set 0
 
 bindsym $mod+s          exec --no-startup-id steam
@@ -164,7 +165,7 @@ bindsym $mod+Shift+b        floating toggle; sticky toggle; exec --no-startup-id
 bindsym $mod+n            exec --no-startup-id networkmanager_dmenu
 bindsym $mod+Shift+n        floating toggle; sticky toggle; exec --no-startup-id hover right
 
-bindsym $mod+f          exec --no-startup-id $i3cmds/ducksearch
+bindsym $mod+f          exec --no-startup-id $i3cmds/ducksearch;; exec i3-msg "[class=firefox] focus"
 
 bindsym $mod+c          exec --no-startup-id $TERMINAL --class codi_scratchpad codi
 

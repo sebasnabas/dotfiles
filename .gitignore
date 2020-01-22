@@ -29,6 +29,7 @@ dotconfigfiles/*
 !dotconfigfiles/install.sh
 
 .zcompdump*
+.zcompcache
 
 __pycache__
 

@@ -509,6 +509,9 @@ let mapleader = ","
     "" Help for word under cursor
     noremap <leader>h :execute "tab h " . expand("<cword>")<CR>
 
+    "" Search and replace word under cursor
+    nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
+
     " Set tab shortcuts
     nnoremap tn :tabnew <Space>
     nnoremap tk :tabnext <CR>
