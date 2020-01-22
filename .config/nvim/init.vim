@@ -226,6 +226,11 @@ let mapleader = ","
 
         """' Fugitive (Git Support) '"""{{{
             set statusline+=%{FugitiveStatusline()}
+
+            " Move git patch always to the right and make it vertical
+            autocmd BufEnter term://.//*:git\ add\ --patch\ --\ * wincmd L
+            autocmd BufEnter term://.//*:git\ reset\ --patch\ --\ * wincmd L
+            autocmd BufEnter term://.//*:git\ add\ --intent-to-add\ --\ * wincmd L
         "}}}
 
         """' Ale '"""{{{
@@ -395,6 +400,9 @@ let mapleader = ","
     "" Enable highlighting of the current line
     set cursorline
 
+    "" Enable mouse scrolling
+    set mouse=a
+
     " Searching
     set ignorecase " case insensitive searching
     set smartcase " case-sensitive if expresson contains a capital letter
@@ -426,6 +434,12 @@ let mapleader = ","
         "" Enable syntax highlighting of svelte files
         autocmd BufNewFile,BufRead /*.svelte setf html
 
+        " I like relative numbering when in normal mode.
+        autocmd TermOpen * setlocal conceallevel=0 colorcolumn=0 relativenumber
+
+        " Prefer Neovim terminal insert mode to normal mode.
+        autocmd BufEnter term://* startinsert
+
     "}}}
 
 "}}}
@@ -451,22 +465,14 @@ let mapleader = ","
     nnoremap <leader>sht :split<CR>:term<CR>:startinsert<CR>
 
     "" Terminal
-    if has("nvim")
-      " Make escape work in the Neovim terminal.
-      tnoremap <Esc> <C-\><C-n>
+    " Make escape work in the Neovim terminal.
+    tnoremap <Esc> <C-\><C-n>
 
-      " Make navigation into and out of Neovim terminal splits nicer.
-      tnoremap <C-h> <C-\><C-N><C-w>h
-      tnoremap <C-j> <C-\><C-N><C-w>j
-      tnoremap <C-k> <C-\><C-N><C-w>k
-      tnoremap <C-l> <C-\><C-N><C-w>l
-
-      " I like relative numbering when in normal mode.
-      autocmd TermOpen * setlocal conceallevel=0 colorcolumn=0 relativenumber
-
-      " Prefer Neovim terminal insert mode to normal mode.
-      autocmd BufEnter term://* startinsert
-    endif
+    " Make navigation into and out of Neovim terminal splits nicer.
+    tnoremap <C-h> <C-\><C-N><C-w>h
+    tnoremap <C-j> <C-\><C-N><C-w>j
+    tnoremap <C-k> <C-\><C-N><C-w>k
+    tnoremap <C-l> <C-\><C-N><C-w>l
 
     "" Create and change directory
     function! Mdc(directory) "{{{
