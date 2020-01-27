@@ -208,8 +208,8 @@ let mapleader = ","
               \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
             " Customize fzf colors to match your color scheme
-            let g:fzf_colors =
-            \ { 'fg':      ['fg', 'Normal'],
+            let g:fzf_colors = {
+              \ 'fg':      ['fg', 'Normal'],
               \ 'bg':      ['bg', 'Normal'],
               \ 'hl':      ['fg', 'Comment'],
               \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
@@ -237,7 +237,7 @@ let mapleader = ","
             let g:airline#extensions#ale#enabled = 1
 
             let g:ale_linters = {
-                  \ 'python': ['flake8']
+                  \ 'python': ['flake8', 'pylint']
                   \}
             let g:ale_virtualenv_dir_names = ['.venv']
 
@@ -327,6 +327,9 @@ let mapleader = ","
 
         """' Virtualenv '"""{{{
             let g:virtualenv_stl_format = '(%n)'
+        "}}}
+        """' Vimux '"""{{{
+            let g:VimuxUseNearest=0
         "}}}
     "}}}
 "}}}
@@ -694,7 +697,6 @@ let mapleader = ","
             " Start debugging - Split window and call ipdb with current file
             autocmd FileType python nmap <F5> <C-w>s :term ipdb3 -c continue % <CR> A
             " Remove all breakppoints when saving
-
     "}}}
 "}}}
 
