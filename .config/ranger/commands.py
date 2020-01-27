@@ -168,11 +168,11 @@ class fzf_rga_documents_search(Command):
 class empty_trash(Command):
     """:empty
 
-    Empties the trash directory ~/.local/share/Trash/files
+    Empties the trash directory /home/sebastian/.local/share/Trash/files
     """
 
     def execute(self):
-        self.fm.run("rm -rf ~/.local/share/Trash/files/{*,.[^.]*}")
+        self.fm.run("rm -rf /home/sebastian/.local/share/Trash/files/{*,.[^.]*}")
 
 import os
 from ranger.core.loader import CommandLoader
@@ -205,4 +205,35 @@ class compress(Command):
 
         extension = ['.zip', '.tar.gz', '.rar', '.7z']
         return ['compress ' + os.path.basename(self.fm.thisdir.path) + ext for ext in extension]
+
+class zsh(Command):
+    """
+    :zsh
+    open zsh
+    """
+
+    def execute(self):
+        import subprocess
+        subprocess.Popen(['/home/sebastian/.scripts/ide/ranger_zsh', self.fm.thisdir.path, self.arg(1)])
+
+class vim(Command):
+    """
+    :vim
+    open vim
+    """
+
+    def execute(self):
+        import subprocess
+        selection = self.get_selection_attr('path')
+        if not os.path.isdir(selection[0]):
+            selection.insert(0, '/home/sebastian/.scripts/ide/ranger_vi')
+            selection.insert(1, self.arg(1))
+        else:
+            selection[0] = '/home/sebastian/.scripts/ide/ranger_vi'
+            selection.insert(1, self.arg(1))
+        subprocess.Popen(selection)
+
+    def get_selection_attr(self, attr):
+        return [getattr(item, attr) for item in
+                self.fm.thistab.get_selection()]
 

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+if [ -z $TMUX_PANE ];
+then
+    exit
+fi
+
+if [ "$(tmux list-panes | tail -1 | cut -d ':' -f 1)" = '0' ];
+then
+    tmux splitw -h -p 80 && tmux send-keys "vim -c ':$1 $2'" Enter
+else
+    vim_pane="$(tmux list-panes -F '#{pane_id}:#{pane_current_command}' | grep nvim | cut -d ':' -f 1)"
+    if [ -z $vim_pane ];
+    then
+        exit
+    fi
+
+    tmux send-keys -t $vim_pane Escape ":$1 $2" Enter
+fi
+
