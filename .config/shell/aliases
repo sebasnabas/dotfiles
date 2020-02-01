@@ -1,5 +1,7 @@
 alias sudo="sudoer_lecture.py && sudo"
 
+alias mkvenv="mkvenv --system-site-packages"
+
 alias vim="nvim"
 alias tmux="tmux -2"
 
@@ -10,6 +12,7 @@ alias zshconfig="nvim ~/.config/shell/zsh/.zshrc"
 ## directories
 alias uni="pushd $(getcurrentunipath)"
 alias p="pushd ~/Projects/"
+alias w="if [ -d ~/Work/Projects/ ]; then pushd ~/Work/Projects; fi"
 
 alias l="ls -lAht"
-
+alias r="ranger"
