@@ -89,6 +89,9 @@ let mapleader = ","
             ""Show markers
             Plug 'kshenoy/vim-signature'
 
+            "" Toggle location and quickfix list
+            Plug 'milkypostman/vim-togglelist'
+
             "" Snippets
             " Track the engine.
             Plug 'Shougo/neosnippet.vim'
@@ -111,6 +114,9 @@ let mapleader = ","
 
             "" Auto completion
             Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+            "" Most recently used files and directories
+            Plug 'Shougo/neomru.vim'
 
             "Languages
             "" Dotnet/C#
@@ -228,24 +234,22 @@ let mapleader = ","
             set statusline+=%{FugitiveStatusline()}
 
             " Move git patch always to the right and make it vertical
-            autocmd BufEnter term://.//*:git\ add\ --patch\ --\ * wincmd L
-            autocmd BufEnter term://.//*:git\ reset\ --patch\ --\ * wincmd L
-            autocmd BufEnter term://.//*:git\ add\ --intent-to-add\ --\ * wincmd L
+            autocmd BufEnter term://.//*:git\ *\ add\ --patch\ --\ * wincmd L
+            autocmd BufEnter term://.//*:git\ *\ reset\ --patch\ --\ * wincmd L
+            autocmd BufEnter term://.//*:git\ *\ add\ --intent-to-add\ --\ * wincmd L
         "}}}
 
         """' Ale '"""{{{
             let g:airline#extensions#ale#enabled = 1
-
+            let g:ale_open_list = 1
             let g:ale_linters = {
                   \ 'python': ['flake8', 'pylint']
                   \}
             let g:ale_virtualenv_dir_names = ['.venv']
-
-            function! AleCheckHook(errors)
-                if !empty(a:errors)
-                    let g:ale_loc_list_height = min([len(a:errors), 10])
-                endif
-            endfunction
+            let g:ale_echo_msg_error_str = 'E'
+            let g:ale_echo_msg_warning_str = 'W'
+            let g:ale_echo_msg_format = '[%linter%][%severity%] %s'
+            let g:ale_list_window_size = 5
         "}}}
 
         """' Vim-Airline '"""{{{
@@ -328,6 +332,7 @@ let mapleader = ","
         """' Virtualenv '"""{{{
             let g:virtualenv_stl_format = '(%n)'
         "}}}
+
         """' Vimux '"""{{{
             let g:VimuxUseNearest=0
         "}}}
@@ -644,9 +649,6 @@ let mapleader = ","
         """' Vimwiki '"""{{{
             nnoremap <Leader>wf :VimwikiFollowLink<CR>
 
-            " Split and follow (create target wiki page if needed).
-            " nnoremap <Leader>ws <Plug>VimwikiSplitLink<CR>
-
             " Vertical split and follow (create target wiki page if needed).
             nnoremap <Leader>wv :VimwikiVSplitLink<CR>
 
@@ -667,6 +669,10 @@ let mapleader = ","
 
             " Rename wiki page you are in.
             nnoremap <Leader>wr :VimwikiRenameLink<CR>
+        "}}}
+        ""' Togglelist '""{{{
+            nmap <script> <silent> <leader>l :call ToggleLocationList()<CR>
+            nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
         "}}}
 
     "}}}
