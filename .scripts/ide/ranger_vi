@@ -7,14 +7,22 @@ fi
 
 if [ "$(tmux list-panes | tail -1 | cut -d ':' -f 1)" = '0' ];
 then
-    tmux splitw -h -p 80 && tmux send-keys "vim -c ':$1 $2'" Enter
+    tmux send-keys ":" && tmux send-keys "set show_hidden true" Enter
+    tmux send-keys ":" && tmux send-keys "set viewmode multipane" Enter
+    tmux splitw -h -p 80
+    tmux send-keys "vim -c ':$1 $2'" Enter
 else
-    vim_pane="$(tmux list-panes -F '#{pane_id}:#{pane_current_command}' | grep nvim | cut -d ':' -f 1)"
-    if [ -z $vim_pane ];
+    vim_pane="$(tmux list-panes -F '#{pane_id}:#{pane_current_command}' | grep nvim )"
+    vim_pane_index="$(echo $vim_pane | cut -d ':' -f 1)"
+
+    if [ -z $vim_pane_index ];
     then
         exit
     fi
+    tmux send-keys ":" && tmux send-keys "set show_hidden true" Enter
+    tmux send-keys ":" && tmux send-keys "set viewmode multipane" Enter
 
-    tmux send-keys -t $vim_pane Escape ":$1 $2" Enter
+    tmux send-keys -t $vim_pane_index Escape ":$1 $2" Enter
+    tmux selectp -t $vim_pane_index
 fi
 
