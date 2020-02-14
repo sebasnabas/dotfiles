@@ -70,7 +70,7 @@ function get_git_prompt {
         if [[ -n $git_status ]]; then
             git_status="[$git_status%{$reset_color%}]"
         fi
-        local git_prompt=" <$(git_prompt_info)$git_status>"
+        local git_prompt=" %{$cyan%} $(git_prompt_info)$git_status"
         echo $git_prompt
     fi
 }
@@ -111,8 +111,12 @@ function print_prompt_head {
 %{$blue_bold%}$(get_box_name): \
 %{$yellow%}$(get_current_dir)%{$reset_color%}\
 $(get_git_prompt) "
+
     local right_prompt="%{$blue%}($(get_time_stamp))%{$reset_color%} "
-    print -rP "$left_prompt$(get_space $left_prompt $right_prompt)$right_prompt"
+
+    local short_left_prompt="%{$cyan_bold%}$(get_virtualenv)%{$green_bold%}$(get_usr_name)% %{$blue%}: %{$cyan%}$(basename $(get_current_dir))%{$reset_color%}$(get_git_prompt) "
+
+    print -rP "$short_left_prompt$(get_space $short_left_prompt $right_prompt)$right_prompt"
 }
 
 function get_prompt_indicator {
