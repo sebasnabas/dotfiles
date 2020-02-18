@@ -36,9 +36,8 @@ autoload -Uz zmv
 ######
 # vi mode
 bindkey -v
-export KEYTIMEOUT=1
 
-# Use vim keys in tab complete menu:
+# Use nvim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
@@ -66,20 +65,47 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-# Edit line in vim with ctrl-e:
+# Edit line in nvim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
+
+autoload -U select-quoted
+zle -N select-quoted
+for m in visual viopp; do
+	for c in {a,i}{\',\",\`}; do
+		bindkey -M $m $c select-quoted
+	done
+done
+
+autoload -U select-bracketed
+zle -N select-bracketed
+for m in visual viopp; do
+    for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+        bindkey -M $m $c select-bracketed
+    done
+done
+
+# Implementation of some functionality of the popular nvim surround plugin.
+# Allows "surroundings" to be changes: parentheses, brackets and quotes.
+autoload -Uz surround
+zle -N delete-surround surround
+zle -N add-surround surround
+zle -N change-surround surround
+bindkey -a cs change-surround
+bindkey -a ds delete-surround
+bindkey -a ys add-surround
+bindkey -M visual S add-surround
 
 bindkey '^n' end-of-line
 bindkey '^p' beginning-of-line
 
-bindkey -s '^s' ' ranger\n'
+bindkey '^[[3~' delete-char
+bindkey '\033[1~' beginning-of-line
+bindkey '\033[4~' end-of-line
 
+export KEYTIMEOUT=1
 export AUTOSWITCH_MESSAGE_FORMAT="$(tput setaf 2)Switching to %venv_name 🐍 %py_version $(tput sgr0)"
-
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-
-alias mkvenv="mkvenv --system-site-packages"
 
 # Completion for kitty
 which kitty > /dev/null 2>&1 && kitty + complete setup zsh | source /dev/stdin
@@ -87,7 +113,20 @@ which kitty > /dev/null 2>&1 && kitty + complete setup zsh | source /dev/stdin
 [ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
 [ -f "$HOME/.aliases_work" ] && source "$HOME/.aliases_work"
 
-plugins=(git fzf autoswitch_virtualenv zsh-syntax-highlighting zsh-autosuggestions)
+# Plugins
+source /usr/share/zsh/share/antigen.zsh
+
+antigen bundle git
+antigen bundle pip
+antigen bundle "zsh-users/zsh-autosuggestions"
+antigen bundle "zsh-users/zsh-syntax-highlighting"
+antigen bundle "MichaelAquilina/zsh-autoswitch-virtualenv"
+antigen bundle "MichaelAquilina/zsh-auto-notify"
+
+antigen apply
+##
+
+plugins=(fzf)
 
 for plugin ($plugins); do
     plugin_path="$ZDOTDIR/plugins/$plugin/$plugin.plugin.zsh"
@@ -107,6 +146,28 @@ export FZF_COMPLETION_OPTS='+c -x'
 # mkdir and change to it
 mdc()  {
     mkdir -p $1 && cd $_
+}
+
+# v - search in most recent used files by nvim
+v() {
+  local file
+  file=$(sed '1d' $HOME/.cache/neomru/file |
+          fzf --query="$1" --select-1 --exit-0)
+  [ -n "$file" ] && nvim $file
+}
+
+# vd - cd to most recent used directory by nvim
+vd() {
+  local dir
+  dir=$(sed '1d' $HOME/.cache/neomru/directory |
+        fzf --query="$1" --select-1 --exit-0) && cd "$dir"
+}
+
+# vr - open ranger in most recent used directory by nvim
+vd() {
+  local dir
+  dir=$(sed '1d' $HOME/.cache/neomru/directory |
+        fzf --query="$1" --select-1 --exit-0) && ranger "$dir"
 }
 
 [ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
