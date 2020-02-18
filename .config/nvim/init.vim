@@ -624,8 +624,8 @@ let mapleader = ","
         ""' Fugitive '"""{{{
             nnoremap <leader>gc :Gcommit<CR>
             nnoremap <leader>gca :Gcommit --amend<CR>
-            nnoremap <leader>gco :Git checkout
-            nnoremap <leader>gcb :Git checkout -b
+            nnoremap <leader>gco :Git checkout<Space>
+            nnoremap <leader>gcb :Git checkout -b<Space>
             nnoremap <leader>gd :Gdiffsplit<CR>
             nnoremap <leader>gD <C-w>h <C-W>c
             nnoremap <leader>glg :Gclog<CR>
