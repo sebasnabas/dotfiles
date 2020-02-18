@@ -72,9 +72,9 @@ bindkey '^e' edit-command-line
 autoload -U select-quoted
 zle -N select-quoted
 for m in visual viopp; do
-	for c in {a,i}{\',\",\`}; do
-		bindkey -M $m $c select-quoted
-	done
+    for c in {a,i}{\',\",\`}; do
+        bindkey -M $m $c select-quoted
+    done
 done
 
 autoload -U select-bracketed
@@ -107,7 +107,7 @@ export KEYTIMEOUT=1
 export AUTOSWITCH_MESSAGE_FORMAT="$(tput setaf 2)Switching to %venv_name 🐍 %py_version $(tput sgr0)"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-export AUTO_NOTIFY_WHITELIST=("git" "docker")
+export AUTO_NOTIFY_WHITELIST=("git" "docker" "ncmpcpp" "gotop")
 
 # Completion for kitty
 which kitty > /dev/null 2>&1 && kitty + complete setup zsh | source /dev/stdin
