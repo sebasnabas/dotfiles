@@ -628,8 +628,9 @@ let mapleader = ","
             nnoremap <leader>gcb :Git checkout -b
             nnoremap <leader>gd :Gdiffsplit<CR>
             nnoremap <leader>gD <C-w>h <C-W>c
-            nnoremap <leader>gl :Gclog<CR>
+            nnoremap <leader>glg :Gclog<CR>
             nnoremap <leader>gp :Gpush<CR>
+            nnoremap <leader>gl :Gpull<CR>
             nnoremap <leader>gm :Gmerge
             nnoremap <leader>gs :Gstatus<CR>
             nnoremap <leader>gw :Gwrite<CR>
