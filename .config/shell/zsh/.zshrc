@@ -107,6 +107,8 @@ export KEYTIMEOUT=1
 export AUTOSWITCH_MESSAGE_FORMAT="$(tput setaf 2)Switching to %venv_name 🐍 %py_version $(tput sgr0)"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
+export AUTO_NOTIFY_WHITELIST=("git" "docker")
+
 # Completion for kitty
 which kitty > /dev/null 2>&1 && kitty + complete setup zsh | source /dev/stdin
 
