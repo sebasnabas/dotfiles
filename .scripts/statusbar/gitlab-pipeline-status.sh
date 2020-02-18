@@ -14,6 +14,7 @@ projects_pushed_to=$(curl --silent --header "PRIVATE-TOKEN: $access_token" "http
 
 if [ "$projects_pushed_to" = "[]" ]
 then
+    echo ""
     exit 0
 fi
 
