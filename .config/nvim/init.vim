@@ -574,14 +574,6 @@ let mapleader = ","
     endfunction
 
     """' Plugin Mappings '"""{{{
-        ""' Unimpaired: '""{{{
-            nmap <M-k> ]
-            nmap <M-j> [
-            omap <M-k> ]
-            omap <M-j> [
-            xmap <M-k> ]
-            xmap <M-j> [
-        "}}}
         ""' Nerdtree: '"""{{{
             map <C-n> :NERDTreeToggle <CR>
         "}}}
