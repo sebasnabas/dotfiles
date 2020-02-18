@@ -133,6 +133,12 @@ let mapleader = ","
             Plug 'deoplete-plugins/deoplete-jedi'
             Plug 'jmcantrell/vim-virtualenv'
 
+            "" C++
+            Plug 'deoplete-plugins/deoplete-clang'
+
+            "" Rust
+            Plug 'sebastianmarkow/deoplete-rust'
+
         call plug#end()
 "   }}}
 
