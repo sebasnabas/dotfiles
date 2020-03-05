@@ -578,6 +578,8 @@ let mapleader = ","
         endif
     endfunction
 
+    command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
+
     """' Plugin Mappings '"""{{{
         ""' Nerdtree: '"""{{{
             map <C-n> :NERDTreeToggle <CR>
@@ -632,11 +634,11 @@ let mapleader = ","
             nnoremap <leader>gco :Git checkout<Space>
             nnoremap <leader>gcb :Git checkout -b<Space>
             nnoremap <leader>gd :Gdiffsplit<CR>
-            nnoremap <leader>gD <C-w>h <C-W>c
             nnoremap <leader>glg :Gclog<CR>
             nnoremap <leader>gp :Gpush<CR>
+            nnoremap <leader>gfe :Gfetch<CR>
             nnoremap <leader>gl :Gpull<CR>
-            nnoremap <leader>gm :Gmerge
+            nnoremap <leader>gm :Gmerge<Space>
             nnoremap <leader>gs :Gstatus<CR>
             nnoremap <leader>gw :Gwrite<CR>
 
