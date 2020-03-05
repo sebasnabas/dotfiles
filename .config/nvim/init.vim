@@ -256,6 +256,11 @@ let mapleader = ","
             let g:ale_echo_msg_warning_str = 'W'
             let g:ale_echo_msg_format = '[%linter%][%severity%] %s'
             let g:ale_list_window_size = 5
+
+            augroup CloseLoclistWindowGroup
+              autocmd!
+              autocmd QuitPre * if empty(&buftype) | lclose | endif
+            augroup END
         "}}}
 
         """' Vim-Airline '"""{{{
@@ -458,7 +463,7 @@ let mapleader = ","
 
 "}}}
 
-"""' Mappings '"""{{{
+"""' Mappings and Functions '"""{{{
     "" Why is this not default?
     nnoremap Y y$
 
