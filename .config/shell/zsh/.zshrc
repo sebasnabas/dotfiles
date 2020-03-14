@@ -104,8 +104,10 @@ bindkey '\033[1~' beginning-of-line
 bindkey '\033[4~' end-of-line
 
 export KEYTIMEOUT=1
+
 export AUTOSWITCH_MESSAGE_FORMAT="$(tput setaf 2)Switching to %venv_name 🐍 %py_version $(tput sgr0)"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+export AUTOSWITCH_VIRTUAL_ENV_DIR=".virtualenv"
 
 export AUTO_NOTIFY_WHITELIST=("git" "docker" "ncmpcpp" "gotop")
 
