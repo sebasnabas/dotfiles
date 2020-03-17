@@ -251,7 +251,7 @@ let mapleader = ","
             let g:ale_linters = {
                   \ 'python': ['bandit', 'pylint']
                   \}
-            let g:ale_virtualenv_dir_names = ['.venv']
+            let g:ale_virtualenv_dir_names = ['.env']
             let g:ale_echo_msg_error_str = 'E'
             let g:ale_echo_msg_warning_str = 'W'
             let g:ale_echo_msg_format = '[%linter%][%severity%] %s'
