@@ -49,7 +49,7 @@ textbox-prompt-colon {
 
 entry {
   margin: 0px 10px;
-  text-color: @petrol-dark;
+  text-color: @white;
 }
 
 listview {
