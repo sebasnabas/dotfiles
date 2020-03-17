@@ -249,7 +249,7 @@ let mapleader = ","
             let g:airline#extensions#ale#enabled = 1
             let g:ale_open_list = 1
             let g:ale_linters = {
-                  \ 'python': ['flake8', 'pylint']
+                  \ 'python': ['bandit', 'pylint']
                   \}
             let g:ale_virtualenv_dir_names = ['.venv']
             let g:ale_echo_msg_error_str = 'E'
