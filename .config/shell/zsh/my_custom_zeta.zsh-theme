@@ -35,8 +35,10 @@ function get_box_name {
 # User name.
 function get_usr_name {
     local name="%n"
-    if [[ "$USER" == 'root' ]]; then
-        name="%{$highlight_bg%}%{$white_bold%}$name%{$reset_color%}"
+    if [[ "$(whoami)" == 'root' ]]; then
+        name="%{$red_bold%}$name%{$reset_color%}"
+    else
+        name="%{$green_bold%}$name"
     fi
     echo $name
 }
@@ -114,7 +116,7 @@ $(get_git_prompt) "
 
     local right_prompt="%{$blue%}($(get_time_stamp))%{$reset_color%} "
 
-    local short_left_prompt="%{$cyan_bold%}$(get_virtualenv)%{$green_bold%}$(get_usr_name)% %{$blue%}: %{$cyan%}$(basename $(get_current_dir))%{$reset_color%}$(get_git_prompt) "
+    local short_left_prompt="%{$cyan_bold%}$(get_virtualenv)$(get_usr_name)% %{$blue%}: %{$cyan%}$(basename $(get_current_dir))%{$reset_color%}$(get_git_prompt) "
 
     print -rP "$short_left_prompt$(get_space $short_left_prompt $right_prompt)$right_prompt"
 }
