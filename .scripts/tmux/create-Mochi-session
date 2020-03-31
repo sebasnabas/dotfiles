@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 SESSIONNAME="Mochi"
 
@@ -17,17 +17,11 @@ create_mochi(){
     tmux send-keys -t $SESSIONNAME:2 'ncmpcpp' Enter
 
     tmux new-window -t $SESSIONNAME
-    tmux rename-window -t $SESSIONNAME:3 'projects'
-    tmux send-keys -t $SESSIONNAME:3.0 "cd ~/Projects" Enter
-    tmux send-keys -t $SESSIONNAME:3.0 "ranger" Enter
-
-    tmux new-window -t $SESSIONNAME
 
 }
 
-tmux has-session -t $SESSIONNAME &> /dev/null
-
-if [ $? != 0 ]; then
+if ! tmux has-session -t $SESSIONNAME &> /dev/null
+then
     create_mochi
 fi
 
