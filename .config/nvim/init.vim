@@ -267,7 +267,7 @@ let mapleader = ","
             let g:airline#extensions#tabline#enabled = 1
             let g:airline_powerline_fonts = 1
             let g:airline#extensions#branch#format = 2
-            let g:airline#extensions#branch#displayed_head_limit = 10
+            let g:airline#extensions#branch#displayed_head_limit = 20
         "}}}
 
         """' Bufferline '"""{{{
@@ -357,6 +357,7 @@ let mapleader = ","
     set encoding=utf8
     set fileformat=unix
     set updatetime=99
+    set spelllang=en_us,de
 
     " Keep the cursor on the same column
     set nostartofline
