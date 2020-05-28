@@ -337,6 +337,32 @@ let mapleader = ","
             autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
         "}}}
 
+        """' Omnisharp '"""{{{
+            " Use the stdio OmniSharp-roslyn server
+            let g:OmniSharp_server_stdio = 1
+            let g:OmniSharp_server_http = 0
+            let g:OmniSharp_highlight_types = 3
+            let g:OmniSharp_highlight_groups = {
+                \ 'csUserIdentifier': [
+                \  'constant name', 'enum member name', 'field name', 'identifier',
+                \  'local name', 'parameter name', 'property name', 'static symbol'],
+                \ 'csUserInterface': ['interface name'],
+                \ 'csUserMethod': ['extension method name', 'method name'],
+                \ 'csUserType': ['class name', 'enum name', 'namespace name', 'struct name']
+                \}
+
+            " Set the type lookup function to use the preview window instead of echoing it
+            let g:OmniSharp_typeLookupInPreview = 1
+
+            " Timeout in seconds to wait for a response from the server
+            let g:OmniSharp_timeout = 5
+
+            " Fetch full documentation during omnicomplete requests.
+            " By default, only Type/Method signatures are fetched. Full documentation can
+            " still be fetched when you need it with the :OmniSharpDocumentation command.
+            let g:omnicomplete_fetch_full_documentation = 1
+        "}}}
+
         """' Virtualenv '"""{{{
             let g:virtualenv_stl_format = '(%n)'
         "}}}
