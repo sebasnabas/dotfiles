@@ -20,6 +20,7 @@
 !.config/redshift
 !.config/rofi
 !.config/shell
+!.config/picom
 !.config/polybar
 !.config/tmux
 !.config/x

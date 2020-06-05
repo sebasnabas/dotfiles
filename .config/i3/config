@@ -68,7 +68,7 @@ exec --no-startup-id dunst
 exec --no-startup-id setbg ~/.config/wall.png
 
 # Composite manager:
-exec --no-startup-id compton -b --config $HOME/.config/compton/compton.conf
+exec --no-startup-id picom -b --config $HOME/.config/picom/picom.conf
 
 # Redshift for warmer light in the evening
 exec --no-startup-id redshift
