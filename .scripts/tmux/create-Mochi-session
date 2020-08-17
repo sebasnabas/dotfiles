@@ -9,8 +9,8 @@ create_mochi(){
     tmux send-keys -t $SESSIONNAME 'nvim .config/nvim/init.vim' Enter
 
     tmux new-window -t $SESSIONNAME
-    tmux rename-window -t $SESSIONNAME:1 'gotop'
-    tmux send-keys -t $SESSIONNAME:1.0 'gotop' Enter
+    tmux rename-window -t $SESSIONNAME:1 'bashtop'
+    tmux send-keys -t $SESSIONNAME:1.0 'bashtop' Enter
 
     tmux new-window -t $SESSIONNAME
     tmux rename-window -t $SESSIONNAME:2 'ncmpcpp'
