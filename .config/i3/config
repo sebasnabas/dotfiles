@@ -14,13 +14,12 @@ set $black #393e48
 set $orange #d19a66
 set $light_grey #abb2bf
 set $white #ffffff
-
 set $petrol #005f5f
 
 #                           border     background text   indicator  child_border
-client.focused              $petrol    $petrol           $white     $petrol
+client.focused              $petrol    $petrol           $white     $white
 client.unfocused            $black     $black            $white     $black
-client.focused_inactive     $black     $black            $white     $red
+client.focused_inactive     $black     $black            $white     $black
 client.urgent               $red       $red              $white     $blue
 client.placeholder          $black     $black            $white     $black
 client.background           $black
@@ -32,6 +31,8 @@ for_window [class="^.*"] title_format " <b>%class</b> - %title"
 for_window [class="^.*"] border pixel 2
 gaps inner 15
 gaps outer 15
+smart_gaps on
+hide_edge_borders smart_no_gaps
 
 set $mod Mod4
 
@@ -56,6 +57,9 @@ for_window [instance="dropdown_*"] move position center
 
 # #---Starting External Scripts---# #
 
+# Set monitors
+exec --no-startup-id xrandr --output HDMI-2 --auto --output DP-2 --rotate right --right-of HDMI-2 --output HDMI-1 --auto --left-of HDMI-2
+
 # polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
@@ -65,21 +69,35 @@ exec --no-startup-id mopidy
 # Starts dunst for notifications:
 exec --no-startup-id dunst
 
-exec --no-startup-id setbg ~/.config/wall.png
+# Set background
+exec --no-startup-id setbg
 
 # Composite manager:
-exec --no-startup-id picom -b --config $HOME/.config/picom/picom.conf
+exec --no-startup-id picom -b --experimental-backends
 
 # Redshift for warmer light in the evening
-exec --no-startup-id redshift
+# exec --no-startup-id redshift
+
+# Autohide cursor
+exec --no-startup-id unclutter -b
 
 exec --no-startup-id setsid protonmail-bridge --no-window
 
 exec --no-startup-id pomodoro_client daemon -d reddit.com -d youtube.com -w 9 --nagbar &
 
+workspace 1 output DP-2
+workspace 2 output HDMI-2
+workspace 3 output HDMI-2
+workspace 10 output HDMI-1
+
 exec --no-startup-id i3-msg 'workspace 1; exec $TERMINAL tm-sessions'
 exec --no-startup-id i3-msg 'workspace 2; exec $BROWSER'
 exec --no-startup-id i3-msg 'workspace 3; exec $MAIL_CLIENT'
+
+
+# Set brightness
+exec --no-startup-id xrandr --output DP-2 --brightness 1.15
+exec --no-startup-id xrandr --output HDMI-2 --brightness 0.8
 
 # #---Basic Bindings---# #
 bindsym $mod+Return         exec --no-startup-id $TERMINAL tm-sessions
@@ -99,8 +117,8 @@ bindsym $mod+Shift+Delete    exec --no-startup-id lmc truemute ; exec --no-start
 bindsym $mod+Insert        exec --no-startup-id showclip
 
 # #---Letter Key Bindings---# #
-bindsym $mod+q            [con_id="__focused__" instance="^(?!dropdown_).*$"] kill
-bindsym $mod+Shift+q        [con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
+bindsym $mod+Shift+q            [con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+bindsym $mod+Shift+Ctrl+q        [con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
 
 bindsym $mod+w            exec --no-startup-id $BROWSER
 
@@ -150,7 +168,7 @@ bindsym $mod+Shift+z        gaps inner current minus 5
 bindsym $mod+d            exec --no-startup-id ~/.scripts/statusbar/launcher
 bindsym $mod+Shift+d        gaps inner current set 0; gaps outer current set 0
 
-bindsym $mod+s          exec --no-startup-id steam
+bindsym $mod+s          exec --no-startup-id launch-steam
 
 #set $freeze Distraction-free mode (super+ctrl+shift+f to reactivate bindings)
 mode "$freeze" { bindsym $mod+Ctrl+Shift+f mode "default"
@@ -161,7 +179,6 @@ bindsym $mod+Ctrl+Shift+f        mode "$freeze" ;; exec --no-startup-id notify-s
 
 bindsym $mod+v            exec --no-startup-id --no-startup-id $TERMINAL -e $EDITOR -c "VimwikiIndex"
 
-bindsym $mod+b            bar mode toggle
 bindsym $mod+Shift+b        floating toggle; sticky toggle; exec --no-startup-id hover left
 
 bindsym $mod+n            exec --no-startup-id networkmanager_dmenu
@@ -178,20 +195,16 @@ bindsym $mod+End        workspace $ws10
 bindsym $mod+Shift+End        move container to workspace $ws10
 bindsym $mod+Prior        workspace prev
 bindsym $mod+Shift+Prior    move container to workspace prev
-bindsym $mod+Next        workspace next
-bindsym $mod+Shift+Next        move container to workspace next
 bindsym $mod+Tab        workspace back_and_forth
-bindsym $mod+XF86Back        workspace prev
-bindsym $mod+Shift+XF86Back    move container to workspace prev
+bindsym $mod+period        workspace next
+bindsym $mod+greater        move container to workspace next
+bindsym $mod+comma        workspace prev
+bindsym $mod+less           move container to workspace prev
 bindsym $mod+XF86Forward    workspace next
 bindsym $mod+Shift+XF86Forward    move container to workspace next
 bindsym $mod+semicolon    split vertical ;; exec --no-startup-id $TERMINAL
 bindsym $mod+apostrophe        split horizontal ;; exec --no-startup-id $TERMINAL
-bindsym $mod+comma        split vertical ;; exec --no-startup-id $TERMINAL
-bindsym $mod+Shift+slash    kill
-bindsym $mod+backslash        workspace back_and_forth
 
-set $wsbonus "-1"
 set $ws0 "0"
 set $ws1 "1"
 set $ws2 "2"
@@ -202,10 +215,9 @@ set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
+set $ws10 "10"
 
 # switch to workspace
-bindsym $mod+grave                      workspace $wsbonus
-bindsym $mod+0                      workspace $ws0
 bindsym $mod+1                      workspace $ws1
 bindsym $mod+2                      workspace $ws2
 bindsym $mod+3                      workspace $ws3
@@ -215,10 +227,9 @@ bindsym $mod+6                      workspace $ws6
 bindsym $mod+7                      workspace $ws7
 bindsym $mod+8                      workspace $ws8
 bindsym $mod+9                      workspace $ws9
+bindsym $mod+0                      workspace $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+grave            move container to workspace $wsbonus
-bindsym $mod+Shift+0                move container to workspace $ws0
 bindsym $mod+Shift+1                move container to workspace $ws1
 bindsym $mod+Shift+2                move container to workspace $ws2
 bindsym $mod+Shift+3                move container to workspace $ws3
@@ -228,6 +239,10 @@ bindsym $mod+Shift+6                move container to workspace $ws6
 bindsym $mod+Shift+7                move container to workspace $ws7
 bindsym $mod+Shift+8                move container to workspace $ws8
 bindsym $mod+Shift+9                move container to workspace $ws9
+bindsym $mod+Shift+0                move container to workspace $ws10
+
+# jump to urgent window
+bindsym $mod+grave [urgent=latest] focus
 
 # #---Function Buttons---# #
 bindsym $mod+F1        exec --no-startup-id ~/.scripts/statusbar/powermenu
@@ -241,11 +256,6 @@ bindsym $mod+Shift+Left        move workspace to output left
 bindsym $mod+Shift+Right     move workspace to output right
 
 # #---Media Keys---# #
-# Volume keys
-bindsym $mod+less             exec --no-startup-id lmc prev
-bindsym $mod+Ctrl+less     exec --no-startup-id lmc replay
-bindsym $mod+Shift+less        exec --no-startup-id lmc next
-
 # Volume up/down
 bindsym $mod+Down       exec --no-startup-id amixer -D pulse sset Master 5%-
 bindsym $mod+Up         exec --no-startup-id amixer -D pulse sset Master 5%+
@@ -281,6 +291,20 @@ for_window [instance="^codi_scratchpad$"] \
     resize set 1000 700, move position 400 100, \
     move scratchpad, scratchpad show
 
-for_window [title="^Steam$"] move workspace $ws9
+for_window [title="^Steam Keyboard$"] \
+    floating enable, border none, \
+    resize set 700 300, \
+    move scratchpad, scratchpad show
+
+assign [class="^Thunderbird$"] $ws3
+assign [title="^Discord$"] $ws8
+assign [title="^Steam$"] $ws9
+for_window [title="^Sekiro$"] fullscreen toggle
 for_window [title="Default - Wine desktop"] floating enable
+
+for_window [class="^Droidcam$"] \
+    floating disable, resize set 200 100,\
+    gaps inner current set 0, gaps outer current set 0
+
+assign [class="^Droidcam$"] $ws1
 

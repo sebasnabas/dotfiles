@@ -45,7 +45,7 @@ function get_usr_name {
 
 # Directory info.
 function get_current_dir {
-    echo "${PWD/#$HOME/~}"
+    basename "${PWD/#$HOME/~}"
 }
 
 # Git info.
@@ -116,7 +116,7 @@ $(get_git_prompt) "
 
     local right_prompt="%{$blue%}($(get_time_stamp))%{$reset_color%} "
 
-    local short_left_prompt="%{$cyan_bold%}$(get_virtualenv)$(get_usr_name)% %{$blue%}: %{$cyan%}$(basename $(get_current_dir))%{$reset_color%}$(get_git_prompt) "
+    local short_left_prompt="%{$cyan_bold%}$(get_virtualenv)$(get_usr_name)% %{$blue%}: %{$cyan%}$(get_current_dir)%{$reset_color%}$(get_git_prompt) "
 
     print -rP "$short_left_prompt$(get_space $short_left_prompt $right_prompt)$right_prompt"
 }
