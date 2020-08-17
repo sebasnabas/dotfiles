@@ -1,6 +1,25 @@
 #!/bin/sh
 # Sets the background. If given an argument, will set file as background.
-[ ! -z "$1" ] && cp "$1" ~/.config/wall.png && notify-send -i "$HOME/.config/wall.png" "Wallpaper changed."
 
-xwallpaper --zoom ~/.config/wall.png
+file_path_horizontal="$HOME/.config/wall-h.png"
+file_path_vertical="$HOME/.config/wall-v.png"
+output="HDMI-2"
+second_output="DP-2"
+third_output="HDMI-1"
+file_path="$file_path_horizontal"
+other_file_path="$file_path_vertical"
 
+if [ "$1" = "-v" ]; then
+    file_path="$file_path_vertical"
+    other_file_path="$file_path_horizontal"
+    output_tmp="$second_output"
+    second_output="$output"
+    output="$output_tmp"
+elif [ -n "$1" ] && [ -n "$2" ]; then
+    echo "First  argument must be '-h' or '-v' when specifying file."
+    exit 1
+fi
+
+[ -n "$2" ] && cp "$2" "$file_path" && notify-send -i "$file_path" "Wallpaper changed."
+
+xwallpaper --output "$output" --zoom "$file_path" --output "$second_output" --zoom "$other_file_path" --output "$third_output" --zoom "$file_path"
