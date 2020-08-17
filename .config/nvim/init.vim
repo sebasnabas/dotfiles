@@ -12,7 +12,6 @@ let mapleader = ","
         call plug#begin('~/.local/share/nvim/plugged')
 
             "" Color scheme
-            Plug 'sonph/onehalf', {'rtp': 'vim/'}
             Plug 'junegunn/seoul256.vim'
 
             "" Syntax highlighting
@@ -38,6 +37,9 @@ let mapleader = ","
 
             "" Auto pairs
             Plug 'tmsvg/pear-tree'
+
+            "" Titlecase
+            Plug 'christoomey/vim-titlecase'
 
             "" Easy replacing
             Plug 'vim-scripts/ReplaceWithRegister'
@@ -65,9 +67,6 @@ let mapleader = ","
 
             """ Run commands in separate pane
             Plug 'benmills/vimux'
-
-            """ Tmux statusline
-            Plug 'edkolev/tmuxline.vim'
 
             " Generic Programming Support
             "" Comments
@@ -132,9 +131,20 @@ let mapleader = ","
 
             "" C++
             Plug 'deoplete-plugins/deoplete-clang'
+            Plug 'Shougo/neoinclude.vim'
 
             "" Rust
+            " Plug 'rust-lang/rust.vim'
             Plug 'sebastianmarkow/deoplete-rust'
+
+            "" Haskell
+            Plug 'eagletmt/neco-ghc'
+
+            "" Markdown
+            " Plug 'plasticboy/vim-markdown'
+
+            "" Latex
+            Plug 'lervag/vimtex'
 
         call plug#end()
 "   }}}
@@ -143,11 +153,13 @@ let mapleader = ","
         """' NERDTree '""" {{{
             autocmd StdinReadPre * let s:std_in=1
 
+            let g:NERDTreeWinSize=40
+
             " display directory name in nerdtree statusline
             let NERDTreeStatusline="%{exists('b:NERDTree')?fnamemodify(b:NERDTree.root.path.str(), ':~'):''}"
 
             " the ignore patterns are regular expression strings and separated by comma
-            let NERDTreeIgnore = ['\.pyc$', '^__pycache__$']
+            let NERDTreeIgnore = ['\.pyc$', '^__pycache__$', 'bin$', 'obj$']
 
             " quit nerdtree if it's the last buffer left
             autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -180,6 +192,14 @@ let mapleader = ","
             let g:goyo_linenr=1
         "}}}
 
+        """' pear-tree '""" {{{
+            let g:pear_tree_smart_backspace = 1
+            augroup latex_pairs
+                autocmd!
+                autocmd FileType tex let b:pear_tree_pairs = extend(g:pear_tree_pairs, { '$': {'closer': ' $'} })
+            augroup END
+        "}}}
+
         """' vim-mundo '"""{{{
             let g:mundo_right = 1
         "}}}
@@ -187,6 +207,54 @@ let mapleader = ","
         ""' Gutentags '""{{{
             let g:gutentags_cache_dir='~/.cache/nvim/tags'
             let g:gutentags_generate_on_write=1
+
+            let g:gutentags_ctags_exclude = [
+                  \ '*.git', '*.svg', '*.hg',
+                  \ '*/tests/*',
+                  \ 'build',
+                  \ 'dist',
+                  \ '*sites/*/files/*',
+                  \ 'bin',
+                  \ 'node_modules',
+                  \ 'bower_components',
+                  \ 'cache',
+                  \ 'compiled',
+                  \ 'docs',
+                  \ 'example',
+                  \ 'bundle',
+                  \ 'vendor',
+                  \ '*.md',
+                  \ '*-lock.json',
+                  \ '*.lock',
+                  \ '*bundle*.js',
+                  \ '*build*.js',
+                  \ '.*rc*',
+                  \ '*.json',
+                  \ '*.min.*',
+                  \ '*.map',
+                  \ '*.bak',
+                  \ '*.zip',
+                  \ '*.pyc',
+                  \ '*.class',
+                  \ '*.sln',
+                  \ '*.Master',
+                  \ '*.csproj',
+                  \ '*.tmp',
+                  \ '*.csproj.user',
+                  \ '*.cache',
+                  \ '*.pdb',
+                  \ 'tags*',
+                  \ 'cscope.*',
+                  \ '*.css',
+                  \ '*.less',
+                  \ '*.scss',
+                  \ '*.exe', '*.dll',
+                  \ '*.mp3', '*.ogg', '*.flac',
+                  \ '*.swp', '*.swo',
+                  \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+                  \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+                  \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+                  \ ]
         "}}}
 
         """' Fzf '"""{{{
@@ -237,21 +305,27 @@ let mapleader = ","
             set statusline+=%{FugitiveStatusline()}
 
             " Move git patch always to the right and make it vertical
-            autocmd BufEnter term://.//*:git\ *\ add\ --patch\ --\ * wincmd L
-            autocmd BufEnter term://.//*:git\ *\ reset\ --patch\ --\ * wincmd L
-            autocmd BufEnter term://.//*:git\ *\ add\ --intent-to-add\ --\ * wincmd L
+            " autocmd BufEnter term://.//*:git\ *\ add\ --patch\ --\ * wincmd L
+            " autocmd BufEnter term://.//*:git\ *\ reset\ --patch\ --\ * wincmd L
+            " autocmd BufEnter term://.//*:git\ *\ add\ --intent-to-add\ --\ * wincmd L
         "}}}
 
         """' Ale '"""{{{
             let g:airline#extensions#ale#enabled = 1
             let g:ale_open_list = 1
             let g:ale_linters = {
-                  \ 'python': ['bandit', 'pylint']
-                  \}
-            let g:ale_virtualenv_dir_names = ['.env']
-            let g:ale_echo_msg_error_str = 'E'
-            let g:ale_echo_msg_warning_str = 'W'
-            let g:ale_echo_msg_format = '[%linter%][%severity%] %s'
+                  \ 'python': ['bandit', 'pylint'],
+                  \ 'cs': ['OmniSharp'],
+                  \ 'rust': ['analyzer'],
+                  \ 'tex': ['chktex', 'write-good']
+             \}
+
+            let g:ale_writegood_options = '--no-thereIs --no-passive --no-tooWordy'
+
+            let g:ale_virtualenv_dir_names = ['venv']
+
+            " let g:ale_rust_carg
+            let g:ale_echo_msg_format = '[%linter%][%severity%: %code%] %s'
             let g:ale_list_window_size = 5
 
             augroup CloseLoclistWindowGroup
@@ -293,13 +367,18 @@ let mapleader = ","
             let g:WebDevIconsUnicodeDecorateFolderNodes = 1
         "}}}
 
-        """' NeoSnippet '"""{{{
-            " Enable snipMate compatibility feature.
-            let g:neosnippet#enable_snipmate_compatibility = 1
-
-            " Tell Neosnippet about the other snippets
-            let g:neosnippet#snippets_directory=$HOME.'/.local/share/nvim/plugged/vim-snippets/snippets'
+        """' Ultisnips '"""{{{
+            let g:UltiSnipsExpandTrigger="<c-k>"
+            let g:UltiSnipsJumpForwardTrigger="<c-k>"
+            let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+            let g:UltiSnipsEditSplit="vertical"
         "}}}
+
+        """' Vimwiki '"""{{{
+            let g:vimwiki_list = [{'path': '~/vimwiki/',
+                                  \ 'syntax': 'markdown', 'ext': '.md'}]
+            let g:vimwiki_global_ext=0
+        " }}}
 
         """' Codi '"""{{{
             let g:codi#width = 20
@@ -337,8 +416,14 @@ let mapleader = ","
             autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
         "}}}
 
+        """' Deoplete Rust '""" {{{
+            let g:deoplete#sources#rust#racer_binary = "$HOME/.cargo/bin/racer"
+            let g:deoplete#sources#rust#rust_source_path = "$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
+        "}}}
+
         """' Omnisharp '"""{{{
             " Use the stdio OmniSharp-roslyn server
+            let g:OmniSharp_server_use_mono = 0
             let g:OmniSharp_server_stdio = 1
             let g:OmniSharp_server_http = 0
             let g:OmniSharp_highlight_types = 3
@@ -361,6 +446,31 @@ let mapleader = ","
             " By default, only Type/Method signatures are fetched. Full documentation can
             " still be fetched when you need it with the :OmniSharpDocumentation command.
             let g:omnicomplete_fetch_full_documentation = 1
+
+            function SetCSSettings()
+
+                " Use deoplete.
+                call deoplete#enable()
+
+                " Use smartcase.
+                call deoplete#custom#option('smart_case', v:true)
+
+                " Use OmniSharp-vim omnifunc
+                call deoplete#custom#source('omni', 'functions', { 'cs':  'OmniSharp#Complete' })
+
+                " Set how Deoplete filters omnifunc output.
+                call deoplete#custom#var('omni', 'input_patterns', {
+                    \ 'cs': '[^. *\t]\.\w*',
+                    \})
+
+            endfunction
+
+            augroup csharp_commands
+                autocmd!
+
+                autocmd FileType cs call SetCSSettings()
+
+            augroup END
         "}}}
 
         """' Virtualenv '"""{{{
@@ -406,7 +516,6 @@ let mapleader = ","
 
     " make backspace behave in a sane manner
     set backspace=indent,eol,start
-
 
     au BufEnter * set fo-=l fo-=o
 
@@ -483,6 +592,9 @@ let mapleader = ","
         " Prefer Neovim terminal insert mode to normal mode.
         autocmd BufEnter term://* startinsert
 
+        " Lint gitlab ci
+        " autocmd BufWritePre *.gitlab-ci.yml  !curl --header "Content-Type: application/json" https://gitlab.com/api/v4/ci/lint --data "{\"content\": \"$(yq -c '' % | sed 's/"/\\"/g')\"}"
+
     "}}}
 
 "}}}
@@ -521,7 +633,8 @@ let mapleader = ","
     function! Mdc(directory) "{{{
         execute '!mkdir ' . a:directory
         execute 'chdir ' . a:directory
-    endfunction "}}}
+    endfunction
+    "}}}
     command! -nargs=1 Mdc call Mdc( '<args>' )
 
     nnoremap <leader>mdc :Mdc<Space>
@@ -553,7 +666,7 @@ let mapleader = ","
     map <leader>v :!opout <c-r>%<CR><CR>
 
     "" Jump to <++>
-    map <leader>n <Esc>/<++><CR>c4l<Esc>:nohlsearch<CR><Esc>a
+    map <leader><Space> <Esc>/<++><CR>c4l<Esc>:nohlsearch<CR><Esc>a
 
     "" Help for word under cursor
     noremap <leader>h :execute "tab h " . expand("<cword>")<CR>
@@ -667,15 +780,6 @@ let mapleader = ","
             nnoremap <leader>gw :Gwrite<CR>
 
         "}}}
-        ""' Neosnippet '"""{{{
-            "' Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-            imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-            smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-            xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-            smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-                \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>
-        "}}}
         """' Vimwiki '"""{{{
             nnoremap <Leader>wf :VimwikiFollowLink<CR>
 
@@ -733,6 +837,18 @@ let mapleader = ","
             " Start debugging - Split window and call ipdb with current file
             autocmd FileType python nmap <F5> <C-w>s :term ipdb3 -c continue % <CR> A
             " Remove all breakppoints when saving
+    "}}}
+
+    ""' Markdown '""{{{
+        " disable header folding
+        " let g:vim_markdown_folding_disabled = 1
+
+        " do not use conceal feature, the implementation is not so good
+        " let g:vim_markdown_conceal = 1
+    " }}}
+
+    ""' Latex '""{{{
+        let g:tex_flavor = 'latex'
     "}}}
 "}}}
 
