@@ -1,7 +1,7 @@
 #!/bin/sh
-vpn=$(nmcli -t con show --active | grep vpn | cut -d : -f 1)
-if [ $vpn ]; then
-    echo "%{T8}列%{T-}$vpn"
+vpn=$(nmcli -t con show --active | grep -w vpn | cut -d : -f 1 | tr '\n' ' ')
+if [ "$vpn" ]; then
+    echo "󰖂 $vpn"
 else
     echo ""
 fi
