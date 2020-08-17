@@ -25,4 +25,4 @@ then
     create_mochi
 fi
 
-tmux attach -t $SESSIONNAME
+[ "$1" != "-d" ] && tmux attach -t $SESSIONNAME || true
