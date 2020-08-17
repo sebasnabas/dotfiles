@@ -3,11 +3,13 @@ export PATH="$HOME/.local/share/go/bin":$PATH
 export PATH="$HOME/.scripts/tools":$PATH
 export PATH="$HOME/.scripts/i3cmds":$PATH
 export PATH="$HOME/.scripts/tmux":$PATH
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 
 export GOPATH=$HOME/.local/share/go
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 export BROWSER="firefox"
-
 export MAIL_CLIENT="thunderbird"
 export TERMINAL="kitty"
 export EDITOR="nvim"
@@ -18,11 +20,11 @@ export MPC_FORMAT="[[%artist% - ]%title%]"
 
 export MYVIMRC="$HOME/.config/nvim/init.vim"
 
+privateProfile="$HOME/.config/shell/private_profile"
+[ -f "$privateProfile" ] && source "$privateProfile"
+
 ## zsh
 export ZDOTDIR="$HOME/.config/shell/zsh/"
 export HISTFILE="$HOME/.cache/zsh/zsh_history"
 
-if [ -n "$(uname -r | grep 'arch')" ]; then
-    exec startx
-fi
-
+export MANGOHUD=1
