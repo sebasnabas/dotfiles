@@ -1,7 +1,6 @@
 font pango:Fira Code 11
 
 ## Colors ##
-# onedark theme
 set $transparent     #00000000
 set $dark_grey #282c34
 set $pink #e06c75
@@ -58,7 +57,7 @@ for_window [instance="dropdown_*"] move position center
 # #---Starting External Scripts---# #
 
 # Set monitors
-exec --no-startup-id xrandr --output HDMI-2 --auto --output DP-2 --rotate right --right-of HDMI-2 --output HDMI-1 --auto --left-of HDMI-2
+exec --no-startup-id xrandr --output HDMI-A-0 --primary --auto --output DisplayPort-0 --rotate right --right-of HDMI-A-0 --output HDMI-A-1 --left-of HDMI-A-0
 
 # polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
@@ -85,19 +84,19 @@ exec --no-startup-id setsid protonmail-bridge --no-window
 
 exec --no-startup-id pomodoro_client daemon -d reddit.com -d youtube.com -w 9 --nagbar &
 
-workspace 1 output DP-2
-workspace 2 output HDMI-2
-workspace 3 output HDMI-2
-workspace 10 output HDMI-1
+workspace 1 output DisplayPort-0
+workspace 2 output HDMI-A-0
+workspace 3 output HDMI-A-0
+workspace 4 output HDMI-A-0
+workspace 10 output HDMI-A-1
 
 exec --no-startup-id i3-msg 'workspace 1; exec $TERMINAL tm-sessions'
 exec --no-startup-id i3-msg 'workspace 2; exec $BROWSER'
 exec --no-startup-id i3-msg 'workspace 3; exec $MAIL_CLIENT'
 
-
 # Set brightness
-exec --no-startup-id xrandr --output DP-2 --brightness 1.15
-exec --no-startup-id xrandr --output HDMI-2 --brightness 0.8
+exec --no-startup-id xrandr --output DisplayPort-0 --brightness 1.15
+exec --no-startup-id xrandr --output HDMI-A-0 --brightness 0.8
 
 # #---Basic Bindings---# #
 bindsym $mod+Return         exec --no-startup-id $TERMINAL tm-sessions
@@ -286,6 +285,13 @@ bindsym $mod+F12 exec "pomodoro_client stop"
 
 
 # #---Window Settings---# #
+assign [class="^Droidcam$"] $ws1
+assign [class="^Thunderbird$"] $ws3
+assign [class="^Chromium$"] $ws4
+assign [title="^Discord$"] $ws8
+assign [title="^Steam$"] $ws9
+for_window [title="^steam_app_*$"] fullscreen enable
+
 for_window [instance="^codi_scratchpad$"] \
     floating enable, border none, \
     resize set 1000 700, move position 400 100, \
@@ -296,15 +302,11 @@ for_window [title="^Steam Keyboard$"] \
     resize set 700 300, \
     move scratchpad, scratchpad show
 
-assign [class="^Thunderbird$"] $ws3
-assign [title="^Discord$"] $ws8
-assign [title="^Steam$"] $ws9
 for_window [title="^Sekiro$"] fullscreen toggle
 for_window [title="Default - Wine desktop"] floating enable
 
 for_window [class="^Droidcam$"] \
-    floating disable, resize set 200 100,\
-    gaps inner current set 0, gaps outer current set 0
+    floating disable, gaps inner current set 0, gaps outer current set 0, \
+    resize set height 200px
 
-assign [class="^Droidcam$"] $ws1
 
