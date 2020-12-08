@@ -55,7 +55,6 @@ let mapleader = ","
             Plug 'ludovicchabant/vim-gutentags'
 
             "" Fuzzy file finder
-            Plug '~/.fzf'
             Plug 'junegunn/fzf.vim'
 
             "" Multiline-Singleline
@@ -140,9 +139,6 @@ let mapleader = ","
             "" Haskell
             Plug 'eagletmt/neco-ghc'
 
-            "" Markdown
-            " Plug 'plasticboy/vim-markdown'
-
             "" Latex
             Plug 'lervag/vimtex'
 
@@ -189,7 +185,9 @@ let mapleader = ","
         "}}}
 
         """' Goyo '""" {{{
-            let g:goyo_linenr=1
+            let g:goyo_width = 100
+            let g:goyo_height = 100
+            let g:goyo_linenr = 1
         "}}}
 
         """' pear-tree '""" {{{
@@ -314,10 +312,10 @@ let mapleader = ","
             let g:airline#extensions#ale#enabled = 1
             let g:ale_open_list = 1
             let g:ale_linters = {
-                  \ 'python': ['bandit', 'pylint'],
+                  \ 'python': ['pylint'],
                   \ 'cs': ['OmniSharp'],
                   \ 'rust': ['analyzer'],
-                  \ 'tex': ['chktex', 'write-good']
+                  \ 'tex': ['chktex', 'write-good', 'proselint']
              \}
 
             let g:ale_writegood_options = '--no-thereIs --no-passive --no-tooWordy'
@@ -346,7 +344,7 @@ let mapleader = ","
             let g:bufferline_pathshorten = 1
             let g:bufferline_active_buffer_left = '['
             let g:bufferline_active_buffer_right = ']'
-            let g:bufferline_modified = '+'
+            let g:bufferline_modified = '~'
             let g:bufferline_fname_mod = ':t'
         "}}}
 
@@ -376,7 +374,7 @@ let mapleader = ","
 
         """' Vimwiki '"""{{{
             let g:vimwiki_list = [{'path': '~/vimwiki/',
-                                  \ 'syntax': 'markdown', 'ext': '.md'}]
+                                  \ 'syntax': 'markdown', 'ext': '.wiki'}]
             let g:vimwiki_global_ext=0
         " }}}
 
@@ -392,24 +390,19 @@ let mapleader = ","
 
         """' Deoplete '"""{{{
             let g:deoplete#enable_at_startup = 1
+
+            " Use smartcase.
+            call deoplete#custom#option('smart_case', v:true)
+
+            " Use OmniSharp-vim omnifunc
+            call deoplete#custom#source('omni', 'functions', { 'cs':  'OmniSharp#Complete' })
+
+            " Set how Deoplete filters omnifunc output.
+            call deoplete#custom#var('omni', 'input_patterns', {
+                    \ 'cs': '[^. *\t]\.\w*',
+                    \ 'tex': g:vimtex#re#deoplete
+            \})
         "}}}
-
-        """' Vim-Go '"""{{{
-            " let g:go_gopls_enabled = 1
-            " let g:go_info_mode = 'gocode'
-            " let g:go_fmt_command = 'goimports'
-            " let g:go_snippet_engine = 'neosnippet'
-            " let g:go_disable_autoinstall = 0
-            " let g:go_fmt_fai_silently = 0
-            " let g:go_doc_keywordprg_enabled = 0
-
-            " " Enable syntax highting on everything
-            " let g:go_highlight_functions = 1
-            " let g:go_highlight_methods = 1
-            " let g:go_highlight_structs = 1
-            " let g:go_highlight_operators = 1
-            " let g:go_highlight_build_constraints = 1
-        " }}}
 
         """' Deoplete Jedi '"""{{{
             let g:jedi#auto_close_doc = 1  " close preview window after completion
@@ -446,31 +439,6 @@ let mapleader = ","
             " By default, only Type/Method signatures are fetched. Full documentation can
             " still be fetched when you need it with the :OmniSharpDocumentation command.
             let g:omnicomplete_fetch_full_documentation = 1
-
-            function SetCSSettings()
-
-                " Use deoplete.
-                call deoplete#enable()
-
-                " Use smartcase.
-                call deoplete#custom#option('smart_case', v:true)
-
-                " Use OmniSharp-vim omnifunc
-                call deoplete#custom#source('omni', 'functions', { 'cs':  'OmniSharp#Complete' })
-
-                " Set how Deoplete filters omnifunc output.
-                call deoplete#custom#var('omni', 'input_patterns', {
-                    \ 'cs': '[^. *\t]\.\w*',
-                    \})
-
-            endfunction
-
-            augroup csharp_commands
-                autocmd!
-
-                autocmd FileType cs call SetCSSettings()
-
-            augroup END
         "}}}
 
         """' Virtualenv '"""{{{
@@ -479,6 +447,10 @@ let mapleader = ","
 
         """' Vimux '"""{{{
             let g:VimuxUseNearest=0
+        "}}}
+
+        """' Vimtex '"""{{{
+            let g:tex_flavor = 'latex'
         "}}}
     "}}}
 "}}}
@@ -537,6 +509,8 @@ let mapleader = ","
     set expandtab
     set autoindent
 
+    autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
+
     " Enable folding
     set foldmethod=syntax
     set foldnestmax=10
@@ -545,6 +519,7 @@ let mapleader = ","
     set foldtext=gitgutter#fold#foldtext()
     autocmd FileType python setlocal foldmethod=indent
     autocmd FileType vim setlocal foldmethod=marker
+    autocmd FileType lua setlocal foldmethod=marker
 
     "" Always display the status line
     set laststatus=2
@@ -591,9 +566,6 @@ let mapleader = ","
 
         " Prefer Neovim terminal insert mode to normal mode.
         autocmd BufEnter term://* startinsert
-
-        " Lint gitlab ci
-        " autocmd BufWritePre *.gitlab-ci.yml  !curl --header "Content-Type: application/json" https://gitlab.com/api/v4/ci/lint --data "{\"content\": \"$(yq -c '' % | sed 's/"/\\"/g')\"}"
 
     "}}}
 
@@ -809,46 +781,6 @@ let mapleader = ","
             nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
         "}}}
 
-    "}}}
-"}}}
-
-"""' Language specific settings '"""{{{
-    ""' Python '""{{{
-    " highlighting
-        let python_highlight_all=1
-
-    ""' debugging '""
-        func! s:SetBreakpoint()
-            cal append('.', repeat(' ', strlen(matchstr(getline('.'), '^\s*'))) . 'import ipdb; ipdb.set_trace()')
-        endf
-
-        func! s:RemoveBreakpoint()
-            exe 'silent! g/^\s*import\sipdb\;\?\n*\s*ipdb.set_trace()/d'
-        endf
-
-        func! s:ToggleBreakpoint()
-            if getline('.')=~#'^\s*import\sipdb' | cal s:RemoveBreakpoint() | el | cal s:SetBreakpoint() | en
-        endf
-
-        augroup python_auto
-            autocmd! python_auto
-            " Toggle breakpoint
-            autocmd FileType python nmap <F6> :call <SID>ToggleBreakpoint()<CR>
-            " Start debugging - Split window and call ipdb with current file
-            autocmd FileType python nmap <F5> <C-w>s :term ipdb3 -c continue % <CR> A
-            " Remove all breakppoints when saving
-    "}}}
-
-    ""' Markdown '""{{{
-        " disable header folding
-        " let g:vim_markdown_folding_disabled = 1
-
-        " do not use conceal feature, the implementation is not so good
-        " let g:vim_markdown_conceal = 1
-    " }}}
-
-    ""' Latex '""{{{
-        let g:tex_flavor = 'latex'
     "}}}
 "}}}
 
