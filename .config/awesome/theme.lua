@@ -1,1 +1,0 @@
-/home/sebastian/.dotfiles/.config/awesome/gtk_theme.lua
