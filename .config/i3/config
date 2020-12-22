@@ -57,32 +57,36 @@ for_window [instance="dropdown_*"] move position center
 # #---Starting External Scripts---# #
 
 # Set monitors
-exec --no-startup-id xrandr --output HDMI-A-0 --primary --auto --output DisplayPort-0 --rotate right --right-of HDMI-A-0 --output HDMI-A-1 --left-of HDMI-A-0
+exec --no-startup-id autorandr --load desktop
 
 # polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
+# systemtray
+exec_always --no-startup-id nm-applet
+exec_always --no-startup-id blueman-tray
+exec_always --no-startup-id pasystray --notify=new --notify=sink --notify=source
+exec_always --no-startup-id udiskie -s -n
+exec_always --no-startup-id birdtray
+
+exec_always --no-startup-id setxkbmap -option 'caps:escape'
+
 # mpd startup
 exec --no-startup-id mopidy
 
-# Starts dunst for notifications:
-exec --no-startup-id dunst
-
 # Set background
-exec --no-startup-id setbg
+exec --no-startup-id nitrogen --restore
 
 # Composite manager:
-exec --no-startup-id picom -b --experimental-backends
+exec --no-startup-id picom -b
 
 # Redshift for warmer light in the evening
-# exec --no-startup-id redshift
+exec --no-startup-id redshift-gtk
 
 # Autohide cursor
 exec --no-startup-id unclutter -b
 
 exec --no-startup-id setsid protonmail-bridge --no-window
-
-exec --no-startup-id pomodoro_client daemon -d reddit.com -d youtube.com -w 9 --nagbar &
 
 workspace 1 output DisplayPort-0
 workspace 2 output HDMI-A-0
@@ -95,7 +99,6 @@ exec --no-startup-id i3-msg 'workspace 2; exec $BROWSER'
 exec --no-startup-id i3-msg 'workspace 3; exec $MAIL_CLIENT'
 
 # Set brightness
-exec --no-startup-id xrandr --output DisplayPort-0 --brightness 1.15
 exec --no-startup-id xrandr --output HDMI-A-0 --brightness 0.8
 
 # #---Basic Bindings---# #
