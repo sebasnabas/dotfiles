@@ -23,6 +23,9 @@ require("awful.hotkeys_popup.keys")
 local lain = require("lain")
 local lain_helpers = require("lain.helpers")
 
+-- Dynamic tagging
+local eminent = require("eminent")
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -57,17 +60,6 @@ terminal = os.getenv("TERMINAL")
 editor = os.getenv("EDITOR") or "vi"
 editor_cmd = terminal .. " -e " .. editor
 
--- Quake dropdown
-local quake = lain.util.quake {
-    app = terminal,
-    name = "Codi",
-    argname = "",
-    extra = "--class Codi codi",
-    height = 0.4,
-    vert = "bottom",
-    horiz = "center"
-}
-
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -77,11 +69,11 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
+    awful.layout.suit.tile.top,
     awful.layout.suit.tile,
-    awful.layout.suit.floating
+    -- awful.layout.suit.floating,
     -- awful.layout.suit.tile.left,
     -- awful.layout.suit.tile.bottom,
-    -- awful.layout.suit.tile.top,
     -- awful.layout.suit.fair,
     -- awful.layout.suit.fair.horizontal,
     -- awful.layout.suit.spiral,
@@ -107,7 +99,8 @@ myawesomemenu = {
 }
 
 mysystemmenu = {
-    { "lock screen", function() awful.spawn.with_shell("i3lock-fancy || i3lock") end },
+    { "lock screen", function() awful.spawn.with_shell("i3lock-fancy") end },
+    { "switch user", function() awful.spawn.with_shell("i3lock-fancy &; dm-tool switch-to-greeter") end },
     { "reboot", function() awful.spawn.with_shell("systemctl reboot") end },
     { "poweroff", function() awful.spawn.with_shell("systemctl -i poweroff") end }
 }
@@ -168,13 +161,22 @@ local tasklist_buttons = gears.table.join(
 
 local function set_wallpaper(s)
     -- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
+    -- if beautiful.wallpaper then
+    --     local wallpaper = beautiful.wallpaper
+    --     -- If wallpaper is a function, call it with the screen
+    --     if type(wallpaper) == "function" then
+    --         wallpaper = wallpaper(s)
+    --     end
+    --     gears.wallpaper.maximized(wallpaper, s, true)
+    -- end
+    local wallpaper_path = "/home/sebastian/Pictures/wallpapers/"
+
+    local wallpaper = "fuji_horizontal.jpg"
+    if s ~= nil and s.geometry.width <= s.geometry.height then
+        wallpaper = "fuji_vertical.jpg"
+    end
+    if s ~= nil then
+        gears.wallpaper.maximized(wallpaper_path .. wallpaper, s)
     end
 end
 
@@ -209,15 +211,22 @@ end
 
 local package_updates = _package_updates()
 
-
 local function format_seconds_to_minutes(seconds)
-    minutes = math.floor(seconds / 60)
-    seconds_remaining = math.floor(seconds % 60)
+    z = function (str)
+        if string.len(str) ~= 1 then
+            return str
+        else
+            return "0" .. str
+        end
+    end
+    minutes = z(tostring(math.floor(seconds / 60)))
+    seconds_remaining = z(tostring(math.floor(seconds % 60)))
     return minutes .. ":" .. seconds_remaining
 end
 
 -- MPD
 local mympd = lain.widget.mpd {
+    notify = "on",
     settings = function()
         local mode_icon = ""
         if mpd_now.random_mode then
@@ -226,10 +235,19 @@ local mympd = lain.widget.mpd {
             mode_icon = "󰑘"
         elseif mpd_now.repeat_mode then
             mode_icon = "󰑖"
+        end
+
+        if mode_icon ~= "" then
+            mode_icon = " " .. mode_icon
+        end
+
+        local state_icon = ""
+        if mpd_now.state == "play" then
+            state_icon = "󰐊"
         elseif mpd_now.state == "pause" then
-            mode_icon = "󰏤"
+            state_icon = "󰏤"
         elseif mpd_now.state == "stop" then
-            mode_icon = "󰓛"
+            state_icon = "󰓛"
         end
 
         local markup = " | " .. mpd_now.artist .. " - " .. mpd_now.title
@@ -238,7 +256,7 @@ local mympd = lain.widget.mpd {
         if mpd_now.artist == notset or mpd_now.title == notset then
             markup = ""
         else
-            markup = markup .. " " .. format_seconds_to_minutes(mpd_now.elapsed) .. "/" .. format_seconds_to_minutes(mpd_now.time) .. " " .. mode_icon
+            markup = markup .. " " .. format_seconds_to_minutes(mpd_now.elapsed) .. "/" .. format_seconds_to_minutes(mpd_now.time) .. " " .. state_icon .. mode_icon .. " " .. math.floor(mpd_now.pls_pos + 1) .. "/" .. mpd_now.pls_len .. " | "
         end
 
         widget:set_markup(markup)
@@ -254,7 +272,7 @@ local myweather = lain.widget.weather({
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
-    set_wallpaper(s)
+    set_wallpaper(c)
 
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
@@ -321,10 +339,10 @@ root.buttons(gears.table.join(
 globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
-              {description = "view previous", group = "tag"}),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
-              {description = "view next", group = "tag"}),
+    -- awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
+    --           {description = "view previous", group = "tag"}),
+    -- awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
+    --           {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
 
@@ -363,14 +381,14 @@ globalkeys = gears.table.join(
         end,
         {description = "go back", group = "client"}),
 
-    -- awful.key({ modkey, "Mod1"    }, "Right",     function () awful.tag.incmwfact( 0.01)    end,
+    -- awful.key({ modkey, "Control"    }, "Right",     function () awful.tag.incmwfact( 0.01)    end,
     --          {description = "Resize right", group="client"}),
-    -- awful.key({ modkey, "Mod1"    }, "Left",     function () awful.tag.incmwfact(-0.01)    end,
+    -- awful.key({ modkey, "Control"    }, "Left",     function () awful.tag.incmwfact(-0.01)    end,
     --          {description = "Resize left", group="client"}),
-    -- awful.key({ modkey, "Mod1"    }, "Down",     function () awful.client.incwfact( 0.01)  end,
+    -- awful.key({ modkey, "Control"    }, "Down",     function () awful.client.incwfact( 0.01)  end,
     --          {description = "Resize down", group="client"}),
-    -- awful.key({ modkey, "Mod1"    }, "Up",     function () awful.client.incwfact(-0.01) end,
-    --          {description = "Resize up", group="client"}),
+    -- awful.key({ modkey, "Control"    }, "Up",     function () awful.client.incwfact(-0.01) end,
+             -- {description = "Resize up", group="client"}),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal .. " tm-sessions") end,
@@ -427,8 +445,25 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
 
     -- Menubar
-    awful.key({ modkey }, "p", function() os.execute("~/.scripts/statusbar/launcher") end,
+    awful.key({ modkey }, "d", function() os.execute("~/.scripts/statusbar/launcher") end,
               {description = "show the launcher", group = "launcher"}),
+
+    -- MPD
+    awful.key({ modkey }, "p",
+        function ()
+            os.execute("mpc toggle")
+        end,
+       {description = "Play/Pause Song", group = "mpd"}),
+    awful.key({ modkey }, "Left",
+        function ()
+            os.execute("mpc prev")
+        end,
+       {description = "Previous Song", group = "mpd"}),
+    awful.key({ modkey }, "Right",
+        function ()
+            os.execute("mpc next")
+        end,
+       {description = "Next Song", group = "mpd"}),
 
     -- PulseAudio volume control
     awful.key({ modkey }, "Up",
@@ -450,16 +485,49 @@ globalkeys = gears.table.join(
     -- Screenshots
     awful.key({ modkey }, "Print",
         function()
-            os.execute("maimpick")
+            awful.spawn("maimpick")
         end,
        {description = "Take screenshot", group = "launcher"}),
 
     -- Codi
     awful.key({ modkey }, "c",
         function()
-            quake:toggle()
+            awful.spawn(terminal .. " --class codi codi py", {
+                    floating = true,
+                    tag = mouse.screen.selected_tag,
+                    placement = awful.placement.top,
+                    maximized_horizontal = true,
+                    dockable = true,
+                    height = 300
+                })
         end,
-       {description = "Codi scratchpad", group = "launcher"})
+       {description = "Codi", group = "launcher"}),
+    awful.key({ modkey, "Shift" }, "c",
+        function()
+            awful.spawn("codi-select", {
+                    floating = true,
+                    tag = mouse.screen.selected_tag,
+                    placement = awful.placement.top,
+                    maximized_horizontal = true,
+                    dockable = true,
+                    height = 300
+                })
+        end,
+       {description = "Codi-Select", group = "launcher"}),
+
+    -- Dropdown terminal
+    awful.key({ modkey }, "z",
+        function()
+            awful.spawn(terminal, {
+                    floating = true,
+                    tag = mouse.screen.selected_tag,
+                    placement = awful.placement.top,
+                    maximized_horizontal = true,
+                    dockable = true,
+                    height = 300
+                })
+        end,
+       {description = "Dropdown terminal", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
@@ -589,7 +657,8 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen,
+                     size_hints_honor = false -- remove gaps
      }
     },
 
@@ -603,7 +672,6 @@ awful.rules.rules = {
         class = {
           "Arandr",
           "Blueman-manager",
-          "codi_scratchpad",
           "Gpick",
           "Kruler",
           "MessageWin",  -- kalarm.
@@ -633,7 +701,10 @@ awful.rules.rules = {
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
-    --   properties = { screen = 1, tag = "2" } },
+    --   properties = { screen = 0, tag = "2" } },
+
+    { rule = { class = "Skype" },
+      properties = { sticky = false } },
 }
 -- }}}
 
@@ -714,16 +785,18 @@ function run_once(cmd)
 end
 
 run_once("/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh")
-run_once("autorandr --load desktop")
+run_once("autorandr --current | grep -q '' || autorandr --load desktop")
 run_once("nm-applet")
 run_once("blueman-tray")
-run_once("pasystray -t --notify=all")
+run_once("pasystray --notify=new --notify=sink --notify=source")
 run_once("udiskie -s -n")
 run_once("birdtray")
 run_once("mopidy")
+run_once("redshift-gtk")
 run_once("picom -b --experimental-backends")
 run_once("unclutter -b")
-run_once("protonmail-bridge --no-window --noninteractive")
+run_once("protonmail-bridge --no-window")
 run_once("setxkbmap -option 'caps:escape'")
+awful.spawn("xrandr --output HDMI-A-0 --brightness 0.8")
 
 -- }}}
