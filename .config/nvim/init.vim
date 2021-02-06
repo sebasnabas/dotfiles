@@ -17,9 +17,6 @@ let mapleader = ","
             "" Syntax highlighting
             Plug 'sheerun/vim-polyglot'
 
-            "" Zen mode
-            Plug 'junegunn/goyo.vim'
-
             "" Easy change of surroundings
             Plug 'tpope/vim-surround'
 
@@ -140,12 +137,6 @@ let mapleader = ","
 "   }}}
 
     """' Plugin configuration'"""{{{
-        """' Goyo '""" {{{
-            let g:goyo_width = 100
-            let g:goyo_height = 100
-            let g:goyo_linenr = 1
-        "}}}
-
         """' pear-tree '""" {{{
             let g:pear_tree_smart_backspace = 1
             augroup latex_pairs
@@ -644,10 +635,6 @@ let mapleader = ","
     command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
 
     """' Plugin Mappings '"""{{{
-        "' Goyo: '"""{{{
-            " 'z' for zen
-            map <leader>z :Goyo <CR>
-        "}}}
         ""' Mundo:"{{{
             nnoremap <C-u> :MundoToggle<CR>
         "}}}
