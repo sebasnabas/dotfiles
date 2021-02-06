@@ -17,12 +17,6 @@ let mapleader = ","
             "" Syntax highlighting
             Plug 'sheerun/vim-polyglot'
 
-            " Utility
-            "" File explorer
-            Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle'}
-            Plug 'Xuyuanp/nerdtree-git-plugin'
-            Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-
             "" Zen mode
             Plug 'junegunn/goyo.vim'
 
@@ -146,44 +140,6 @@ let mapleader = ","
 "   }}}
 
     """' Plugin configuration'"""{{{
-        """' NERDTree '""" {{{
-            autocmd StdinReadPre * let s:std_in=1
-
-            let g:NERDTreeWinSize=40
-
-            " display directory name in nerdtree statusline
-            let NERDTreeStatusline="%{exists('b:NERDTree')?fnamemodify(b:NERDTree.root.path.str(), ':~'):''}"
-
-            " the ignore patterns are regular expression strings and separated by comma
-            let NERDTreeIgnore = ['\.pyc$', '^__pycache__$', 'bin$', 'obj$']
-
-            " quit nerdtree if it's the last buffer left
-            autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-            " Show Dotfiles
-            let NERDTreeShowHidden=1
-
-            " Git indicators
-            let g:NERDTreeIndicatorMapCustom = {
-                \ "Modified"  : "✹",
-                \ "Staged"    : "✚",
-                \ "Untracked" : "✭",
-                \ "Renamed"   : "➜",
-                \ "Unmerged"  : "═",
-                \ "Deleted"   : "✖",
-                \ "Dirty"     : "✗",
-                \ "Clean"     : "✔︎",
-                \ 'Ignored'   : '☒',
-                \ "Unknown"   : "?"
-            \ }
-
-            let g:NERDTreeFileExtensionHighlightFullName = 1
-            let g:NERDTreeExactMatchHighlightFullName = 1
-            let g:NERDTreePatternMatchHighlightFullName = 1
-            let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
-            let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
-        "}}}
-
         """' Goyo '""" {{{
             let g:goyo_width = 100
             let g:goyo_height = 100
@@ -312,12 +268,13 @@ let mapleader = ","
             let g:airline#extensions#ale#enabled = 1
             let g:ale_open_list = 1
             let g:ale_linters = {
-                  \ 'python': ['pylint'],
                   \ 'cs': ['OmniSharp'],
+                  \ 'python': ['pylint'],
                   \ 'rust': ['analyzer'],
                   \ 'tex': ['chktex', 'write-good', 'proselint']
              \}
 
+            let g:ale_c_parse_makefile = 1
             let g:ale_writegood_options = '--no-thereIs --no-passive --no-tooWordy'
 
             let g:ale_virtualenv_dir_names = ['venv']
@@ -350,7 +307,6 @@ let mapleader = ","
 
         """' devicons '"""{{{
             let g:webdevicons_enable = 1
-            let g:webdevicons_enable_nerdtree = 1
             " adding the column to vimfiler
             let g:webdevicons_enable_vimfiler = 1
             " adding to vim-airline’s tabline
@@ -379,13 +335,7 @@ let mapleader = ","
         " }}}
 
         """' Codi '"""{{{
-            let g:codi#width = 20
-            let g:codi#interpreters = {
-                  \ 'python': {
-                      \ 'bin': 'python3',
-                      \ 'prompt': '^\(>>>\|\.\.\.\) ',
-                      \ },
-                  \ }
+            " let g:codi#width = 20
         " }}}
 
         """' Deoplete '"""{{{
@@ -463,6 +413,10 @@ let mapleader = ","
     set fileformat=unix
     set updatetime=99
     set spelllang=en_us,de
+
+    " Enable local rc file
+    set exrc
+    set secure
 
     " Keep the cursor on the same column
     set nostartofline
@@ -690,9 +644,6 @@ let mapleader = ","
     command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
 
     """' Plugin Mappings '"""{{{
-        ""' Nerdtree: '"""{{{
-            map <C-n> :NERDTreeToggle <CR>
-        "}}}
         "' Goyo: '"""{{{
             " 'z' for zen
             map <leader>z :Goyo <CR>
@@ -785,6 +736,8 @@ let mapleader = ","
 "}}}
 
 """' Theme and Styling '"""{{{
+    let python_highlight_all=1
+
     let g:seoul256_background = 234
     colorscheme seoul256
 
