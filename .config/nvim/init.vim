@@ -17,6 +17,12 @@ let mapleader = ","
             "" Syntax highlighting
             Plug 'sheerun/vim-polyglot'
 
+            " Utility
+            "" File explorer
+            Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle'}
+            Plug 'Xuyuanp/nerdtree-git-plugin'
+            Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
             "" Easy change of surroundings
             Plug 'tpope/vim-surround'
 
@@ -141,6 +147,44 @@ let mapleader = ","
 "   }}}
 
     """' Plugin configuration'"""{{{
+        """' NERDTree '""" {{{
+            autocmd StdinReadPre * let s:std_in=1
+
+            let g:NERDTreeWinSize=40
+
+            " display directory name in nerdtree statusline
+            let NERDTreeStatusline="%{exists('b:NERDTree')?fnamemodify(b:NERDTree.root.path.str(), ':~'):''}"
+
+            " the ignore patterns are regular expression strings and separated by comma
+            let NERDTreeIgnore = ['\.pyc$', '^__pycache__$', 'bin$', 'obj$']
+
+            " quit nerdtree if it's the last buffer left
+            autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+            " Show Dotfiles
+            let NERDTreeShowHidden=1
+
+            " Git indicators
+            let g:NERDTreeIndicatorMapCustom = {
+                \ "Modified"  : "✹",
+                \ "Staged"    : "✚",
+                \ "Untracked" : "✭",
+                \ "Renamed"   : "➜",
+                \ "Unmerged"  : "═",
+                \ "Deleted"   : "✖",
+                \ "Dirty"     : "✗",
+                \ "Clean"     : "✔︎",
+                \ 'Ignored'   : '☒',
+                \ "Unknown"   : "?"
+            \ }
+
+            let g:NERDTreeFileExtensionHighlightFullName = 1
+            let g:NERDTreeExactMatchHighlightFullName = 1
+            let g:NERDTreePatternMatchHighlightFullName = 1
+            let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
+            let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
+        "}}}
+
         """' pear-tree '""" {{{
             let g:pear_tree_smart_backspace = 1
             augroup latex_pairs
@@ -319,6 +363,7 @@ let mapleader = ","
 
         """' devicons '"""{{{
             let g:webdevicons_enable = 1
+            let g:webdevicons_enable_nerdtree = 1
             " adding the column to vimfiler
             let g:webdevicons_enable_vimfiler = 1
             " adding to vim-airline’s tabline
@@ -351,7 +396,7 @@ let mapleader = ","
        "}}}
 
         """' Codi '"""{{{
-            " let g:codi#width = 20
+            let g:codi#width = 20
         " }}}
 
         """' Deoplete '"""{{{
@@ -679,6 +724,9 @@ let mapleader = ","
     command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
 
     """' Plugin Mappings '"""{{{
+        ""' Nerdtree: '"""{{{
+            map <C-n> :NERDTreeToggle <CR>
+        "}}}
         ""' Mundo:"{{{
             nnoremap <C-u> :MundoToggle<CR>
         "}}}
