@@ -12,7 +12,7 @@ let mapleader = ","
         call plug#begin('~/.local/share/nvim/plugged')
 
             "" Color scheme
-            Plug 'junegunn/seoul256.vim'
+            Plug 'danilo-augusto/vim-afterglow'
 
             "" Syntax highlighting
             Plug 'sheerun/vim-polyglot'
@@ -91,18 +91,19 @@ let mapleader = ","
             Plug 'vim-airline/vim-airline'
             Plug 'vim-airline/vim-airline-themes'
             Plug 'bling/vim-bufferline'
+            Plug 'Yggdroot/indentLine'
 
             "" Vim Wiki
             Plug 'vimwiki/vimwiki'
+
+            "" Taskwiki
+            Plug 'tools-life/taskwiki'
 
             "" Codi scratchpad
             Plug 'metakirby5/codi.vim'
 
             "" Auto completion
             Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-            "" Most recently used files and directories
-            Plug 'Shougo/neomru.vim'
 
             "Languages
             "" Dotnet/C#
@@ -132,6 +133,9 @@ let mapleader = ","
 
             "" Latex
             Plug 'lervag/vimtex'
+
+            "" Markdown
+            Plug 'plasticboy/vim-markdown'
 
         call plug#end()
 "   }}}
@@ -220,7 +224,7 @@ let mapleader = ","
             " Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
             command! -bang -nargs=* Rg
               \ call fzf#vim#grep(
-              \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+              \   'rg --column --hidden --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
               \   <bang>0 ? fzf#vim#with_preview('up:60%')
               \           : fzf#vim#with_preview('right:50%:hidden', '?'),
               \   <bang>0)
@@ -244,6 +248,12 @@ let mapleader = ","
               \ 'marker':  ['fg', 'Keyword'],
               \ 'spinner': ['fg', 'Label'],
               \ 'header':  ['fg', 'Comment'] }
+
+            if exists('$TMUX')
+              let g:fzf_layout = { 'tmux': '-p90%,60%' }
+            else
+              let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+            endif
         "}}}
 
         """' Fugitive (Git Support) '"""{{{
@@ -262,13 +272,14 @@ let mapleader = ","
                   \ 'cs': ['OmniSharp'],
                   \ 'python': ['pylint'],
                   \ 'rust': ['analyzer'],
-                  \ 'tex': ['chktex', 'write-good', 'proselint']
+                  \ 'tex': ['chktex', 'vale']
              \}
 
             let g:ale_c_parse_makefile = 1
             let g:ale_writegood_options = '--no-thereIs --no-passive --no-tooWordy'
 
             let g:ale_virtualenv_dir_names = ['venv']
+            let g:ale_python_pylint_use_global = 0
 
             " let g:ale_rust_carg
             let g:ale_echo_msg_format = '[%linter%][%severity%: %code%] %s'
@@ -296,6 +307,16 @@ let mapleader = ","
             let g:bufferline_fname_mod = ':t'
         "}}}
 
+        """' IndentLine '"""{{{
+            let g:indentLine_setConceal = 2
+            " default ''.
+            " n for Normal mode
+            " v for Visual mode
+            " i for Insert mode
+            " c for Command line editing, for 'incsearch'
+            let g:indentLine_concealcursor = ""
+        " }}}
+
         """' devicons '"""{{{
             let g:webdevicons_enable = 1
             " adding the column to vimfiler
@@ -320,10 +341,14 @@ let mapleader = ","
         "}}}
 
         """' Vimwiki '"""{{{
-            let g:vimwiki_list = [{'path': '~/vimwiki/',
-                                  \ 'syntax': 'markdown', 'ext': '.wiki'}]
+            let g:vimwiki_list = [{'path': '~/Documents/Notes/VimWiki/',
+                                  \ 'syntax': 'markdown', 'ext': '.md'}]
             let g:vimwiki_global_ext=0
         " }}}
+
+        """' Taskwiki '"""{{{
+            let g:taskwiki_disable_concealcursor='yes'
+       "}}}
 
         """' Codi '"""{{{
             " let g:codi#width = 20
@@ -393,6 +418,25 @@ let mapleader = ","
         """' Vimtex '"""{{{
             let g:tex_flavor = 'latex'
         "}}}
+
+        """' Markdown '"""{{{
+            " disable header folding
+            " let g:vim_markdown_folding_disabled = 1
+
+            let g:markdown_folding = 1
+
+            " do not use conceal feature, the implementation is not so good
+            let g:vim_markdown_conceal = 0
+
+            " disable math tex conceal feature
+            " let g:tex_conceal = ""
+            let g:vim_markdown_math = 1
+
+            " support front matter of various format
+            let g:vim_markdown_frontmatter = 1  " for YAML format
+            let g:vim_markdown_toml_frontmatter = 1  " for TOML format
+            let g:vim_markdown_json_frontmatter = 1  " for JSON format
+        "}}}
     "}}}
 "}}}
 
@@ -443,7 +487,6 @@ let mapleader = ","
     set ttyfast
 
     "" Show linenumbers
-    set number
     set relativenumber
     set ruler
 
@@ -454,6 +497,7 @@ let mapleader = ","
     set expandtab
     set autoindent
 
+    autocmd FileType json setlocal shiftwidth=2 tabstop=2
     autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 
     " Enable folding
@@ -662,7 +706,7 @@ let mapleader = ","
 
             command! -bang -nargs=* Rg
               \ call fzf#vim#grep(
-              \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+              \   'rg --column --hidden --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
               \   fzf#vim#with_preview(), <bang>0)
             "}}}
             ""' Vimux '""{{{
@@ -676,40 +720,29 @@ let mapleader = ","
             map <Leader>vz :call VimuxZoomRunner()<CR>
         "}}}
         ""' Fugitive '"""{{{
-            nnoremap <leader>gc :Gcommit<CR>
-            nnoremap <leader>gca :Gcommit --amend<CR>
+            nnoremap <leader>gc :Git commit<CR>
+            nnoremap <leader>gca :Git commit --amend<CR>
             nnoremap <leader>gco :Git checkout<Space>
             nnoremap <leader>gcb :Git checkout -b<Space>
             nnoremap <leader>gd :Gdiffsplit<CR>
             nnoremap <leader>glg :Gclog<CR>
-            nnoremap <leader>gp :Gpush<CR>
+            nnoremap <leader>gp :Git push<CR>
             nnoremap <leader>gfe :Gfetch<CR>
-            nnoremap <leader>gl :Gpull<CR>
-            nnoremap <leader>gm :Gmerge<Space>
-            nnoremap <leader>gs :Gstatus<CR>
+            nnoremap <leader>gl :Git pull<CR>
+            nnoremap <leader>gm :Git merge<Space>
+            nnoremap <leader>gr :Git revert<Space>
+            nnoremap <leader>gs :Git<CR>
             nnoremap <leader>gw :Gwrite<CR>
 
         "}}}
         """' Vimwiki '"""{{{
             nnoremap <Leader>wf :VimwikiFollowLink<CR>
 
-            " Vertical split and follow (create target wiki page if needed).
-            nnoremap <Leader>wv :VimwikiVSplitLink<CR>
-
-            " Follow wiki link (create target wiki page if needed), opening in a new tab.
-            " nnoremap <Leader>wt :VimwikiTabnewLink<CR>
-
-            " Go back to previously visited wiki page.
-            nnoremap <Leader>wb :VimwikiGoBackLink<CR>
-
             " Find next link in the current page.
             nnoremap <Leader>wn :VimwikiNextLink<CR>
 
             " Find previous link in the current page.
             nnoremap <Leader>wp :VimwikiPrevLink<CR>
-
-            " Delete wiki page you are in.
-            nnoremap <Leader>wd :VimwikiDeleteLink<CR>
 
             " Rename wiki page you are in.
             nnoremap <Leader>wr :VimwikiRenameLink<CR>
@@ -725,8 +758,11 @@ let mapleader = ","
 """' Theme and Styling '"""{{{
     let python_highlight_all=1
 
-    let g:seoul256_background = 234
-    colorscheme seoul256
+    set termguicolors
+
+    let g:afterglow_italic_comments=1
+    let g:afterglow_inherit_background=1
+    colorscheme afterglow
 
     let g:airline_theme='base16'
 "}}}
