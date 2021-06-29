@@ -2,8 +2,6 @@
  * by https://github.com/JakobGM
  */
 
-
-
 /*
  * Do not remove the @namespace line -- it's required for correct functioning
  */
@@ -11,6 +9,22 @@
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
 /* set default namespace to XUL */
+
+/* From https://github.com/maciekmm/container-tabs-sidebar */
+
+#main-window:not([tabsintitlebar="true"]) #TabsToolbar {
+  visibility: collapse !important;
+}
+
+/* for Firefox 72 and beyond */
+
+/* credit to stapuft at https://github.com/piroor/treestyletab/issues/2207#issuecomment-478288590 */
+
+#tabbrowser-tabs {
+  visibility: collapse !important;
+}
+
+/* --- */
 
 /*
  * Auto-hide the URL-bar and bookmarks bar, show on hover or focus
@@ -144,4 +158,3 @@ statuspanel[type="overLink"],
 #navigator-toolbox {
   border-bottom: none !important;
 }
-
