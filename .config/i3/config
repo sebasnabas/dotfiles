@@ -42,6 +42,9 @@ set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 set $tools ~/.scripts/tools
 set $i3cmds ~/.scripts/i3cmds
 
+set $right_monitor "DisplayPort-0"
+set $left_monitor "HDMI-A-0"
+
 # #---Dropdown Windows---# #
 # General dropdown window traits. The order can matter.
 for_window [instance="dropdown_*"] floating enable
@@ -54,52 +57,28 @@ for_window [instance="dropdown_tmuxdd"] border pixel 3
 for_window [instance="dropdown_dropdowncalc"] border pixel 2
 for_window [instance="dropdown_*"] move position center
 
-# #---Starting External Scripts---# #
-
-# Set monitors
-exec --no-startup-id autorandr --load desktop
-
-# polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# #---Starting External Programs---# #
+# Statusbar
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 # systemtray
-exec_always --no-startup-id nm-applet
-exec_always --no-startup-id blueman-tray
-exec_always --no-startup-id pasystray --notify=new --notify=sink --notify=source
-exec_always --no-startup-id udiskie -s -n
-exec_always --no-startup-id birdtray
-
-exec_always --no-startup-id setxkbmap -option 'caps:escape'
-
-# mpd startup
-exec --no-startup-id mopidy
-
-# Set background
-exec --no-startup-id nitrogen --restore
-
-# Composite manager:
-exec --no-startup-id picom -b
-
-# Redshift for warmer light in the evening
-exec --no-startup-id redshift-gtk
-
-# Autohide cursor
-exec --no-startup-id unclutter -b
-
-exec --no-startup-id setsid protonmail-bridge --no-window
-
-workspace 1 output DisplayPort-0
-workspace 2 output HDMI-A-0
-workspace 3 output HDMI-A-0
-workspace 4 output HDMI-A-0
-workspace 10 output HDMI-A-1
+exec --no-startup-id nm-applet
+exec --no-startup-id blueman-tray
+exec --no-startup-id pasystray --notify=new --notify=sink --notify=source
+exec --no-startup-id udiskie -s -n
+exec --no-startup-id protonmail-bridge --no-window
+exec --no-startup-id nextcloud --background
 
 exec --no-startup-id i3-msg 'workspace 1; exec $TERMINAL tm-sessions'
 exec --no-startup-id i3-msg 'workspace 2; exec $BROWSER'
 exec --no-startup-id i3-msg 'workspace 3; exec $MAIL_CLIENT'
 
-# Set brightness
-exec --no-startup-id xrandr --output HDMI-A-0 --brightness 0.8
+# #---Workspace settings---# #
+workspace 1 output $right_monitor
+workspace 8 output $right_monitor
+workspace 2 output $left_monitor
+workspace 3 output $left_monitor
+workspace 4 output $left_monitor
 
 # #---Basic Bindings---# #
 bindsym $mod+Return         exec --no-startup-id $TERMINAL tm-sessions
@@ -122,21 +101,12 @@ bindsym $mod+Insert        exec --no-startup-id showclip
 bindsym $mod+Shift+q            [con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 bindsym $mod+Shift+Ctrl+q        [con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
 
-bindsym $mod+w            exec --no-startup-id $BROWSER
-
-bindsym $mod+m            exec --no-startup-id $MAIL_CLIENT
-
-bindsym $mod+Shift+m    exec --no-startup-id $tools/messaging-launcher
-
-bindsym $mod+e             exec --no-startup-id $TERMINAL -e $FILE
-
 bindsym $mod+r        exec --no-startup-id $i3cmds/winresize
 
 bindsym $mod+t              split toggle
 bindsym $mod+Shift+t        layout tabbed
 
 bindsym $mod+Shift+s        layout default
-
 
 bindsym $mod+Ctrl+Shift+z        gaps inner current set 15; gaps outer current set 15
 
@@ -168,27 +138,26 @@ bindsym $mod+z            gaps inner current plus 5
 bindsym $mod+Shift+z        gaps inner current minus 5
 
 bindsym $mod+d            exec --no-startup-id ~/.scripts/statusbar/launcher
-bindsym $mod+Shift+d        gaps inner current set 0; gaps outer current set 0
-
-bindsym $mod+s          exec --no-startup-id launch-steam
+bindsym $mod+m        gaps inner current set 0; gaps outer current set 0
 
 #set $freeze Distraction-free mode (super+ctrl+shift+f to reactivate bindings)
 mode "$freeze" { bindsym $mod+Ctrl+Shift+f mode "default"
 }
 
-bindsym $mod+Shift+f            fullscreen toggle
+bindsym $mod+f            fullscreen toggle
 bindsym $mod+Ctrl+Shift+f        mode "$freeze" ;; exec --no-startup-id notify-send "Distraction-free mode activated." "Press Super+Ctrl+Shift+f to return."
 
 bindsym $mod+v            exec --no-startup-id --no-startup-id $TERMINAL -e $EDITOR -c "VimwikiIndex"
 
 bindsym $mod+Shift+b        floating toggle; sticky toggle; exec --no-startup-id hover left
 
-bindsym $mod+n            exec --no-startup-id networkmanager_dmenu
 bindsym $mod+Shift+n        floating toggle; sticky toggle; exec --no-startup-id hover right
 
-bindsym $mod+f          exec --no-startup-id $i3cmds/ducksearch;; exec i3-msg "[class=firefox] focus"
+bindsym $mod+s          exec --no-startup-id $i3cmds/ducksearch;; exec i3-msg "[class=firefox] focus"
 
 bindsym $mod+c          exec --no-startup-id $TERMINAL --class codi_scratchpad codi
+
+bindsym $mod+x          exec --no-startup-id gpaste-client ui
 
 # #---Workspace Bindings---# #
 bindsym $mod+Home        workspace $ws1
@@ -291,8 +260,9 @@ bindsym $mod+F12 exec "pomodoro_client stop"
 assign [class="^Droidcam$"] $ws1
 assign [class="^Thunderbird$"] $ws3
 assign [class="^Chromium$"] $ws4
+assign [class="^Skype$"] $ws8
 assign [title="^Discord$"] $ws8
-assign [title="^Steam$"] $ws9
+assign [class="^Steam$"] $ws9
 for_window [title="^steam_app_*$"] fullscreen enable
 
 for_window [instance="^codi_scratchpad$"] \
@@ -305,11 +275,8 @@ for_window [title="^Steam Keyboard$"] \
     resize set 700 300, \
     move scratchpad, scratchpad show
 
-for_window [title="^Sekiro$"] fullscreen toggle
 for_window [title="Default - Wine desktop"] floating enable
 
 for_window [class="^Droidcam$"] \
     floating disable, gaps inner current set 0, gaps outer current set 0, \
     resize set height 200px
-
-
