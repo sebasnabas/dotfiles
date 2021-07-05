@@ -610,6 +610,9 @@ let mapleader = ","
     "" Why is this not default?
     nnoremap Y y$
 
+    "" Default in most editors - for muscle memory
+    inoremap <C-s> <Esc>:w<CR>a
+
     "" Shortcutting split navigation
     let g:tmux_navigator_no_mappings = 1
     nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
