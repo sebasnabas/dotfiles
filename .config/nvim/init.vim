@@ -12,6 +12,7 @@ let mapleader = ","
         call plug#begin('~/.local/share/nvim/plugged')
 
             "" Color scheme
+            " Dark
             Plug 'danilo-augusto/vim-afterglow'
 
             "" Syntax highlighting
@@ -807,6 +808,7 @@ let mapleader = ","
     let python_highlight_all=1
 
     set termguicolors
+    set background=dark
 
     let g:afterglow_italic_comments=1
     let g:afterglow_inherit_background=1
