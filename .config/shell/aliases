@@ -1,4 +1,5 @@
-alias sudo="sudoer_lecture.py && sudo"
+sudo_path="/usr/bin/sudo"
+alias sudo="sudoer_lecture.py && $sudo_path"
 
 alias mkvenv="mkvenv --system-site-packages"
 
