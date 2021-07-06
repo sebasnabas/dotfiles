@@ -27,6 +27,8 @@
 !.config/x
 !.config/zathura
 
+.config/shell/private_profile
+
 dotconfigfiles/*
 !dotconfigfiles/install.sh
 
