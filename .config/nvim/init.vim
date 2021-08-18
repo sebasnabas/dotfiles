@@ -317,7 +317,7 @@ let mapleader = ","
                   \ 'cs': ['OmniSharp'],
                   \ 'python': ['pylint'],
                   \ 'rust': ['analyzer'],
-                  \ 'tex': ['chktex', 'vale']
+                  \ 'tex': ['chktex', 'vale', 'languagetool']
              \}
 
             let g:ale_c_parse_makefile = 1
@@ -586,6 +586,11 @@ let mapleader = ","
     """' Autocommands '{{{
         "" Runs a script that cleans out tex build files whenever I close out of a tex file.
         autocmd VimLeave *.tex !texclear %
+
+        "" Activate spell checking when opening a text file
+        autocmd FileType tex setlocal spell
+        autocmd FileType markdown setlocal spell
+        autocmd FileType text setlocal spell
 
         "" Automatically deletes all trailing whitespace
         autocmd BufWritePre * %s/\s\+$//e
