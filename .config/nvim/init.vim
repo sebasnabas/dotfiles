@@ -12,8 +12,7 @@ let mapleader = ","
         call plug#begin('~/.local/share/nvim/plugged')
 
             "" Color scheme
-            " Dark
-            Plug 'danilo-augusto/vim-afterglow'
+            Plug 'rakr/vim-one'
 
             "" Syntax highlighting
             Plug 'sheerun/vim-polyglot'
@@ -591,6 +590,7 @@ let mapleader = ","
         autocmd FileType tex setlocal spell
         autocmd FileType markdown setlocal spell
         autocmd FileType text setlocal spell
+        autocmd FileType html setlocal spell
 
         "" Automatically deletes all trailing whitespace
         autocmd BufWritePre * %s/\s\+$//e
@@ -816,11 +816,10 @@ let mapleader = ","
     let python_highlight_all=1
 
     set termguicolors
-    set background=dark
 
-    let g:afterglow_italic_comments=1
-    let g:afterglow_inherit_background=1
-    colorscheme afterglow
+    set background=light
+    let g:one_allow_italics = 1 " I love italic for comments
+    colorscheme one
 
     let g:airline_theme='base16'
 "}}}
