@@ -27,10 +27,14 @@ client.background           $black
 # print all window titles bold
 for_window [class="^.*"] title_format " <b>%class</b> - %title"
 
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 3
 gaps inner 15
 gaps outer 15
+
+# Only enable gaps on a workspace when there is at least one container
 smart_gaps on
+
+# Hide edge borders only if there is one window with no gaps
 hide_edge_borders smart_no_gaps
 
 set $mod Mod4
@@ -68,8 +72,9 @@ exec --no-startup-id pasystray --notify=new --notify=sink --notify=source
 exec --no-startup-id udiskie -s -n
 exec --no-startup-id protonmail-bridge --no-window
 exec --no-startup-id nextcloud --background
+exec --no-startup-id clipcatd
 
-exec --no-startup-id i3-msg 'workspace 1; exec $TERMINAL tm-sessions'
+exec --no-startup-id i3-msg 'workspace 1; exec $TERMINAL tm-sessions; gaps inner current set 0; gaps outer current set 0'
 exec --no-startup-id i3-msg 'workspace 2; exec $BROWSER'
 exec --no-startup-id i3-msg 'workspace 3; exec $MAIL_CLIENT'
 
@@ -157,7 +162,8 @@ bindsym $mod+s          exec --no-startup-id $i3cmds/ducksearch;; exec i3-msg "[
 
 bindsym $mod+c          exec --no-startup-id $TERMINAL --class codi_scratchpad codi
 
-bindsym $mod+x          exec --no-startup-id gpaste-client ui
+bindsym $mod+x exec clipcat-menu insert
+bindsym $mod+Shift+x exec clipcat-menu remove
 
 # #---Workspace Bindings---# #
 bindsym $mod+Home        workspace $ws1
