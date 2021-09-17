@@ -74,6 +74,7 @@ let mapleader = ","
             "" Git Support
             Plug 'tpope/vim-fugitive'
             Plug 'airblade/vim-gitgutter'
+            Plug 'APZelos/blamer.nvim'
 
             "" Highlighting yank
             Plug 'machakann/vim-highlightedyank'
@@ -307,6 +308,11 @@ let mapleader = ","
             " autocmd BufEnter term://.//*:git\ *\ add\ --patch\ --\ * wincmd L
             " autocmd BufEnter term://.//*:git\ *\ reset\ --patch\ --\ * wincmd L
             " autocmd BufEnter term://.//*:git\ *\ add\ --intent-to-add\ --\ * wincmd L
+        "}}}
+
+        """' Blamer '"""{{{
+            let g:blamer_enabled = 1
+            let g:blamer_delay = 500
         "}}}
 
         """' Ale '"""{{{
@@ -552,6 +558,7 @@ let mapleader = ","
     set foldlevel=2
     set foldtext=gitgutter#fold#foldtext()
     autocmd FileType python setlocal foldmethod=indent
+    autocmd FileType xml setlocal foldmethod=indent
     autocmd FileType vim setlocal foldmethod=marker
     autocmd FileType lua setlocal foldmethod=marker
 
@@ -817,7 +824,7 @@ let mapleader = ","
 
     set termguicolors
 
-    set background=light
+    set background=dark
     let g:one_allow_italics = 1 " I love italic for comments
     colorscheme one
 
