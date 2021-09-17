@@ -1,7 +1,7 @@
 autoload -U colors && colors
 
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
 setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
@@ -125,7 +125,6 @@ antigen bundle pip
 antigen bundle "zsh-users/zsh-autosuggestions"
 antigen bundle "zsh-users/zsh-syntax-highlighting"
 antigen bundle "MichaelAquilina/zsh-autoswitch-virtualenv"
-antigen bundle "MichaelAquilina/zsh-auto-notify"
 
 antigen apply
 ##
@@ -157,29 +156,6 @@ mdc()  {
     mkdir -p $1 && cd $_
 }
 
-# v - search in most recent used files by nvim
-v() {
-  local file
-  file=$(sed '1d' $HOME/.cache/neomru/file |
-          fzf --query="$1" --select-1 --exit-0)
-  [ -n "$file" ] && nvim $file
-}
-
-# vd - cd to most recent used directory by nvim
-vd() {
-  local dir
-  dir=$(sed '1d' $HOME/.cache/neomru/directory |
-        fzf --query="$1" --select-1 --exit-0) && cd "$dir"
-}
-
-# vr - open ranger in most recent used directory by nvim
-vd() {
-  local dir
-  dir=$(sed '1d' $HOME/.cache/neomru/directory |
-        fzf --query="$1" --select-1 --exit-0) && ranger "$dir"
-}
-
 [ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
 
 source $ZDOTDIR/theme.zsh-theme
-
