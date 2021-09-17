@@ -3,16 +3,14 @@
 # Terminate already running bar instances
 killall -q polybar
 
-export WIFI_IF="$(ip -br addr | grep -E 'w(\w+|\d+).*UP' | cut -d ' ' -f 1)"
+right_monitor="DisplayPort-0"
+left_monitor="HDMI-A-0"
 
-if [ "$(grep '^ID' /etc/os-release | cut -d '=' -f 2)" == 'arch' ]; then
-        export MONITOR="HDMI-A-0"
-        polybar --reload top -c ~/.config/polybar/config-top.ini &
-        polybar --reload bottom -c ~/.config/polybar/config-bottom.ini &
+MONITOR=$right_monitor polybar --reload top -c ~/.config/polybar/config-top.ini &
+MONITOR=$left_monitor polybar --reload top -c ~/.config/polybar/config-top.ini &
+
+if [ "$(grep '^ID' /etc/os-release | cut -d '=' -f 2)" = 'arch' ]; then
+        MONITOR=$left_monitor polybar --reload bottom -c ~/.config/polybar/config-bottom.ini &
 else
-    for monitor in $(polybar --list-monitors | cut -d ":" -f1); do
-        MONITOR=$monitor polybar --reload top -c ~/.config/polybar/config-top.ini &
-        MONITOR=$monitor polybar --reload bottom -c ~/.config/polybar/config-bottom-work.ini &
-    done
+        MONITOR=$right_monitor polybar --reload bottom -c ~/.config/polybar/config-bottom-work.ini &
 fi
-
