@@ -32,5 +32,7 @@ redshift-gtk -l 52.53878:13.42443 &
 # Autohide cursor
 unclutter -b &
 
+caffeine -a &
+
 # Window manager
 exec i3
