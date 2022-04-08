@@ -1,3 +1,4 @@
+# vim: syntax=bash
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 
 # Colors: black|red|blue|green|yellow|magenta|cyan|white
@@ -97,10 +98,16 @@ function get_space {
 function get_virtualenv {
     local virtualenv_path=""
     if [ -n "$VIRTUAL_ENV" ]; then
-      virtualenv_path="(`basename \"$VIRTUAL_ENV\"`) "
+        virtualenv_path="(`basename \"$VIRTUAL_ENV\"`) "
     fi
 
     echo $virtualenv_path
+}
+
+function get_ssh_prompt {
+    if [[ -n "$SSH_CONNECTION" ]]; then
+        echo "%{$yellow_bold%}@%{$red_bold%}[%{$cyan_bold%}$(get_box_name)%{$red_bold%}]"
+    fi
 }
 
 # Prompt: VIRTUAL_ENV USER@MACHINE: DIRECTORY <BRANCH [STATUS]> --- (TIME_STAMP)
@@ -116,7 +123,7 @@ $(get_git_prompt) "
 
     local right_prompt="%{$blue%}($(get_time_stamp))%{$reset_color%} "
 
-    local short_left_prompt="%{$cyan_bold%}$(get_virtualenv)$(get_usr_name)% %{$blue%}: %{$cyan%}$(get_current_dir)%{$reset_color%}$(get_git_prompt) "
+    local short_left_prompt="%{$cyan_bold%}$(get_virtualenv)$(get_usr_name)$(get_ssh_prompt)%{$blue%}: %{$cyan%}$(get_current_dir)%{$reset_color%}$(get_git_prompt) "
 
     print -rP "$short_left_prompt$(get_space $short_left_prompt $right_prompt)$right_prompt"
 }

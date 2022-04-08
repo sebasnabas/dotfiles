@@ -26,3 +26,5 @@ privateProfile="$HOME/.config/shell/private_profile"
 ## zsh
 export ZDOTDIR="$HOME/.config/shell/zsh/"
 export HISTFILE="$HOME/.cache/zsh/zsh_history"
+export ENABLE_VKBASALT=1
+export MANGOHUD=1

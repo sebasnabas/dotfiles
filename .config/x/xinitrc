@@ -20,6 +20,9 @@ setxkbmap -option 'caps:escape' &
 # Notifications
 /usr/lib/xfce4/notifyd/xfce4-notifyd &
 
+# Polkit authentication manager
+/usr/lib/polkit-kde-authentication-agent-1 &
+
 # mpd startup
 mopidy &
 

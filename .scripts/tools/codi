@@ -1,15 +1,11 @@
 #!/bin/sh
 # Codi
-# Usage: codi [filetype] [filename]
-syntax="${1:-python}"
-filename="";
+# Usage: codi [suffix]
+filename="/tmp/$RANDOM.${1:-py}"
+nvim -c "let g:startify_disable_at_vimenter = 1 |\
+    Codi" "$filename"
 
-if [ $# -ge 1 ]; then
-    shift
-    filename="$1"
-fi
-if [ -z "$filename" ]; then
-    filename="/tmp/$RANDOM.py"
-fi
-nvim -c "Codi $syntax" -c "startinsert" "$filename"
-
+    # set bt=nofile ls=0 noru nonu nornu |\
+    # hi ColorColumn ctermbg=NONE |\
+    # hi VertSplit ctermbg=NONE |\
+    # hi NonText ctermfg=0 |\

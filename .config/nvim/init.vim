@@ -12,10 +12,17 @@ let mapleader = ","
         call plug#begin('~/.local/share/nvim/plugged')
 
             "" Color scheme
-            Plug 'rakr/vim-one'
+            Plug 'rktjmp/lush.nvim'
+            Plug 'elianiva/gruvy.nvim'
 
             "" Syntax highlighting
             Plug 'sheerun/vim-polyglot'
+            Plug 'neovim/nvim-lspconfig'
+            Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+            Plug 'narutoxy/dim.lua'
+
+            "" View images
+            Plug 'edluffy/hologram.nvim'
 
             " Utility
             "" File explorer
@@ -54,9 +61,6 @@ let mapleader = ","
             "" Fuzzy file finder
             Plug 'junegunn/fzf.vim'
 
-            "" Multiline-Singleline
-            Plug 'andrewradev/splitjoin.vim'
-
             "" Tmux
             """ Tmux navigation
             Plug 'christoomey/vim-tmux-navigator'
@@ -71,13 +75,12 @@ let mapleader = ","
             "" Syntax checking
             Plug 'dense-analysis/ale'
 
+            "" Refactoring
+            Plug 'nvim-treesitter/nvim-treesitter-refactor'
+
             "" Git Support
             Plug 'tpope/vim-fugitive'
             Plug 'airblade/vim-gitgutter'
-            Plug 'APZelos/blamer.nvim'
-
-            "" Highlighting yank
-            Plug 'machakann/vim-highlightedyank'
 
             "" Show hex colors
             Plug 'chrisbra/Colorizer'
@@ -90,7 +93,6 @@ let mapleader = ","
 
             "" Snippets
             Plug 'SirVer/ultisnips'
-
             Plug 'honza/vim-snippets'
 
             "" Interface
@@ -112,6 +114,10 @@ let mapleader = ","
             "" Auto completion
             Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
+            "" Debugging
+            Plug 'mfussenegger/nvim-dap'
+            Plug 'theHamsta/nvim-dap-virtual-text'
+
             "Languages
             "" Dotnet/C#
             Plug 'OmniSharp/omnisharp-vim'
@@ -132,7 +138,7 @@ let mapleader = ","
             Plug 'Shougo/neoinclude.vim'
 
             "" Rust
-            " Plug 'rust-lang/rust.vim'
+            Plug 'rust-lang/rust.vim'
             Plug 'sebastianmarkow/deoplete-rust'
 
             "" Haskell
@@ -142,12 +148,71 @@ let mapleader = ","
             Plug 'lervag/vimtex'
 
             "" Markdown
-            Plug 'plasticboy/vim-markdown'
+            Plug 'godlygeek/tabular'
+            Plug 'preservim/vim-markdown'
 
         call plug#end()
 "   }}}
 
     """' Plugin configuration'"""{{{
+        """' treesitter '""" {{{
+            lua << EOF
+            require("nvim-treesitter.configs").setup {
+              -- One of "all", "maintained" (parsers with maintainers), or a list of languages
+              ensure_installed = "maintained",
+              -- Install languages synchronously (only applied to `ensure_installed`)
+              sync_install = true,
+
+              -- List of parsers to ignore installing
+              ignore_install = {},
+
+              highlight = {
+                -- `false` will disable the whole extension
+                enable = true,
+
+                -- list of language that will be disabled
+                disable = {'bash'},
+
+                -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+                -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+                -- Using this option may slow down your editor, and you may see some duplicate highlights.
+                -- Instead of true it can also be a list of languages
+                additional_vim_regex_highlighting = false,
+              },
+            }
+            require("nvim-treesitter.install").prefer_git = true
+EOF
+        "}}}
+
+        """' treesitter-refactor '"""{{{
+        " Highlight definitions
+        lua <<EOF
+        require'nvim-treesitter.configs'.setup {
+          refactor = {
+            highlight_definitions = {
+              enable = true,
+              -- Set to false if you have an `updatetime` of ~100.
+              clear_on_cursor_move = true,
+            },
+          },
+        }
+EOF
+        " Smart rename
+        lua <<EOF
+        require'nvim-treesitter.configs'.setup {
+          refactor = {
+            smart_rename = {
+              enable = true,
+              keymaps = {
+                smart_rename = "grn",
+              },
+            },
+          },
+        }
+EOF
+
+        "}}}
+
         """' NERDTree '""" {{{
             autocmd StdinReadPre * let s:std_in=1
 
@@ -319,14 +384,16 @@ let mapleader = ","
             let g:airline#extensions#ale#enabled = 1
             let g:ale_open_list = 1
             let g:ale_linters = {
-                  \ 'cs': ['OmniSharp'],
-                  \ 'python': ['pylint'],
-                  \ 'rust': ['analyzer'],
-                  \ 'tex': ['chktex', 'vale', 'languagetool']
+                \ 'cs': ['OmniSharp'],
+                \ 'json': ['jq'],
+                \ 'python': ['pylint'],
+                \ 'rust': ['analyzer'],
+                \ 'tex': ['chktex', 'vale', 'languagetool']
              \}
 
-            let g:ale_c_parse_makefile = 1
+            let g:ale_c_always_make = 1
             let g:ale_writegood_options = '--no-thereIs --no-passive --no-tooWordy'
+            let g:ale_languagetool_options = '--autoDetect --motherlanguage de-DE --disable "ARROWS[1]" '
 
             let g:ale_virtualenv_dir_names = ['venv']
             let g:ale_python_pylint_use_global = 0
@@ -405,6 +472,40 @@ let mapleader = ","
             let g:codi#width = 20
         " }}}
 
+        """' nvim-dap '"""{{{
+        lua << EOF
+        local dap = require('dap')
+        dap.adapters.netcoredbg = {
+          type = 'executable',
+          command = '/usr/bin/netcoredbg',
+          args = {'--interpreter=vscode'}
+        }
+        dap.configurations.cs = {
+          {
+            type = "netcoredbg",
+            name = "launch - netcoredbg",
+            request = "launch",
+            program = function()
+                return vim.fn.input('Path to dll', vim.fn.getcwd() .. 'source/', 'file')
+            end,
+          },
+        }
+EOF
+        "}}}
+
+        """' nvim-dap-virtual-text '"""{{{
+        lua << EOF
+        require("nvim-dap-virtual-text").setup {
+            enabled = true,                     -- enable this plugin (the default)
+            enabled_commands = true,            -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
+            highlight_changed_variables = true, -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
+            highlight_new_as_changed = false,   -- highlight new variables in the same way as changed variables (if highlight_changed_variables)
+            show_stop_reason = true,            -- show stop reason when stopped for exceptions
+            commented = false                  -- prefix virtual text with comment string
+        }
+EOF
+        "}}}
+
         """' Deoplete '"""{{{
             let g:deoplete#enable_at_startup = 1
 
@@ -412,7 +513,7 @@ let mapleader = ","
             call deoplete#custom#option('smart_case', v:true)
 
             " Use OmniSharp-vim omnifunc
-            call deoplete#custom#source('omni', 'functions', { 'cs':  'OmniSharp#Complete' })
+            call deoplete#custom#source('omni', 'functions', { 'cs':  'OmniSharp#Complete' }, 'sources', {'_': ['ale']})
 
             " Set how Deoplete filters omnifunc output.
             call deoplete#custom#var('omni', 'input_patterns', {
@@ -471,13 +572,13 @@ let mapleader = ","
         "}}}
 
         """' Markdown '"""{{{
-            " disable header folding
-            " let g:vim_markdown_folding_disabled = 1
+            let g:vim_markdown_no_default_key_mappings = 1
+
 
             let g:markdown_folding = 1
 
             " do not use conceal feature, the implementation is not so good
-            let g:vim_markdown_conceal = 0
+            " let g:vim_markdown_conceal = 0
 
             " disable math tex conceal feature
             " let g:tex_conceal = ""
@@ -539,6 +640,7 @@ let mapleader = ","
 
     "" Show linenumbers
     set relativenumber
+    set number
     set ruler
 
     "" Set Proper Tabs
@@ -552,15 +654,17 @@ let mapleader = ","
     autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 
     " Enable folding
-    set foldmethod=syntax
     set foldnestmax=10
     set nofoldenable
-    set foldlevel=2
+    " set foldlevel=2
     set foldtext=gitgutter#fold#foldtext()
-    autocmd FileType python setlocal foldmethod=indent
-    autocmd FileType xml setlocal foldmethod=indent
+    set foldmethod=expr
+    set foldexpr=nvim_treesitter#foldexpr()
     autocmd FileType vim setlocal foldmethod=marker
-    autocmd FileType lua setlocal foldmethod=marker
+
+
+    " Enable concealing
+    set conceallevel=2
 
     "" Always display the status line
     set laststatus=2
@@ -592,12 +696,6 @@ let mapleader = ","
     """' Autocommands '{{{
         "" Runs a script that cleans out tex build files whenever I close out of a tex file.
         autocmd VimLeave *.tex !texclear %
-
-        "" Activate spell checking when opening a text file
-        autocmd FileType tex setlocal spell
-        autocmd FileType markdown setlocal spell
-        autocmd FileType text setlocal spell
-        autocmd FileType html setlocal spell
 
         "" Automatically deletes all trailing whitespace
         autocmd BufWritePre * %s/\s\+$//e
@@ -696,6 +794,9 @@ let mapleader = ","
     "" Search and replace word under cursor
     nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 
+    "" Close all buffers except current
+    nnoremap <leader>o :%bd\|e#\|bd#<cr>
+
     " Set tab shortcuts
     nnoremap tn :tabnew <Space>
     nnoremap tk :tabnext <CR>
@@ -791,7 +892,7 @@ let mapleader = ","
             nnoremap <leader>gd :Gdiffsplit<CR>
             nnoremap <leader>glg :Gclog<CR>
             nnoremap <leader>gp :Git push<CR>
-            nnoremap <leader>gfe :Gfetch<CR>
+            nnoremap <leader>gfe :Git fetch<CR>
             nnoremap <leader>gl :Git pull<CR>
             nnoremap <leader>gm :Git merge<Space>
             nnoremap <leader>gr :Git revert<Space>
@@ -815,6 +916,13 @@ let mapleader = ","
             nmap <script> <silent> <leader>l :call ToggleLocationList()<CR>
             nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
         "}}}
+        """' nvim-dap '"""{{{
+        nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
+        nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
+        nnoremap <silent> <F11> :lua require'dap'.step_into()<CR>
+        nnoremap <silent> <F12> :lua require'dap'.step_out()<CR>
+        nnoremap <silent> <leader>db :lua require'dap'.toggle_breakpoint()<CR>
+        "}}}
 
     "}}}
 "}}}
@@ -822,12 +930,16 @@ let mapleader = ","
 """' Theme and Styling '"""{{{
     let python_highlight_all=1
 
+    " Highlighted yank
+    augroup highlight_yank
+    autocmd!
+    au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=200})
+    augroup END
+
     set termguicolors
 
-    set background=dark
-    let g:one_allow_italics = 1 " I love italic for comments
-    colorscheme one
+    colorscheme gruvy
 
-    let g:airline_theme='base16'
+    let g:airline_theme='wombat'
 "}}}
 

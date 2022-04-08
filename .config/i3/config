@@ -62,9 +62,6 @@ for_window [instance="dropdown_dropdowncalc"] border pixel 2
 for_window [instance="dropdown_*"] move position center
 
 # #---Starting External Programs---# #
-# Statusbar
-exec_always --no-startup-id ~/.config/polybar/launch.sh
-
 # systemtray
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-tray
@@ -73,6 +70,11 @@ exec --no-startup-id udiskie -s -n
 exec --no-startup-id protonmail-bridge --no-window
 exec --no-startup-id nextcloud --background
 exec --no-startup-id clipcatd
+exec --no-startup-id kdeconnect-indicator
+
+# Statusbar
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+
 
 exec --no-startup-id i3-msg 'workspace 1; exec $TERMINAL tm-sessions; gaps inner current set 0; gaps outer current set 0'
 exec --no-startup-id i3-msg 'workspace 2; exec $BROWSER'
@@ -136,8 +138,7 @@ bindsym $mod+g             exec --no-startup-id $TERMINAL -e gotop
 
 bindsym $mod+o            sticky toggle
 
-bindsym $mod+p            exec lmc toggle
-bindsym $mod+Shift+p        exec --no-startup-id lmc pause
+bindsym $mod+p            exec playerctl play-pause
 
 bindsym $mod+z            gaps inner current plus 5
 bindsym $mod+Shift+z        gaps inner current minus 5
@@ -164,6 +165,17 @@ bindsym $mod+c          exec --no-startup-id $TERMINAL --class codi_scratchpad c
 
 bindsym $mod+x exec clipcat-menu insert
 bindsym $mod+Shift+x exec clipcat-menu remove
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 # #---Workspace Bindings---# #
 bindsym $mod+Home        workspace $ws1

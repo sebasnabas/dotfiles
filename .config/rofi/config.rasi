@@ -18,7 +18,7 @@
   spacing: 0;
   background-color: transparent;
 
-  font: "Fira Code 14";
+  font: "Fira Code 12";
   text-color: @text;
 }
 
@@ -76,6 +76,11 @@ element urgent, element selected urgent {
 
 element active, element selected active {
   text-color: @petrol;
+}
+
+element-text, element-icon {
+    background-color: inherit;
+    text-color:       inherit;
 }
 
 message {

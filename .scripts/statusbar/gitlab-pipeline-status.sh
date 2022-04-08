@@ -1,4 +1,11 @@
-gitlab_config="$(cat ~/.config/gitlab_config)"
+gitlab_config_file="$HOME/.config/gitlab_config"
+
+if nmcli con show --active | grep -q vpn
+then
+    gitlab_config_file="$HOME/.config/gitlab_config_work"
+fi
+
+gitlab_config="$(cat $gitlab_config_file)"
 
 access_token="$(echo $gitlab_config | jq -r '.access_token')"
 username="$(echo $gitlab_config | jq -r '.username')"

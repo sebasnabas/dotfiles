@@ -140,7 +140,7 @@ done
 eval $(thefuck --alias)
 
 # fzf
-export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow -g '!.git' -g '!.wine' -g'!*[sS]team*' -g '!lutris' -g '!Trash' -g '!.cache' 2>/dev/null"
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow -g '!.git' -g '!.wine' -g'!*[sS]team*' -g '!lutris' -g '!Trash' -g '!.cache' -g '!node_modules' -g '!*.o' 2>/dev/null"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--select-1 --exit-0"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
@@ -153,7 +153,7 @@ fh() {
 
 # mkdir and change to it
 mdc()  {
-    mkdir -p $1 && cd $_
+    mkdir -p $1 && pushd $_
 }
 
 [ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
