@@ -76,7 +76,7 @@ vim.cmd([[function! NextClosedFold(dir)
 endfunction]])
 
 -- Fugitive
-map("n", "<leader>gc", ":Git commit<CR>")
+map("n", "<leader>gcc", ":Git commit<CR>")
 map("n", "<leader>gca", ":Git commit --amend<CR>")
 map("n", "<leader>gco", ":Git checkout<Space>")
 map("n", "<leader>gcb", ":Git checkout -b<Space>")

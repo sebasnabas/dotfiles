@@ -16,3 +16,12 @@ vim.cmd("autocmd TermOpen * setlocal conceallevel=0 colorcolumn=0 relativenumber
 -- Prefer Neovim terminal insert mode to normal mode.
 vim.cmd("autocmd BufEnter term://* startinsert")
 
+vim.cmd([[
+autocmd FileType lua call Two_spaces_settings()
+
+function! Two_spaces_settings()
+  setlocal tabstop=2
+  setlocal shiftwidth=2
+  setlocal expandtab
+endfunction
+]])
