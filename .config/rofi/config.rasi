@@ -18,7 +18,7 @@
   spacing: 0;
   background-color: transparent;
 
-  font: "Fira Code 12";
+  font: "Fira Code 18";
   text-color: @text;
 }
 

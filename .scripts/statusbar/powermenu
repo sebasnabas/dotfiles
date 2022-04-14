@@ -1,10 +1,12 @@
 #!/bin/bash
 
-MENU="$(rofi -sep "|" -dmenu -i -p 'System' -location 3 -yoffset 32 -xoffset -10 -width 12 -hide-scrollbar -line-padding 4 -padding 20 -lines 4 -font "Noto Mono 10" <<< " Lock| Logout| Reboot| Shutdown")"
+MENU="$(rofi -sep "|" -dmenu -i -p 'System' -location 3 -yoffset 32 -xoffset -10 -width 12 -hide-scrollbar -line-padding 4 -padding 20 -lines 4 -font "Noto Mono 10" <<< " Lock| Logout|⏾ Suspend|❆ Hibernate| Reboot| Shutdown")"
 
 case "$MENU" in
-    *Lock) if [ "$(which i3lock-fancy)" ]; then i3lock-fancy; else i3lock; fi ;;
-    *Logout) i3-msg exit ;;
-    *Reboot) systemctl reboot ;;
-    *Shutdown) systemctl -i poweroff
+   *Lock)        betterlockscreen -l            ;;
+   *Logout)      i3-msg             exit        ;;
+   *Suspend)     systemctl          suspend     ;;
+   *Hibernate)   systemctl          hibernate   ;;
+   *Reboot)      systemctl          reboot      ;;
+   *Shutdown)    systemctl       -i poweroff
 esac

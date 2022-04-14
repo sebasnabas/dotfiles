@@ -1,10 +1,8 @@
 !/bin/sh
 
-numlockx &
-
 udiskie &
 
-setxkbmap -option 'caps:escape'
+setxkbmap -layout us -variant altgr-intl -option nodeadkeys -option 'caps:escape'
 
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 
@@ -12,7 +10,7 @@ eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 ~/.screenlayout/desktop.sh
 
 # Set background
-feh --bg-fill ~/.config/wall.png ~/.config/wall.png ~/.config/wall.png &
+feh --bg-fill ~/.config/wall.png &
 
 # Set caps lock as escape
 setxkbmap -option 'caps:escape' &
@@ -36,6 +34,8 @@ redshift-gtk -l 52.53878:13.42443 &
 unclutter -b &
 
 caffeine -a &
+
+playerctld daemon &
 
 # Window manager
 exec i3
