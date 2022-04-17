@@ -24,7 +24,7 @@ vim.opt.ttimeout                     = true
 vim.opt.ttimeoutlen                  = 50
 ---
 
-vim.opt.listchars                    = {tab = "›\\·", space = "·", eol = "¬", extends = "›", precedes = "‹"}  --  Display whitespace
+vim.opt.listchars                    = {tab = "›·", space = "·", eol = "¬", extends = "›", precedes = "‹"}  --  Display whitespace
 vim.opt.list                         = true
 vim.opt.list                         = true
 vim.opt.ttyfast                      = true
