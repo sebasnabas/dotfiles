@@ -8,14 +8,14 @@ require('packer').startup(function()
     }
     ---
     use { 'Yggdroot/indentLine' }                                --  show Indentation
-    --- Syntax highlighting
+    --- Language support
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     }
     use { 'neovim/nvim-lspconfig' }
     use { 'sheerun/vim-polyglot' }
-    --
+    ---
     use { 'kshenoy/vim-signature' }                              --  show markers
     --- Utility
     use { 'andymass/vim-matchup', event = 'VimEnter' }           --  Navigate and highlight matching words
@@ -26,9 +26,7 @@ require('packer').startup(function()
       config = function()
         require('gitsigns').setup()
       end
-    }
-
-    --  Git integration for buffers
+    } --  Git integration for buffers
     use { 'tpope/vim-fugitive' }                                 --  Git commands
     use { 'tpope/vim-surround' }                                 --  Easy change of surroundings
     use { 'tpope/vim-repeat' }                                   --  Repeat plugin commands with .
@@ -47,6 +45,7 @@ require('packer').startup(function()
     use { 'hrsh7th/cmp-buffer' }
     use { 'hrsh7th/cmp-path' }
     use { 'hrsh7th/cmp-cmdline' }
+    use { 'hrsh7th/cmp-calc' }
     use { 'hrsh7th/nvim-cmp' }
     ---
     --- Snippets
@@ -74,8 +73,9 @@ require('packer').startup(function()
       end
     }
     ---
-    ---
+    --- Note taking and other things
     use { 'vimwiki/vimwiki' }
+    use { 'brymer-meneses/grammar-guard.nvim' }
     use { 'metakirby5/codi.vim' }                                --  Scratchpad
 
     --- File manager
@@ -106,13 +106,6 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 ]])
-
-require'bufferline'.setup({
-    options = {
-        buffer_close_icon = '',
-        close_icon        = ''
-    }
-})
 
 require('plugin-settings.lspconfig')
 require('plugin-settings.treesitter')

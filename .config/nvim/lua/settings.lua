@@ -24,7 +24,7 @@ vim.opt.ttimeout                     = true
 vim.opt.ttimeoutlen                  = 50
 ---
 
-vim.opt.listchars               = {tab = "›\\·", space = "·", eol = "¬", extends = "›", precedes = "‹"}       --  Display whitespace
+vim.opt.listchars                    = {tab = "›\\·", space = "·", eol = "¬", extends = "›", precedes = "‹"}  --  Display whitespace
 vim.opt.list                         = true
 vim.opt.list                         = true
 vim.opt.ttyfast                      = true
@@ -46,7 +46,8 @@ vim.foldmethod                       = expr
 vim.cmd("set foldexpr=nvim_treesitter#foldexpr()")
 ---
 
-vim.opt.conceallevel                 = 1                                                                      --  Enable concealing
+vim.opt.conceallevel = 2
+vim.opt.concealcursor = 'nc'
 vim.opt.laststatus                   = 2                                                                      --  Always display the status line
 vim.opt.cursorline                   = true                                                                   --  Highlight current line
 vim.opt.mouse                        = "a"                                                                    --  Enable mouse support
