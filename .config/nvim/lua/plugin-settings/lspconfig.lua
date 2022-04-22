@@ -32,7 +32,7 @@ end
 --- Server Settings
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'omnisharp', 'pyright', 'rust_analyzer', 'terraformls', 'tsserver' }
+local servers = { 'bashls', 'clangd', 'omnisharp', 'pyright', 'rust_analyzer', 'terraformls', 'tsserver' }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
@@ -45,26 +45,26 @@ end
 
 -- Omnisharp config
 local pid = vim.fn.getpid()
-local omnisharp_bin = "/usr/bin/omnisharp"
+local omnisharp_bin = '/usr/bin/omnisharp'
 require'lspconfig'.omnisharp.setup{
-    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
+    cmd = { omnisharp_bin, '--languageserver' , '--hostPID', tostring(pid) };
 }
 
 -- ltex-ls config
-require("grammar-guard").init()
-require("lspconfig").grammar_guard.setup({
+require('grammar-guard').init()
+require('lspconfig').grammar_guard.setup({
   cmd = { '/usr/bin/ltex-ls' },
   settings = {
     ltex = {
-      enabled = { "bib", "latex", "markdown", "tex" },
-      language = "en",
-      diagnosticSeverity = "information",
+      enabled = { 'bib', 'latex', 'markdown', 'norg', 'tex' },
+      language = 'en',
+      diagnosticSeverity = 'information',
       setenceCacheSize = 2000,
       additionalRules = {
         enablePickyRules = true,
-        motherTongue = "de",
+        motherTongue = 'de',
       },
-      trace = { server = "verbose" },
+      trace = { server = 'verbose' },
       dictionary = {},
       disabledRules = {},
       hiddenFalsePositives = {},

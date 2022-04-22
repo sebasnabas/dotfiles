@@ -18,6 +18,7 @@ vim.cmd("autocmd BufEnter term://* startinsert")
 
 vim.cmd([[
 autocmd FileType lua call Two_spaces_settings()
+autocmd FileType norg call Two_spaces_settings()
 
 function! Two_spaces_settings()
   setlocal tabstop=2

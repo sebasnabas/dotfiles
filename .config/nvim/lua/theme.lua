@@ -14,6 +14,11 @@ augroup END
 ]])
 
 require'bufferline'.setup({
+    highlights = {
+      buffer_selected = {
+        gui = 'bold'
+      }
+    },
     options = {
         buffer_close_icon = '',
         close_icon        = ''
@@ -30,4 +35,3 @@ require'bufferline'.setup({
       return s
     end
 })
-

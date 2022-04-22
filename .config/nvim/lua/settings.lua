@@ -1,5 +1,6 @@
 -- Vim Settings ---
 vim.g.mapleader                      = ","
+vim.g.maplocalleader                 = " "
 vim.cmd("filetype plugin on")
 vim.cmd("filetype plugin indent on")
 vim.cmd("syntax on")
@@ -42,15 +43,15 @@ vim.autoindent                       = true
 
 --- Folding
 vim.opt.foldnestmax                  = 10
-vim.foldmethod                       = expr
-vim.cmd("set foldexpr=nvim_treesitter#foldexpr()")
+vim.o.foldmethod                     = 'expr'
+vim.o.foldexpr                       = 'nvim_treesitter#foldexpr()'
 ---
 
-vim.opt.conceallevel = 2
-vim.opt.concealcursor = 'nc'
-vim.opt.laststatus                   = 2                                                                      --  Always display the status line
+vim.opt.conceallevel                 = 2
+vim.opt.concealcursor                = 'nc'
+vim.opt.laststatus                   = 3                                                                      --  Display a global status line
 vim.opt.cursorline                   = true                                                                   --  Highlight current line
-vim.opt.mouse                        = "a"                                                                    --  Enable mouse support
+vim.opt.mouse                        = ''                                                                     --  Disable mouse support
 
 --- Searching
 vim.opt.ignorecase                   = true
@@ -60,7 +61,7 @@ vim.opt.incsearch                    = true                                     
 ---
 
 vim.opt.lazyredraw                   = false                                                                  --  Don't redraw when executing macros
-vim.opt.inccommand                   = "nosplit"                                                              --  show live substitution feedback in current buffer
+vim.opt.inccommand                   = 'nosplit'                                                              --  show live substitution feedback in current buffer
 vim.opt.magic                        = true                                                                   --  Activate magic for regex
 vim.opt.splitbelow                   = true
 vim.opt.splitright                   = true

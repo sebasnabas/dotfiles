@@ -18,7 +18,7 @@ map("n", "<C-\\>", ":TmuxNavigatePrevious<CR>", {silent = true})
 
 -- Copy & paste
 map("v", "<C-c>", "\"+y")
-map("i", "<C-v>", "<Esc>\"+pi")
+map("i", "<C-v>", "<Esc>\"+pa")
 
 -- Compile document
 map("n", "<leader>c", ":w! \\| !compiler <c-r>%<CR><CR>")
@@ -142,4 +142,8 @@ map('n', '<leader>td', '<cmd>Gitsigns toggle_deleted<CR>')
 -- Text object
 map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+---
+
+--- Ranger
+map('n', '<leader>rr', ':Ranger<CR>')
 ---

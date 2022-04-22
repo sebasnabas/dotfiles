@@ -1,3 +1,4 @@
+--- Plugins
 require('packer').startup(function()
     use { 'wbthomason/packer.nvim' }                             --  Packer can manage itself
     use { 'ellisonleao/gruvbox.nvim' }                           --  Theme
@@ -7,16 +8,33 @@ require('packer').startup(function()
       requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
     ---
-    use { 'Yggdroot/indentLine' }                                --  show Indentation
+    use { 'Yggdroot/indentLine' }                                --  Show Indentation
+    use { 'norcalli/nvim-colorizer.lua' }                        --  Colorize color codes
+    use { 'junegunn/goyo.vim' }                                  --  Zen mode
+    use { 'junegunn/limelight.vim' }                             --  Dim unfocused areas
+    use { 'p00f/nvim-ts-rainbow' }                               --  Rainbow parentheses for treesitter
     --- Language support
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     }
     use { 'neovim/nvim-lspconfig' }
+    use {
+      'jose-elias-alvarez/null-ls.nvim',
+      config = function()
+          require("null-ls").setup()
+      end,
+      requires = { "nvim-lua/plenary.nvim" },
+    }
     use { 'sheerun/vim-polyglot' }
     ---
-    use { 'kshenoy/vim-signature' }                              --  show markers
+    use { 'kshenoy/vim-signature' }                              --  Show markers
+    use {
+      'folke/trouble.nvim',
+      config = function()
+        require('trouble').setup()
+      end
+    }
     --- Utility
     use { 'andymass/vim-matchup', event = 'VimEnter' }           --  Navigate and highlight matching words
     use { 'tmsvg/pear-tree' }                                    --  Autoclose
@@ -38,15 +56,22 @@ require('packer').startup(function()
     use { 'junegunn/fzf.vim' }                                   --  Fuzzy file search
     use { 'simnalamburt/vim-mundo' }                             --  Undo bar
     use { 'akinsho/bufferline.nvim' }                            --  Bufferline
-    -- use { 'lervag/vimtex' }                                      --  Better Latex support
+    use { 'ludovicchabant/vim-gutentags' }                       --  Tag generation
     ---
     --- Autocompletion
-    use { 'hrsh7th/cmp-nvim-lsp' }
-    use { 'hrsh7th/cmp-buffer' }
-    use { 'hrsh7th/cmp-path' }
-    use { 'hrsh7th/cmp-cmdline' }
-    use { 'hrsh7th/cmp-calc' }
-    use { 'hrsh7th/nvim-cmp' }
+    use {
+      'hrsh7th/nvim-cmp',
+      requires = {
+        { 'hrsh7th/cmp-nvim-lsp' },
+        { 'hrsh7th/cmp-buffer' },
+        { 'hrsh7th/cmp-path' },
+        { 'hrsh7th/cmp-cmdline' },
+        { 'hrsh7th/cmp-calc' },
+        { 'quangnguyen30192/cmp-nvim-tags' },
+        { 'lukas-reineke/cmp-rg' },
+        { 'lukas-reineke/cmp-under-comparator' }
+      }
+    }
     ---
     --- Snippets
     use {
@@ -74,41 +99,132 @@ require('packer').startup(function()
     }
     ---
     --- Note taking and other things
-    use { 'vimwiki/vimwiki' }
+    use {
+      'nvim-neorg/neorg',
+      requires = 'nvim-lua/plenary.nvim'
+    }
     use { 'brymer-meneses/grammar-guard.nvim' }
     use { 'metakirby5/codi.vim' }                                --  Scratchpad
-
+    ---
     --- File manager
     use {
       'francoiscabrol/ranger.vim',
-      requires = { 'rbgrouleff/bclose.vim' }
+      requires = 'rbgrouleff/bclose.vim'
     }
+    ---
+    --- Debugging
+    use { 'mfussenegger/nvim-dap' }
     ---
 end)
 
---- VimWiki
-vim.cmd("let g:vimwiki_list = [{'path': '~/Documents/Notes/VimWiki/', 'syntax': 'markdown', 'ext': '.md'}]")
-vim.cmd("let g:vimwiki_global_ext=0")
+--- IndentLine
+vim.g.indentLine_concealcursor = 'nc'
 ---
+
+--- Ranger
+vim.g.ranger_map_keys = 0
+---
+
+--- Limelight
+-- Color name (:help cterm-colors) or ANSI code
+vim.g.limelight_conceal_ctermfg = 'gray'
+vim.g.limelight_conceal_ctermfg = 240
+
+-- Color name (:help gui-colors) or RGB color
+vim.g.limelight_conceal_guifg = 'DarkGray'
+vim.g.limelight_conceal_guifg = '#777777'
+---
+--- Goyo
+vim.g.goyo_width = 100
+vim.g.goyo_height = 100
 vim.cmd([[
 function! s:goyo_enter()
   if exists('$TMUX')
+    " Remove tmux status line
     silent !tmux set status off
+    " Focus tmux pane
+    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
   endif
+  " Fullscreen
+  silent !i3-msg fullscreen enable
+  silent !~/.scripts/tools/do-not-disturb on
+
+  silent Gitsigns detach
+
+  silent Limelight 0.9
 endfunction
 
 function! s:goyo_leave()
   if exists('$TMUX')
+    " Reset tmux status line
     silent !tmux set status on
+    " Reset tmux pane focus
+    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
   endif
+  " Reset window opacity
+  "silent !picom-trans -t -c
+  silent !i3-msg fullscreen disable
+  silent !~/.scripts/tools/do-not-disturb off
+
+  silent Gitsigns attach
+
+  silent Limelight!
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 ]])
+---
+--- Gutentags
+vim.g.gutentags_modules           = { 'ctags' }
+vim.g.gutentags_cache_dir         = '~/.cache/nvim/tags'
+vim.g.gutentags_generate_on_write = 1
+vim.g.gutentags_ctags_exclude     = {
+  '*.git', '*.svg', '*.hg',
+  'build',
+  'dist',
+  '*sites/*/files/*',
+  'bin',
+  'node_modules',
+  'bower_components',
+  'cache',
+  'compiled',
+  'example',
+  'bundle',
+  'vendor',
+  '*-lock.json',
+  '*.lock',
+  '*bundle*.js',
+  '*build*.js',
+  '.*rc*',
+  '*.min.*',
+  '*.map',
+  '*.bak',
+  '*.zip',
+  '*.pyc',
+  '*.class',
+  '*.sln',
+  '*.Master',
+  '*.csproj',
+  '*.tmp',
+  '*.csproj.user',
+  '*.cache',
+  '*.pdb',
+  'tags*',
+  'cscope.*',
+  '*.less',
+  '*.exe', '*.dll',
+  '*.mp3', '*.ogg', '*.flac',
+  '*.swp', '*.swo',
+  '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+  '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+  '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+}
+---
 
 require('plugin-settings.lspconfig')
+require('plugin-settings.null-ls')
 require('plugin-settings.treesitter')
 require('plugin-settings.nvim-cmp')
 require('plugin-settings.fzf')
-
+require('plugin-settings.neorg')
