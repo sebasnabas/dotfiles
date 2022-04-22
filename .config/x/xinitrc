@@ -1,4 +1,4 @@
-!/bin/sh
+#!/bin/sh
 
 udiskie &
 
@@ -27,8 +27,11 @@ mopidy &
 # Composite manager:
 picom -b &
 
+# Location agent
+/usr/lib/geoclue-2.0/demos/agent &
+
 # Redshift for warmer light in the evening
-redshift-gtk -l 52.53878:13.42443 &
+redshift-gtk &
 
 # Autohide cursor
 unclutter -b &
