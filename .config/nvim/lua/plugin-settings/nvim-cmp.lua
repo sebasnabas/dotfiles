@@ -1,5 +1,6 @@
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
+local cmp_ultisnips_mappings = require('cmp_nvim_ultisnips.mappings')
 local cmp = require'cmp'
 cmp.setup({
   snippet = {
@@ -12,21 +13,50 @@ cmp.setup({
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
   },
-  mapping = cmp.mapping.preset.insert({
+  mapping = {
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<C-k>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-  }),
+    ['<C-n>'] = cmp.mapping(
+      function(fallback)
+        cmp_ultisnips_mappings.compose { 'select_next_item' }(fallback)
+      end
+    ),
+    ['<C-k>'] = cmp.mapping(
+      function(fallback)
+        cmp_ultisnips_mappings.compose { 'expand' }(fallback)
+      end,
+      { 'i', 's', --[[ "c" (to enable the mapping in command mode) ]] }
+    ),
+    ['<C-p>'] = cmp.mapping(
+      function(fallback)
+        cmp_ultisnips_mappings.compose { 'select_previous_item' }(fallback)
+      end,
+      { 'i', 's', --[[ "c" (to enable the mapping in command mode) ]] }
+    ),
+    ['<Tab>'] = cmp.mapping(
+      function(fallback)
+        cmp_ultisnips_mappings.compose { 'jump_forwards' }(fallback)
+      end,
+      { 'i', 's', --[[ "c" (to enable the mapping in command mode) ]] }
+    ),
+    ['<S-Tab>'] = cmp.mapping(
+      function(fallback)
+        cmp_ultisnips_mappings.compose { 'jump_backwards' }(fallback)
+      end,
+      { 'i', 's', --[[ "c" (to enable the mapping in command mode) ]] }
+    )
+  },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'ultisnips' },
     { name = 'buffer' },
     { name = 'path' },
     { name = 'calc' },
-    -- { name = 'rg' },
-    { name = 'tags' }
+    { name = 'rg' },
+    { name = 'tags' },
+    { name = 'spell' }
   }),
   sorting = {
     comparators = {
@@ -59,17 +89,3 @@ sources = cmp.config.sources({
       { name = 'cmdline' }
     })
 })
-
--- Setup lspconfig.
--- local capabilities = require('cmp_nvim_lsp')
---     .update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
--- local lspconfig = require('lspconfig')
-
--- local servers = { 'clangd', 'omnisharp', 'pyright', 'rust_analyzer', 'tsserver', 'texlab' }
--- for _, lsp in ipairs(servers) do
---   lspconfig[lsp].setup {
---     -- on_attach = my_custom_on_attach,
---     capabilities = capabilities,
---   }
--- end

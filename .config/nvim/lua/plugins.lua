@@ -62,14 +62,15 @@ require('packer').startup(function()
     use {
       'hrsh7th/nvim-cmp',
       requires = {
-        { 'hrsh7th/cmp-nvim-lsp' },
-        { 'hrsh7th/cmp-buffer' },
-        { 'hrsh7th/cmp-path' },
-        { 'hrsh7th/cmp-cmdline' },
-        { 'hrsh7th/cmp-calc' },
-        { 'quangnguyen30192/cmp-nvim-tags' },
-        { 'lukas-reineke/cmp-rg' },
-        { 'lukas-reineke/cmp-under-comparator' }
+        { 'hrsh7th/cmp-nvim-lsp' },                             --  Neovim LSP
+        { 'hrsh7th/cmp-buffer' },                               --  Text from buffer
+        { 'hrsh7th/cmp-path' },                                 --  File paths
+        { 'hrsh7th/cmp-cmdline' },                              --  Commandline
+        { 'hrsh7th/cmp-calc' },                                 --  Calculations
+        { 'quangnguyen30192/cmp-nvim-tags' },                   --  Tags
+        { 'lukas-reineke/cmp-rg' },                             --  Ripgrep (text from other files)
+        { 'lukas-reineke/cmp-under-comparator' },               --  Sorting of completions
+        { 'f3fora/cmp-spell' }                                  --  Dictionaries
       }
     }
     ---
@@ -90,7 +91,7 @@ require('packer').startup(function()
       config = function()
         require("cmp_nvim_ultisnips").setup {
           filetype_source = "treesitter",
-          show_snippets = "all",
+          show_snippets = "expendable",
           documentation = function(snippet)
               return snippet.description
           end
