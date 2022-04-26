@@ -91,7 +91,7 @@ require('packer').startup(function()
       config = function()
         require("cmp_nvim_ultisnips").setup {
           filetype_source = "treesitter",
-          show_snippets = "expendable",
+          show_snippets = "expandable",
           documentation = function(snippet)
               return snippet.description
           end
