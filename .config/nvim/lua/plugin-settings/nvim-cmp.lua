@@ -18,20 +18,15 @@ cmp.setup({
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
+    ['<C-k>'] = cmp.mapping.confirm({ select = true }),
     ['<C-n>'] = cmp.mapping(
       function(fallback)
         cmp_ultisnips_mappings.compose { 'select_next_item' }(fallback)
       end
     ),
-    ['<C-k>'] = cmp.mapping(
-      function(fallback)
-        cmp_ultisnips_mappings.compose { 'expand' }(fallback)
-      end,
-      { 'i', 's', --[[ "c" (to enable the mapping in command mode) ]] }
-    ),
     ['<C-p>'] = cmp.mapping(
       function(fallback)
-        cmp_ultisnips_mappings.compose { 'select_previous_item' }(fallback)
+        cmp_ultisnips_mappings.compose { 'select_prev_item' }(fallback)
       end,
       { 'i', 's', --[[ "c" (to enable the mapping in command mode) ]] }
     ),
