@@ -48,6 +48,8 @@ cmp.setup({
     { name = 'ultisnips' },
     { name = 'buffer' },
     { name = 'path' },
+    { name = 'nvim_lsp_signature_help' },
+    { name = 'omni' },
     { name = 'calc' },
     { name = 'rg' },
     { name = 'tags' },

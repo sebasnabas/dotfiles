@@ -70,7 +70,9 @@ require('packer').startup(function()
         { 'quangnguyen30192/cmp-nvim-tags' },                   --  Tags
         { 'lukas-reineke/cmp-rg' },                             --  Ripgrep (text from other files)
         { 'lukas-reineke/cmp-under-comparator' },               --  Sorting of completions
-        { 'f3fora/cmp-spell' }                                  --  Dictionaries
+        { 'f3fora/cmp-spell' },                                 --  Dictionaries
+        { 'hrsh7th/cmp-nvim-lsp-signature-help' },              --  Emphasize current param in preview
+        { 'hrsh7th/cmp-omni' }                                  --  Omnifunc support (needed for e.g. vimtex)
       }
     }
     ---
@@ -127,6 +129,7 @@ require('packer').startup(function()
       run = ':UpdateRemotePlugins'
     }
     ---
+    use { 'lervag/vimtex' }                                      --  Ultimate latex support
 end)
 
 --- IndentLine
