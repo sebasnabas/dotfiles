@@ -114,7 +114,18 @@ require('packer').startup(function()
     }
     ---
     --- Debugging
-    use { 'mfussenegger/nvim-dap' }
+    use {
+      'mfussenegger/nvim-dap',
+      requires = 'theHamsta/nvim-dap-virtual-text'
+    }
+    use { 'mfussenegger/nvim-dap-python' }
+    ---
+    --- Run tests
+    use {
+      'rcarriga/vim-ultest',
+      requires = { 'vim-test/vim-test' },
+      run = ':UpdateRemotePlugins'
+    }
     ---
 end)
 
@@ -229,3 +240,5 @@ require('plugin-settings.treesitter')
 require('plugin-settings.nvim-cmp')
 require('plugin-settings.fzf')
 require('plugin-settings.neorg')
+require('plugin-settings.dap')
+require('plugin-settings.ultest')
