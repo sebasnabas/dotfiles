@@ -8,7 +8,9 @@ vim.wo.colorcolumn                   = '100'
 vim.opt.encoding                     = "utf-8"
 vim.opt.wrap                         = true
 vim.opt.fileformat                   = "unix"
-vim.opt.spelllang                    = {"en_us", "de"}
+-- vim.opt.spell                        = true
+vim.opt.spelllang                    = {"en", "de"}
+vim.opt.spellfile                    = "~/.local/share/nvim/site/spell/en.utf-8.add"
 vim.opt.exrc                         = true                                                                   --  Enable local rc file
 vim.opt.startofline                  = false                                                                  --  Keep cursor on same column
 vim.opt.wildmenu                     = true                                                                   --  Display all matching files on tab completion
@@ -25,6 +27,7 @@ vim.opt.ttimeout                     = true
 vim.opt.ttimeoutlen                  = 50
 ---
 
+--- Visuals
 vim.opt.listchars                    = {tab = "›·", space = "·", eol = "¬", extends = "›", precedes = "‹"}  --  Display whitespace
 vim.opt.list                         = true
 vim.opt.list                         = true
@@ -32,6 +35,8 @@ vim.opt.ttyfast                      = true
 vim.opt.relativenumber               = true                                                                   --  Display relative line numbers on every line
 vim.opt.number                       = true                                                                   --  Display line numbers on current line
 vim.opt.ruler                        = true                                                                   --  Show cursor position
+vim.opt.signcolumn                   = "yes"                                                                  --  Separate column for signs "removes the jitter when warnings/errors flow in"
+---
 
 --- Indentation
 vim.opt.tabstop                      = 4
@@ -42,6 +47,7 @@ vim.autoindent                       = true
 ---
 
 --- Folding
+vim.opt.foldlevel                    = 1
 vim.opt.foldnestmax                  = 10
 vim.o.foldmethod                     = 'expr'
 vim.o.foldexpr                       = 'nvim_treesitter#foldexpr()'
@@ -67,5 +73,7 @@ vim.opt.splitbelow                   = true
 vim.opt.splitright                   = true
 vim.g.netrw_home                     = "~/.cache/nvim"                                                        --  Save netrw history in cache directory
 
+--- Markdown code block highlighting
+vim.g.markdown_fenced_languages      = { 'c', 'csharp', 'html', 'python', 'ruby', 'vim'}
 
-vim.opt.completeopt                  = { "menu", "menuone", "noselect" }                                      --  completion options for nvim-cmp
+vim.opt.mouse                        = "nv"

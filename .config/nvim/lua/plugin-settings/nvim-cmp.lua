@@ -1,7 +1,21 @@
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
+-- Set completeopt to have a better completion experience
+-- :help completeopt
+-- menuone: popup even when there's only one match
+-- noinsert: Do not insert text until a selection is made
+-- noselect: Do not select, force user to select one from the menu
+vim.opt.completeopt = { "menu", "menuone", "noinsert", "noselect" }
+
+local cmp = require('cmp')
+
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)
 
 local cmp_ultisnips_mappings = require('cmp_nvim_ultisnips.mappings')
-local cmp = require'cmp'
+local lspkind = require('lspkind')
+
 cmp.setup({
   snippet = {
     -- REQUIRED - you must specify a snippet engine
@@ -44,16 +58,13 @@ cmp.setup({
     )
   },
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'ultisnips' },
-    { name = 'buffer' },
-    { name = 'path' },
+    { name = 'nvim_lsp', priority = 10 },
     { name = 'nvim_lsp_signature_help' },
+    { name = 'ultisnips' },
+    { name = 'path' },
+    { name = 'buffer' },
     { name = 'omni' },
-    { name = 'calc' },
-    { name = 'rg' },
-    { name = 'tags' },
-    { name = 'spell' }
+    { name = 'neorg' },
   }),
   sorting = {
     comparators = {
@@ -66,6 +77,16 @@ cmp.setup({
       cmp.config.compare.length,
       cmp.config.compare.order,
     },
+  },
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol_text',
+      menu = ({
+        buffer = '[Buffer]',
+        nvim_lsp = '[LSP]',
+        omni = '[Omni]'
+      })
+    }),
   }
 })
 

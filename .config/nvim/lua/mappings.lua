@@ -21,7 +21,7 @@ map("v", "<C-c>", "\"+y")
 map("i", "<C-v>", "<Esc>\"+pa")
 
 -- Compile document
-map("n", "<leader>c", ":w! \\| !compiler <c-r>%<CR><CR>")
+map("n", "<leader>c", ":w! | !compiler <c-r>%<CR><CR>")
 -- Open corresponding pdf/.html or preview
 map("n", "<leader>v", ":!opout <c-r>%<CR><CR>")
 
@@ -151,6 +151,7 @@ map('n', '<leader>rr', ':Ranger<CR>')
 --- Ultest
 map('n', ']t', '<Plug>(ultest-next-fail)')
 map('n', '[t', '<Plug>(ultest-prev-fail)')
+map('n', '<localleader>u', '<cmd>call ultest#output#jumpto()<CR>')
 ---
 
 --- dap
