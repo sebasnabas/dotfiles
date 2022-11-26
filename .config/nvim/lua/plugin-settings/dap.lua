@@ -34,21 +34,22 @@ for _, configuration in pairs(pyconfigurations) do
 end
 
 -- C#
-dap.adapters.coreclr = {
+dap.adapters.netcoredbg = {
   type = 'executable',
   command = '/usr/bin/netcoredbg',
   args = {'--interpreter=vscode'}
 }
-dap.configurations.cs = {
-  {
-    type = 'coreclr',
-    name = 'launch - netcoredbg',
-    request = 'launch',
-    program = function()
-        return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
-    end,
-  },
-}
+
+-- dap.configurations.cs = {
+--   {
+--     type = 'coreclr',
+--     name = 'launch - netcoredbg',
+--     request = 'launch',
+--     program = function()
+--         return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+--     end,
+--   },
+-- }
 
 -- C, C++ & Rust
 dap.adapters.lldb = {
