@@ -76,13 +76,21 @@ vim.cmd([[function! NextClosedFold(dir)
 endfunction]])
 
 -- Fugitive
+vim.api.nvim_create_user_command("GFixup", function (opt)
+    local commit_sha = opt.args
+    vim.api.nvim_command("Git commit --fixup=" .. commit_sha)
+    vim.api.nvim_command("Git rebase --autosquash " .. commit_sha .. "~1")
+end, { nargs = 1 })
+
 map("n", "<leader>gcc", ":Git commit<CR>")
 map("n", "<leader>gca", ":Git commit --amend<CR>")
+map("n", "<leader>gcf", ":GFixup ")
 map("n", "<leader>gco", ":Git checkout<Space>")
 map("n", "<leader>gcb", ":Git checkout -b<Space>")
 map("n", "<leader>gd", ":Gdiffsplit<CR>")
 map("n", "<leader>glg", ":Gclog<CR>")
 map("n", "<leader>gp", ":Git push<CR>")
+map("n", "<leader>gpf", ":Git push --force-with-lease<CR>")
 map("n", "<leader>gfe", ":Git fetch<CR>")
 map("n", "<leader>gl", ":Git pull<CR>")
 map("n", "<leader>gm", ":Git merge<Space>")
