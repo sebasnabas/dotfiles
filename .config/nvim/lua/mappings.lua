@@ -148,10 +148,11 @@ map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 map('n', '<leader>rr', ':Ranger<CR>')
 ---
 
---- Ultest
-map('n', ']t', '<Plug>(ultest-next-fail)')
-map('n', '[t', '<Plug>(ultest-prev-fail)')
-map('n', '<localleader>u', '<cmd>call ultest#output#jumpto()<CR>')
+--- neotest
+map('n', '[t', ':lua require("neotest").jump.prev({ status = "failed" })<CR>')
+map('n', ']t', ':lua require("neotest").jump.next({ status = "failed" })<CR>')
+map('n', '<leader>ts', '<cmd>NeotestSummaryToggle>CR>')
+map('n', '<leader>to', '<cmd>NeotestOutputToggle>CR>')
 ---
 
 --- dap
@@ -160,5 +161,4 @@ map('n', '<F10>', ':lua require"dap".step_over()<CR>', {silent = true})
 map('n', '<F11>', ':lua require"dap".step_into()<CR>', {silent = true})
 map('n', '<F12>', ':lua require"dap".step_out()<CR>', {silent = true})
 map('n', '<leader>b', ':lua require"dap".toggle_breakpoint()<CR>', {silent = true})
----
 ---

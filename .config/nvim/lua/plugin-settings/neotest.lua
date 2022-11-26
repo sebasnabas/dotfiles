@@ -1,16 +1,15 @@
 local neotest = require("neotest")
 neotest.setup({
+  log_level = 1, -- For verbose logs
   adapters = {
     require("neotest-python")({
       dap = { justMyCode = false },
     }),
-    require("neotest-vim-test")({
-      ignore_file_types = { "python", "vim" },
-    }),
+    require("neotest-dotnet"),
+    require("neotest-rust"),
+    require("neotest-jest"),
   },
 })
-
-vim.cmd("let g:test#csharp#runner='dotnettest'")
 
 local cmd = vim.api.nvim_create_user_command
 
@@ -35,6 +34,21 @@ cmd("NeoTestAttachToNearest", function()
 end, {})
 
 cmd("NeoTestOutput", function()
-  vim.cmd('neotest.output')
+  neotest.output.open({enter = true})
 end, {})
 
+cmd("NeotestSummaryOpen", function()
+  neotest.summary.open()
+end, {})
+
+cmd("NeotestSummaryClose", function()
+  neotest.summary.close()
+end, {})
+
+cmd("NeotestSummaryToggle", function()
+  neotest.summary.toggle()
+end, {})
+
+cmd("NeotestOutputToggle", function()
+  neotest.output_panel.toggle()
+end, {})

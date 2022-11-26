@@ -227,18 +227,17 @@ require('packer').startup(function()
   ---
   --- Run tests
   use {
-    'rcarriga/vim-ultest',
-    requires = {'vim-test/vim-test'},
-    run = ':UpdateRemotePlugins'
-    -- 'nvim-neotest/neotest',
-    -- requires = {
-    --   'nvim-lua/plenary.nvim',
-    --   'nvim-treesitter/nvim-treesitter',
-    --   'antoinemadec/FixCursorHold.nvim',
-    --   'nvim-neotest/neotest-python',
-    --   'nvim-neotest/neotest-vim-test',
-    --   'vim-test/vim-test'
-    -- }
+    'nvim-neotest/neotest',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
+      'antoinemadec/FixCursorHold.nvim',
+      'nvim-neotest/neotest-python',
+      'nvim-neotest/neotest-vim-test',
+      'Issafalcon/neotest-dotnet',
+      'rouge8/neotest-rust',
+      'haydenmeade/neotest-jest'
+    }
   }
   ---
   use { 'lervag/vimtex' }                                      --  Ultimate latex support
@@ -352,4 +351,4 @@ require('plugin-settings.nvim-cmp')
 require('plugin-settings.fzf')
 require('plugin-settings.neorg')
 require('plugin-settings.dap')
-require('plugin-settings.ultest')
+require('plugin-settings.neotest')
