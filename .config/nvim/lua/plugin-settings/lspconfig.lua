@@ -9,7 +9,7 @@ vim.keymap.set('n', '<space>l', vim.diagnostic.setloclist, opts)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  -- require "lsp-format".on_attach(client)
+  require "lsp-format".on_attach(client)
   require("lsp-inlayhints").on_attach(client, bufnr, true)
 
   -- Enable completion triggered by <c-x><c-o>
@@ -59,7 +59,7 @@ end
 local pid = vim.fn.getpid()
 local omnisharp_bin = '/usr/bin/omnisharp'
 require'lspconfig'.omnisharp.setup{
-    cmd = { omnisharp_bin, '--languageserver' , '--hostPID', tostring(pid) };
+    cmd = { omnisharp_bin, '--languageserver' , '--hostPID', tostring(pid), 'DotNet:enablePackageRestore=true' };
 }
 
 -- Lua config
@@ -111,7 +111,6 @@ require('lspconfig').grammar_guard.setup({
 require('rust-tools').setup({
     tools = { -- rust-tools options
         autoSetHints = true,
-        hover_with_actions = true,
         inlay_hints = {
             show_parameter_hints = false,
             parameter_hints_prefix = "",
