@@ -78,8 +78,17 @@ endfunction]])
 -- Fugitive
 vim.api.nvim_create_user_command("GFixup", function (opt)
     local commit_sha = opt.args
+    local commits_before = 1
+
+    if commit_sha == "HEAD"
+    then
+        commits_before = 2
+    end
+
     vim.api.nvim_command("Git commit --fixup=" .. commit_sha)
-    vim.api.nvim_command("Git rebase --autosquash " .. commit_sha .. "~1")
+    vim.api.nvim_command("Git stash")
+    vim.api.nvim_command("Git rebase --autosquash " .. commit_sha .. "~" .. commits_before)
+    vim.api.nvim_command("Git stash pop")
 end, { nargs = 1 })
 
 map("n", "<leader>gcc", ":Git commit<CR>")
