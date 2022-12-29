@@ -57,7 +57,6 @@ vim.opt.conceallevel                 = 2
 vim.opt.concealcursor                = 'nc'
 vim.opt.laststatus                   = 3                                                                      --  Display a global status line
 vim.opt.cursorline                   = true                                                                   --  Highlight current line
-vim.opt.mouse                        = ''                                                                     --  Disable mouse support
 
 --- Searching
 vim.opt.ignorecase                   = true
@@ -76,4 +75,4 @@ vim.g.netrw_home                     = "~/.cache/nvim"                          
 --- Markdown code block highlighting
 vim.g.markdown_fenced_languages      = { 'c', 'csharp', 'html', 'python', 'ruby', 'vim'}
 
-vim.opt.mouse                        = "nv"
+vim.opt.mouse                        = "v"                                                                    -- Enable mouse only in visual mode
