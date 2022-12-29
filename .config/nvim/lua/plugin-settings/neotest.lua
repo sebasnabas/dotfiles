@@ -13,17 +13,35 @@ neotest.setup({
 
 local cmd = vim.api.nvim_create_user_command
 
+local function parse_env_vars(args)
+  local env = {}
+  for _, arg in pairs(args) do
+    local parts = vim.split(arg, "'")
+    local key = vim.split(parts[1], "=")[1]
+    local value = table.concat(parts, "", 2)
+
+    print(key .. " = " .. value)
+    env[key] = value
+  end
+  return env
+end
+
 cmd("NeoTestFile", function()
   neotest.run.run(vim.fn.expand("%"))
 end, {})
 
-cmd("NeoTestNearest", function()
-  neotest.run.run()
-end, {})
+cmd("NeoTestNearest", function(opt)
+  neotest.run.run({
+      env = parse_env_vars(opt.fargs)
+    })
+end, { nargs = "*" })
 
-cmd("NeoTestDebugNearest", function()
-  neotest.run.run({strategy = "dap"})
-end, {})
+cmd("NeoTestDebugNearest", function(opt)
+  neotest.run.run({
+    strategy = "dap",
+    env = parse_env_vars(opt.fargs)
+  })
+end, { nargs = "*" })
 
 cmd("NeoTestStopNearest", function()
   neotest.run.stop()
