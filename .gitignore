@@ -6,7 +6,6 @@
 !.subtrees
 !.scripts
 !README.md
-
 !.config
 .config/*
 !.config/astrality
@@ -17,10 +16,13 @@
 !.config/kitty
 !.config/networkmanager-dmenu
 !.config/nvim
+.config/nvim/plugin
 !.config/ranger
 !.config/redshift
 !.config/rofi
 !.config/shell
+.config/shell/zsh/.zsh_history
+.config/shell/zsh/*.zwc
 !.config/picom
 !.config/polybar
 !.config/tmux
@@ -44,10 +46,4 @@ __pycache__
 .mozilla/*
 !.mozilla/firefox
 .mozilla/firefox/*
-!.mozilla/firefox/Profiles
-.mozilla/firefox/Profiles/*
-!.mozilla/firefox/Profiles/3spasjl1.default
-.mozilla/firefox/Profiles/3spasjl1.default/*
-!.mozilla/firefox/Profiles/3spasjl1.default/chrome
-.mozilla/firefox/Profiles/3spasjl1.default/chrome/*
-!.mozilla/firefox/Profiles/3spasjl1.default/chrome/userChrome.css
+!.mozilla/firefox/userChrome.css
