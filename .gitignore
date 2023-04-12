@@ -12,6 +12,7 @@
 !.config/awesome
 !.config/compton
 !.config/dunst
+!.config/firefox
 !.config/i3
 !.config/kitty
 !.config/networkmanager-dmenu
@@ -40,10 +41,3 @@ dotconfigfiles/*
 __pycache__
 
 .config/git/gitconfig-work
-
-# firefox
-!.mozilla
-.mozilla/*
-!.mozilla/firefox
-.mozilla/firefox/*
-!.mozilla/firefox/userChrome.css
