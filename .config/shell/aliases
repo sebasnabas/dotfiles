@@ -1,5 +1,11 @@
+#!/usr/bin/env sh
+
 sudo_path="/usr/bin/sudo"
-alias sudo="sudoer_lecture.py && $sudo_path"
+alias sudo="sudoer_lecture.py && \$sudo_path"
+
+alias ls='lsd'
+alias du='dust'
+alias df='duf'
 
 alias mkvenv="mkvenv --system-site-packages"
 
@@ -7,16 +13,10 @@ alias tmux="tmux -2"
 alias ip="ip -c"
 alias l="ls -lAht"
 alias r="ranger"
-
 alias vim="nvim"
 
-alias vimconfig="nvim \$MYVIMRC"
-alias i3config="nvim ~/.config/i3/config"
-alias zshconfig="nvim ~/.config/shell/zsh/.zshrc"
-
 ## directories
-alias uni="pushd \$(getcurrentunipath \$UNI_PATH)"
-alias p="pushd ~/Projects/"
-alias w="if [ -d ~/Work/Projects/ ]; then pushd ~/Work/Projects; fi"
+alias p="pushd \$HOME/Projects/"
 
-alias qemuu="docker run --rm --privileged multiarch/qemu-user-static --reset -p yes"
+work_dir="\$HOME/Projects/Work"
+alias w="if [ -d ${work_dir} ]; then pushd ${work_dir}; else; echo \"${work_dir} does not exist\"; fi"
