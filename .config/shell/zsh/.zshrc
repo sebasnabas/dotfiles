@@ -109,11 +109,6 @@ export AUTOSWITCH_MESSAGE_FORMAT="$(tput setaf 2)Switching to %venv_name 🐍 %p
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export AUTOSWITCH_VIRTUAL_ENV_DIR="venv"
 
-export AUTO_NOTIFY_WHITELIST=("git" "docker" "ncmpcpp" "gotop")
-
-# Completion for kitty
-which kitty > /dev/null 2>&1 && kitty + complete setup zsh | source /dev/stdin
-
 [ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
 [ -f "$HOME/.aliases_work" ] && source "$HOME/.aliases_work"
 
@@ -122,19 +117,12 @@ source /usr/share/zsh/share/antigen.zsh
 
 antigen bundle git
 antigen bundle pip
+antigen bundle fzf
 antigen bundle "zsh-users/zsh-autosuggestions"
 antigen bundle "zsh-users/zsh-syntax-highlighting"
 antigen bundle "MichaelAquilina/zsh-autoswitch-virtualenv"
 
 antigen apply
-##
-
-plugins=(fzf)
-
-for plugin ($plugins); do
-    plugin_path="$ZDOTDIR/plugins/$plugin/$plugin.plugin.zsh"
-    [ -f $plugin_path ] && source $plugin_path
-done
 
 # thefuck
 eval $(thefuck --alias)
@@ -145,16 +133,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--select-1 --exit-0"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 export FZF_COMPLETION_OPTS='+c -x'
-
-# fh - repeat history
-fh() {
-  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed -r 's/ *[0-9]*\*? *//' | sed -r 's/\\/\\\\/g')
-}
-
-# mkdir and change to it
-mdc()  {
-    mkdir -p $1 && pushd $_
-}
 
 [ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
 
