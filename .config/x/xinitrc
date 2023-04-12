@@ -16,7 +16,7 @@ feh --bg-fill ~/.config/wall.png &
 setxkbmap -option 'caps:escape' &
 
 # Notifications
-/usr/lib/xfce4/notifyd/xfce4-notifyd &
+dunst &
 
 # Polkit authentication manager
 /usr/lib/polkit-kde-authentication-agent-1 &
@@ -39,6 +39,10 @@ unclutter -b &
 caffeine -a &
 
 playerctld daemon &
+
+# Clipboard manager
+clipcatd &
+clipcatctl enable-monitor &
 
 # Window manager
 exec i3

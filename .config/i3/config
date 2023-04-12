@@ -64,14 +64,14 @@ for_window [instance="dropdown_*"] move position center
 # #---Starting External Programs---# #
 # systemtray
 exec --no-startup-id nm-applet
-exec --no-startup-id blueman-tray
+exec --no-startup-id blueman-applet
 exec --no-startup-id pasystray --notify=new --notify=sink --notify=source
 exec --no-startup-id udiskie -s -n
 exec --no-startup-id protonmail-bridge --no-window
 exec --no-startup-id nextcloud --background
-exec --no-startup-id clipcatd
 exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id powerkit
+exec --no-startup-id system-config-printer-applet
 
 # Statusbar
 exec_always --no-startup-id ~/.config/polybar/launch.sh
@@ -167,12 +167,19 @@ bindsym $mod+s          exec --no-startup-id $i3cmds/ducksearch;; exec i3-msg "[
 
 bindsym $mod+c          exec --no-startup-id $TERMINAL --class codi_scratchpad codi
 
+# Call clipboard manager
 bindsym $mod+x exec clipcat-menu insert
 bindsym $mod+Shift+x exec clipcat-menu remove
 
+# Grab OTPs from ykman oath
+bindsym $mod+y exec yubikey-oath-dmenu --notify --clipboard --clipboard-cmd "xclip -selection clipboard"
+bindsym $mod+Shift+y exec yubikey-oath-dmenu --notify --type
+
 # Brightness controls
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5 && \
+    dunstify -a "xbacklight" -u low -i brightnesssettings -h string:x-dunst-stack-tag:xbacklight -h int:value:"$(xbacklight -get)" "Brightness: $(xbacklight -get)%"
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5 && \
+    dunstify -a "xbacklight" -u low -i brightnesssettings -h string:x-dunst-stack-tag:xbacklight -h int:value:"$(xbacklight -get)" "Brightness: $(xbacklight -get)%"
 
 # Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -292,3 +299,10 @@ for_window [title="Default - Wine desktop"] floating enable
 for_window [class="^Droidcam$"] \
     floating disable, gaps inner current set 0, gaps outer current set 0, \
     resize set height 200px
+
+for_window [title="Hamster"] floating enable
+
+for_window [title="^Save As$"] \
+    floating enable, border none, \
+    resize set 1000 700, move position 400 100, \
+    move scratchpad, scratchpad show
