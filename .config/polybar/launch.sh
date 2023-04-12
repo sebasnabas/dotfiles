@@ -11,3 +11,5 @@ xrandr | grep '\sconnected' | grep -v "$primary_monitor" | cut -d ' ' -f 1 | whi
 do
     MONITOR="$monitor" polybar --reload top -c ~/.config/polybar/config-top-simple.ini &
 done
+
+feh --bg-fill ~/.config/wall.png &
