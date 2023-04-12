@@ -11,19 +11,18 @@ local sources = {
     -- Diagnostics
     null_ls.builtins.diagnostics.ansiblelint,
     null_ls.builtins.diagnostics.chktex,
-    null_ls.builtins.diagnostics.codespell.with({
-            extra_args = {"--config", "~/.config/codespell.toml", "-L", "crate"}
-        }),
+    null_ls.builtins.diagnostics.codespell,
     null_ls.builtins.diagnostics.cppcheck,
     null_ls.builtins.diagnostics.eslint,
     null_ls.builtins.diagnostics.gitlint,
     null_ls.builtins.diagnostics.hadolint,
-    null_ls.builtins.diagnostics.pylint,
     null_ls.builtins.diagnostics.yamllint,
     null_ls.builtins.diagnostics.vale,
 
     -- Code Actions
+    null_ls.builtins.code_actions.cspell,
     null_ls.builtins.code_actions.gitsigns,
+    null_ls.builtins.code_actions.shellcheck,
 
     -- Hover
     null_ls.builtins.hover.dictionary,

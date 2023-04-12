@@ -9,7 +9,6 @@ vim.keymap.set('n', '<space>l', vim.diagnostic.setloclist, opts)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  require "lsp-format".on_attach(client)
   require("lsp-inlayhints").on_attach(client, bufnr, true)
 
   -- Enable completion triggered by <c-x><c-o>
@@ -32,7 +31,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+  vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
 end
 
 
@@ -44,9 +43,12 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 -- map buffer local keybindings when the language server attaches
 local servers = {
   'bashls', 'clangd', 'omnisharp',
-  'jedi_language_server', 'pyright',
-  'rls',
-  'sumneko_lua', 'taplo', 'terraformls', 'tsserver'
+  'jedi_language_server', 'pyright', 'ruff_lsp', -- python
+  'rust_analyzer',
+  'taplo',  -- toml
+  -- 'terraformls',
+  'tflint',
+  'tsserver'
 }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
@@ -56,34 +58,12 @@ for _, lsp in pairs(servers) do
 end
 
 -- Omnisharp config
-local pid = vim.fn.getpid()
 local omnisharp_bin = '/usr/bin/omnisharp'
-require'lspconfig'.omnisharp.setup{
-    cmd = { omnisharp_bin, '--languageserver' , '--hostPID', tostring(pid), 'DotNet:enablePackageRestore=true' };
-}
-
--- Lua config
-require'lspconfig'.sumneko_lua.setup {
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'use', 'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
+require('lspconfig').omnisharp.setup{
+  cmd = { omnisharp_bin },
+  -- enable_editorconfig_support = true,
+  -- enable_roslyn_analyzers = true,
+  -- organize_imports_on_format = true
 }
 
 -- ltex-ls config
@@ -109,15 +89,6 @@ require('lspconfig').grammar_guard.setup({
 })
 
 require('rust-tools').setup({
-    tools = { -- rust-tools options
-        autoSetHints = true,
-        inlay_hints = {
-            show_parameter_hints = false,
-            parameter_hints_prefix = "",
-            other_hints_prefix = "",
-        },
-    },
-
     -- all the opts to send to nvim-lspconfig
     -- these override the defaults set by rust-tools.nvim
     -- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rust_analyzer
@@ -128,18 +99,24 @@ require('rust-tools').setup({
             -- to enable rust-analyzer settings visit:
             -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
             ["rust-analyzer"] = {
-                -- enable clippy on save
-                checkOnSave = {
-                    command = "clippy"
-                },
+              inlayHints = { locationLinks = false },
+              checkOnSave = {  -- enable clippy on save
+                command = "clippy"
+              },
             }
         }
     },
 })
 
+require('lspconfig').omnisharp.setup{
+  cmd = { "tflint", "--langserver", "--config", "~/.config/tflint/tflint.hcl" },
+}
+
 --- Ui
+require("lsp_lines").setup()
 vim.diagnostic.config({
-  virtual_text = true,
+  -- Disable virtual_text since it's redundant due to lsp_lines.
+  virtual_text = false,
   float = {
     source = 'if_many'
   },

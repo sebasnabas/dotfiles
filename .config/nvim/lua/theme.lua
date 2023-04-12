@@ -1,17 +1,26 @@
 vim.opt.termguicolors = true
 -- setup must be called before loading the colorscheme
 require("gruvbox").setup({
-  undercurl = true,
+undercurl = true,
   underline = true,
   bold = true,
-  italic = false, -- will make italic comments and special strings
-  inverse = true, -- invert background for search, diffs, statuslines and errors
+  italic = {
+    strings = true,
+    comments = true,
+    operators = false,
+    folds = true,
+  },
+  strikethrough = true,
   invert_selection = false,
   invert_signs = false,
   invert_tabline = false,
   invert_intend_guides = false,
-  contrast = "hard", -- can be "hard" or "soft"
+  inverse = true, -- invert background for search, diffs, statuslines and errors
+  contrast = "", -- can be "hard", "soft" or empty string
+  palette_overrides = {},
   overrides = {},
+  dim_inactive = true,
+  transparent_mode = true,
 })
 vim.cmd("colorscheme gruvbox")
 vim.opt.background = "dark"

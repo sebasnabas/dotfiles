@@ -72,7 +72,4 @@ vim.opt.splitbelow                   = true
 vim.opt.splitright                   = true
 vim.g.netrw_home                     = "~/.cache/nvim"                                                        --  Save netrw history in cache directory
 
---- Markdown code block highlighting
-vim.g.markdown_fenced_languages      = { 'c', 'csharp', 'html', 'python', 'ruby', 'vim'}
-
 vim.opt.mouse                        = "v"                                                                    -- Enable mouse only in visual mode

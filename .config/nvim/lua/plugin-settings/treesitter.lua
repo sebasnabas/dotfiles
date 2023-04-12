@@ -22,8 +22,8 @@ require("nvim-treesitter.configs").setup {
   ensure_installed = {
     "bash", "bibtex", "c", "c_sharp", "comment", "css",
     "dockerfile", "go", "hcl", "html", "javascript", "json", "latex",
-    "lua", "make", "markdown", "norg", "python", "regex", "ruby", "rust", "scss", "svelte",
-    "toml", "vim", "yaml"
+    "lua", "make", "markdown", "markdown_inline", "norg", "python", "regex", "ruby", "rust", "scss",
+    "terraform", "toml", "tsx", "typescript", "vim", "yaml"
   },
   -- Install languages synchronously (only applied to `ensure_installed`)
   sync_install = true,

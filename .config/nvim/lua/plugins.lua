@@ -9,31 +9,20 @@ require('packer').startup(function()
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
   use { 'akinsho/bufferline.nvim' }                            --  Bufferline
-  use { --  Tab-Buffer grouping
-    'tiagovla/scope.nvim',
-    config = function()
-        require("scope").setup()
-    end,
-  }
   ---
-  use { 'liuchengxu/vista.vim' }                               --  Show tags in sidebar
   use { --  Show Indentation
     'lukas-reineke/indent-blankline.nvim',
     config = function ()
       require("indent_blankline").setup {
-          -- for example, context is off by default, use this to turn it on
+          space_char_blankline = " ",
           show_current_context = true,
           show_current_context_start = true,
         }
     end
   }
-  use { 'norcalli/nvim-colorizer.lua' }                        --  Colorize color codes
-  use { 'junegunn/goyo.vim' }                                  --  Zen mode
-  use { 'junegunn/limelight.vim' }                             --  Dim unfocused areas
   use { 'p00f/nvim-ts-rainbow' }                               --  Rainbow parentheses for treesitter
   use { -- Dim unused variables
     "zbirenbaum/neodim",
-    -- event = "LspAttach",
     config = function ()
       require("neodim").setup({
         alpha = 0.75,
@@ -111,9 +100,11 @@ require('packer').startup(function()
     requires = { "nvim-lua/plenary.nvim" },
   }
   use { 'lvimuser/lsp-inlayhints.nvim'}
+  use({ "https://git.sr.ht/~whynothugo/lsp_lines.nvim", })
   use { 'sheerun/vim-polyglot' }
   use { 'brymer-meneses/grammar-guard.nvim' }                  -- Check writing
   use { 'simrat39/rust-tools.nvim'}
+  use { 'gpanders/editorconfig.nvim' }                         -- Respect editorconfig
   ---
   use { 'kshenoy/vim-signature' }                              --  Show markers
   --- Utility
@@ -131,20 +122,20 @@ require('packer').startup(function()
       require('git-conflict').setup()
     end
   }
-  --
-  use { -- lsp-format -- Autoformatting
-    'lukas-reineke/lsp-format.nvim',
-    config = function ()
-      require('lsp-format').setup()
-    end
-  }
+
+   use { -- lsp-format -- Autoformatting
+     'lukas-reineke/lsp-format.nvim',
+     config = function ()
+       require('lsp-format').setup()
+     end
+   }
   use { 'andymass/vim-matchup', event = 'VimEnter' }           --  Navigate and highlight matching words
-  use {
+  use {                                                        --  Autoclose
     'windwp/nvim-autopairs',
     config = function()
       require("nvim-autopairs").setup {}
     end
-  }                              --  Autoclose
+  }
   use { 'tpope/vim-endwise' }                                  --  Auto end structures
   use { 'tpope/vim-surround' }                                 --  Easy change of surroundings
   use { 'tpope/vim-repeat' }                                   --  Repeat plugin commands with .
@@ -175,7 +166,7 @@ require('packer').startup(function()
       { 'lukas-reineke/cmp-under-comparator' },               --  Sorting of completions
       { 'hrsh7th/cmp-nvim-lsp-signature-help' },              --  Emphasize current param in preview
       { 'hrsh7th/cmp-omni' },                                 --  Omnifunc support (needed for e.g. vimtex)
-      { 'onsails/lspkind.nvim' }                              -- Display pictograms in completion menu
+      { 'onsails/lspkind.nvim' }                              --  Display pictograms in completion menu
     }
   }
   ---
@@ -247,56 +238,6 @@ end)
 vim.g.ranger_map_keys = 0
 ---
 
---- Limelight
--- Color name (:help cterm-colors) or ANSI code
-vim.g.limelight_conceal_ctermfg = 'gray'
-vim.g.limelight_conceal_ctermfg = 240
-
--- Color name (:help gui-colors) or RGB color
-vim.g.limelight_conceal_guifg = 'DarkGray'
-vim.g.limelight_conceal_guifg = '#777777'
----
---- Goyo
-vim.g.goyo_width = 100
-vim.g.goyo_height = 100
-vim.cmd([[
-function! s:goyo_enter()
-  if exists('$TMUX')
-    " Remove tmux status line
-    silent !tmux set status off
-    " Focus tmux pane
-    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-  endif
-  " Fullscreen
-  silent !i3-msg fullscreen enable
-  silent !~/.scripts/tools/do-not-disturb on
-
-  silent Gitsigns detach
-
-  silent Limelight 0.9
-endfunction
-
-function! s:goyo_leave()
-  if exists('$TMUX')
-    " Reset tmux status line
-    silent !tmux set status on
-    " Reset tmux pane focus
-    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  endif
-  " Reset window opacity
-  "silent !picom-trans -t -c
-  silent !i3-msg fullscreen disable
-  silent !~/.scripts/tools/do-not-disturb off
-
-  silent Gitsigns attach
-
-  silent Limelight!
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-]])
----
 --- Gutentags
 vim.g.gutentags_modules           = { 'ctags' }
 vim.g.gutentags_cache_dir         = '~/.cache/nvim/tags'

@@ -63,7 +63,7 @@ cmp.setup({
     { name = 'ultisnips' },
     { name = 'path' },
     { name = 'buffer' },
-    { name = 'omni' },
+    -- { name = 'omni' },
     { name = 'neorg' },
   }),
   sorting = {

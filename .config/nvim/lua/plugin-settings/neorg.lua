@@ -1,8 +1,12 @@
 require('neorg').setup {
   load = {
     ['core.defaults'] = {},       -- Load all the default modules
-    ['core.keybinds'] = {},
     ['core.norg.concealer'] = {}, -- Allows for use of icons
+    ["core.norg.news"] = {
+      config = {
+        check_news = false,
+      },
+    },
     ['core.norg.qol.toc'] = {
       config = {
         toc_split_placement = 'right'
@@ -28,16 +32,10 @@ require('neorg').setup {
         workspace      = 'personal'
       }
     },
-    ['core.gtd.base'] = {   -- Getting Things Done
-      config = {
-        workspace = 'home'
-      }
-    },
     ['core.norg.completion'] = {
       config = {
         engine = 'nvim-cmp'
       }
     },
-    ['core.integrations.treesitter'] = {}
   }
 }

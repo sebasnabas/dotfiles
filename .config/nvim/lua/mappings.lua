@@ -59,8 +59,8 @@ map("n", "<leader>so", ":so")
 map("n", "<leader>sov", ":so $MYVIMRC<CR>")
 
 -- Folds
-map("n", "<silent>", "<leader>zj :call NextClosedFold('j')<cr>")
-map("n", "<silent>", "<leader>zk :call NextClosedFold('k')<cr>")
+map("n", "]z", "<silent> :call NextClosedFold('j')<cr>")
+map("n", "[z", "<silent> :call NextClosedFold('k')<cr>")
 vim.cmd([[function! NextClosedFold(dir)
     let cmd = 'norm!z' . a:dir
     let view = winsaveview()
@@ -86,9 +86,7 @@ vim.api.nvim_create_user_command("GFixup", function (opt)
     end
 
     vim.api.nvim_command("Git commit --fixup=" .. commit_sha)
-    vim.api.nvim_command("Git stash")
-    vim.api.nvim_command("Git rebase --autosquash " .. commit_sha .. "~" .. commits_before)
-    vim.api.nvim_command("Git stash pop")
+    vim.api.nvim_command("Git rebase --autostash --autosquash " .. commit_sha .. "~" .. commits_before)
 end, { nargs = 1 })
 
 map("n", "<leader>gcc", ":Git commit<CR>")
@@ -173,6 +171,7 @@ map('n', '<leader>to', '<cmd>NeotestOutputToggle>CR>')
 ---
 
 --- dap
+map('n', '<F1>', ':lua require"dap".terminate()<CR>', {silent = true})
 map('n', '<F5>', ':lua require"dap".continue()<CR>', {silent = true})
 map('n', '<F10>', ':lua require"dap".step_over()<CR>', {silent = true})
 map('n', '<F11>', ':lua require"dap".step_into()<CR>', {silent = true})
