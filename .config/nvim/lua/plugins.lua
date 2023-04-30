@@ -171,28 +171,12 @@ require('packer').startup(function()
   }
   ---
   --- Snippets
-  use { -- ultisnips
-    'SirVer/ultisnips',
-    requires = {{'honza/vim-snippets', rtp = '.'}},
-    config = function()
-      vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
-      vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
-      vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
-      vim.g.UltiSnipsListSnippets = '<c-x><c-s>'
-      vim.g.UltiSnipsRemoveSelectModeMappings = 0
-    end
-  }
-  use { -- ultisnip cmp support
-    'quangnguyen30192/cmp-nvim-ultisnips',
-    config = function()
-      require("cmp_nvim_ultisnips").setup {
-        filetype_source = "treesitter",
-        show_snippets = "expandable",
-        documentation = function(snippet)
-            return snippet.description
-        end
-      }
-    end
+  use {'hrsh7th/vim-vsnip',
+    requires = {
+      'hrsh7th/vim-vsnip-integ',
+      'hrsh7th/cmp-vsnip',
+      'rafamadriz/friendly-snippets'
+    }
   }
   ---
   --- Note taking and other things
@@ -232,6 +216,22 @@ require('packer').startup(function()
   }
   ---
   use { 'lervag/vimtex' }                                      --  Ultimate latex support
+  use {
+    'danymat/neogen',
+    config = function()
+      require('neogen').setup({
+        enabled = true,
+        languages = {
+          python = {
+            template = {
+              annotation_convention = "reST",
+            }
+          }
+        },
+        snippet_engine = "vsnip",
+      })
+    end
+  }                                    --  Generate docstrings
 end)
 
 --- Ranger
