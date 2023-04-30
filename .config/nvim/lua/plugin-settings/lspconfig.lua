@@ -42,8 +42,9 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = {
-  'bashls', 'clangd', 'omnisharp',
+  'clangd', 'omnisharp',
   'jedi_language_server', 'pyright', 'ruff_lsp', -- python
+  'rome', -- javascript, javascriptreact, json, typescript, typescript.tsx, typescriptreact
   'rust_analyzer',
   'taplo',  -- toml
   -- 'terraformls',
