@@ -4,7 +4,6 @@ local null_ls = require('null-ls')
 local sources = {
     -- Formatting
     null_ls.builtins.formatting.black,          -- python
-    null_ls.builtins.formatting.prettier,       -- js, html & css, yaml, markdown, graphql
     null_ls.builtins.formatting.rome,           -- js, html & css, json
     null_ls.builtins.formatting.rustfmt,        -- rust
     null_ls.builtins.formatting.terraform_fmt,  -- terraform
@@ -14,7 +13,6 @@ local sources = {
     null_ls.builtins.diagnostics.chktex,
     null_ls.builtins.diagnostics.codespell,
     null_ls.builtins.diagnostics.cppcheck,
-    null_ls.builtins.diagnostics.eslint,
     null_ls.builtins.diagnostics.gitlint,
     null_ls.builtins.diagnostics.hadolint,
     null_ls.builtins.diagnostics.shellcheck,
