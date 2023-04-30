@@ -30,12 +30,12 @@ vim.opt.ttimeoutlen                  = 50
 --- Visuals
 vim.opt.listchars                    = {tab = "›·", space = "·", eol = "¬", extends = "›", precedes = "‹"}  --  Display whitespace
 vim.opt.list                         = true
-vim.opt.list                         = true
 vim.opt.ttyfast                      = true
+vim.opt.ruler                        = true                                                                   --  Show cursor position
 vim.opt.relativenumber               = true                                                                   --  Display relative line numbers on every line
 vim.opt.number                       = true                                                                   --  Display line numbers on current line
-vim.opt.ruler                        = true                                                                   --  Show cursor position
 vim.opt.signcolumn                   = "yes"                                                                  --  Separate column for signs "removes the jitter when warnings/errors flow in"
+vim.opt.foldcolumn="auto"
 ---
 
 --- Indentation
