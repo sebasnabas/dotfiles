@@ -102,7 +102,8 @@ require('rust-tools').setup({
             ["rust-analyzer"] = {
               inlayHints = { locationLinks = false },
               checkOnSave = {  -- enable clippy on save
-                command = "clippy"
+                command = "clippy",
+                extraArgs = { "--all", "--", "-W", "clippy::all -D warnings" },
               },
             }
         }
