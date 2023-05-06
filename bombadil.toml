@@ -14,6 +14,7 @@ posthooks = ["i3-msg restart"]
 # and `target` shall be relative to $HOME directory or absolute.
 
 # .config/
+bat = { source = "config/bat", target = ".config/bat" }
 dunst = { source = "config/dunst", target = ".config/dunst" }
 i3 = { source = "config/i3", target = ".config/i3" }
 kitty = { source = "config/kitty", target = ".config/kitty" }
