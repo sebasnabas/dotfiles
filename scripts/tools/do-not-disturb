@@ -1,0 +1,26 @@
+#!/bin/sh
+
+mode="$1"
+
+case "$mode" in
+    toggle) ;;
+    on) ;;
+    off) ;;
+    *) echo "usage: do-not-disturb {on|off|toggle}" ;;
+esac
+
+message="Do not disturb mode is now "
+current_state="$(xfconf-query -c xfce4-notifyd -p /do-not-disturb)"
+command="xfconf-query -c xfce4-notifyd -p /do-not-disturb -T"
+
+if [ "$current_state" = "false" ] && [ "$mode" != "off" ]
+then
+    echo "ON"
+    notify-send "$message on"
+    eval "$command"
+elif [ "$current_state" = "true" ] && [ "$mode" != "on" ]
+then
+    echo "OFF"
+    eval "$command"
+    notify-send "$message off"
+fi

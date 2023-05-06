@@ -1,0 +1,42 @@
+export PATH="$HOME/.local/bin":$PATH
+export PATH="$HOME/.local/share/go/bin":$PATH
+export PATH="$HOME/.scripts/tools":$PATH
+export PATH="$HOME/.scripts/i3cmds":$PATH
+export PATH="$HOME/.scripts/tmux":$PATH
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
+export PATH="/usr/lib/rustup/bin:$PATH"
+
+export GOPATH=$HOME/.local/share/go
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+
+export BROWSER="browser-selector"
+export MAIL_CLIENT="thunderbird"
+export TERMINAL="kitty"
+export EDITOR="nvim"
+export READER="zathura"
+export FILE="ranger"
+
+export MPC_FORMAT="[[%artist% - ]%title%]"
+
+export MYVIMRC="$HOME/.config/nvim/init.lua"
+
+privateProfile="$HOME/.config/shell/private_profile"
+[ -f "$privateProfile" ] && source "$privateProfile"
+
+## zsh
+export ZDOTDIR="$HOME/.config/shell/zsh/"
+export HISTFILE="$HOME/.cache/zsh/zsh_history"
+
+export ENABLE_VKBASALT=1
+export MANGOHUD=1
+
+# for screen saver inhibitation
+export DESKTOP_SESSION=xfce
+export XDG_CURRENT_DESKTOP=xfce
+
+# enable rootless docker-compose with podman
+export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+
+# use libvirt instead of virtualbox
+export VAGRANT_DEFAULT_PROVIDER=libvirt

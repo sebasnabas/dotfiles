@@ -1,0 +1,30 @@
+#!/bin/bash
+
+SESSIONNAME="Mochi"
+
+create_mochi(){
+    tmux new-session -d -s $SESSIONNAME >/dev/null
+    tmux rename-window -t $SESSIONNAME:0 'dotfiles'
+    tmux send-keys -t $SESSIONNAME 'pushd ~/.dotfiles' Enter
+    tmux send-keys -t $SESSIONNAME "nvim $MYVIMRC" Enter
+
+    tmux new-window -t $SESSIONNAME
+    tmux rename-window -t $SESSIONNAME:1 'top & music'
+    tmux send-keys -t $SESSIONNAME:1.0 'ncmpcpp' Enter
+    tmux split-window
+    tmux send-keys -t $SESSIONNAME:1.1 'btop' Enter
+
+    tmux new-window -t $SESSIONNAME
+    tmux rename-window -t $SESSIONNAME:2 'notes'
+    tmux send-keys -t $SESSIONNAME:2 'cd ~/Notes && nvim index.norg' Enter
+
+    tmux new-window -t $SESSIONNAME
+
+}
+
+if ! tmux has-session -t $SESSIONNAME &> /dev/null
+then
+    create_mochi
+fi
+
+[ "$1" != "-d" ] && tmux attach -t $SESSIONNAME

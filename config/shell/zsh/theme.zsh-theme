@@ -1,0 +1,1 @@
+my_custom_zeta.zsh-theme

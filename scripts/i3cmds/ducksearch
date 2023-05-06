@@ -1,0 +1,10 @@
+#!/bin/sh
+
+browser=${BROWSER:-firefox}
+
+query="$(rofi -dmenu -p 'Ask the duck' <<< '')"
+
+if [ -n "${query// }" ] ; then
+    $browser "https://duckduckgo.com/?q=$query&t=ffab&atb=v1-1"
+fi
+

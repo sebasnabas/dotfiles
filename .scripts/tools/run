@@ -1,9 +1,0 @@
-#!/bin/sh
-
-file=$(readlink -f "$1")
-
-case "$file" in
-    *\.py) python "$file" ;;
-    *\.go) go run "$file" ;;
-esac
-

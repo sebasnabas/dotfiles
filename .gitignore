@@ -1,43 +1,10 @@
-# Everything
-/*
+# Toml Bombadil copy
+.dots
 
-# but not these files/directories
-!.gitignore
-!.subtrees
-!.scripts
-!README.md
-!.config
-.config/*
-!.config/astrality
-!.config/awesome
-!.config/compton
-!.config/dunst
-!.config/firefox
-!.config/i3
-!.config/kitty
-!.config/networkmanager-dmenu
-!.config/nvim
-.config/nvim/plugin
-!.config/ranger
-!.config/redshift
-!.config/rofi
-!.config/shell
-.config/shell/zsh/.zsh_history
-.config/shell/zsh/*.zwc
-!.config/picom
-!.config/polybar
-!.config/tmux
-!.config/x
-!.config/zathura
-
-.config/shell/private_profile
-
-dotconfigfiles/*
-!dotconfigfiles/install.sh
-
-.zcompdump*
-.zcompcache
+# Compiled neovim plugins
+config/nvim/plugin
 
 __pycache__
-
-.config/git/gitconfig-work
+.zcompdump*
+.zcompcache
+.zshrc.zwc
