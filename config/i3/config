@@ -1,27 +1,11 @@
 font pango:Fira Code 11
-
-## Colors ##
-set $transparent     #00000000
-set $dark_grey #282c34
-set $pink #e06c75
-set $green #98c379
-set $yellow #e5c07b
-set $blue #61afef
-set $red #be5046
-set $turquoise #56b6c2
-set $black #393e48
-set $orange #d19a66
-set $light_grey #abb2bf
-set $white #ffffff
-set $petrol #005f5f
-
 #                           border     background text   indicator  child_border
-client.focused              $petrol    $petrol           $white     $white
-client.unfocused            $black     $black            $white     $black
-client.focused_inactive     $black     $black            $white     $black
-client.urgent               $red       $red              $white     $blue
-client.placeholder          $black     $black            $white     $black
-client.background           $black
+client.focused              {{faded_aqua}}    {{faded_aqua}}           {{light0}}     {{light0}}
+client.unfocused            {{dark1}}     {{dark1}}            {{light0}}     {{dark1}}
+client.focused_inactive     {{dark1}}     {{dark1}}            {{light0}}     {{dark1}}
+client.urgent               {{faded_red}}       {{faded_red}}              {{light0}}     {{faded_blue}}
+client.placeholder          {{dark1}}     {{dark1}}            {{light0}}     {{dark1}}
+client.background           {{dark1}}
 
 # #---Basic Definitions---# #
 # print all window titles bold
