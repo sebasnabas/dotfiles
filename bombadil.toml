@@ -36,3 +36,9 @@ x = { source = "config/x/xinitrc", target = ".xinitrc" }
 
 # scripts
 scripts = { source = "scripts", target = ".scripts"}
+
+[profiles.desktop]
+vars = ["vars/desktop.toml"]
+
+[profiles.laptop]
+vars = ["vars/laptop.toml"]
