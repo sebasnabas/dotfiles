@@ -1,3 +1,4 @@
 polybar_fontsize = "10"
 polybar_powerline_fontsize = "29"
 
+rofi_fontsize = "12"

@@ -19,7 +19,7 @@
   spacing: 0;
   background-color: transparent;
 
-  font: "Fira Code 18";
+  font: "Fira Code {{rofi_fontsize}}";
   text-color: @text;
 }
 
