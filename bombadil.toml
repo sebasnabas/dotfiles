@@ -7,7 +7,7 @@ dotfiles_dir = "Projects/dotfiles"
 vars = ["vars/colors.toml"]
 
 # An array of post install shell commands
-posthooks = ["i3-msg restart"]
+posthooks = ["i3-msg restart", "tmux source-file ~/.config/tmux/theme.conf"]
 
 [settings.dots]
 # A dot entry representing a symlink, `source` is relative to `dotfiles_dir`
@@ -24,18 +24,19 @@ polybar = { source = "config/polybar", target = ".config/polybar" }
 ranger = { source = "config/ranger", target = ".config/ranger" }
 redshift = { source = "config/redshift", target = ".config/redshift" }
 rofi = { source = "config/rofi", target = ".config/rofi" }
-wallpaper = {source = "config/wall.png", target = ".config/wall.png"}
+tmux_dir = { source = "config/tmux", target = ".config/tmux" }
+wallpaper = { source = "config/wall.png", target = ".config/wall.png" }
 zathura = { source = "config/zathura", target = ".config/zathura" }
 
 # globals
 aliases = { source = "config/shell/aliases", target = ".aliases" }
 profile = { source = "config/shell/profile", target = ".profile" }
-zsh = { source = "config/shell/profile", target = ".zprofile" }
 tmux = { source = "config/tmux/tmux.conf", target = ".tmux.conf" }
 x = { source = "config/x/xinitrc", target = ".xinitrc" }
+zsh = { source = "config/shell/profile", target = ".zprofile" }
 
 # scripts
-scripts = { source = "scripts", target = ".scripts"}
+scripts = { source = "scripts", target = ".scripts" }
 
 [profiles.desktop]
 vars = ["vars/desktop.toml"]
