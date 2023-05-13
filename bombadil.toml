@@ -24,6 +24,7 @@ polybar = { source = "config/polybar", target = ".config/polybar" }
 ranger = { source = "config/ranger", target = ".config/ranger" }
 redshift = { source = "config/redshift", target = ".config/redshift" }
 rofi = { source = "config/rofi", target = ".config/rofi" }
+shell = { source = "config/shell", target = ".config/shell" }
 tmux_dir = { source = "config/tmux", target = ".config/tmux" }
 wallpaper = { source = "config/wall.png", target = ".config/wall.png" }
 zathura = { source = "config/zathura", target = ".config/zathura" }
