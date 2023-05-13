@@ -5,8 +5,8 @@ SESSIONNAME="Mochi"
 create_mochi(){
     tmux new-session -d -s $SESSIONNAME >/dev/null
     tmux rename-window -t $SESSIONNAME:0 'dotfiles'
-    tmux send-keys -t $SESSIONNAME 'pushd ~/.dotfiles' Enter
-    tmux send-keys -t $SESSIONNAME "nvim $MYVIMRC" Enter
+    tmux send-keys -t $SESSIONNAME 'pushd ~/Projects/dotfiles' Enter
+    tmux send-keys -t $SESSIONNAME "nvim config/nvim/init.lua" Enter
 
     tmux new-window -t $SESSIONNAME
     tmux rename-window -t $SESSIONNAME:1 'top & music'
