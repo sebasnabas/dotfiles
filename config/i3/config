@@ -1,9 +1,12 @@
 font pango:Fira Code 11
+
+set $color_focus {{faded_aqua}}
+set $color_urgent {{faded_red}}
 #                           border     background text   indicator  child_border
-client.focused              {{faded_aqua}}    {{faded_aqua}}           {{light0}}     {{light0}}
+client.focused              $color_focus  $color_focus         {{light0}}     {{light0}}
 client.unfocused            {{dark1}}     {{dark1}}            {{light0}}     {{dark1}}
 client.focused_inactive     {{dark1}}     {{dark1}}            {{light0}}     {{dark1}}
-client.urgent               {{faded_red}}       {{faded_red}}              {{light0}}     {{faded_blue}}
+client.urgent               $color_urgent $color_urgent        {{light0}}     $color_focus
 client.placeholder          {{dark1}}     {{dark1}}            {{light0}}     {{dark1}}
 client.background           {{dark1}}
 
