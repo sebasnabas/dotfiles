@@ -39,6 +39,9 @@ scripts = { source = "scripts", target = ".scripts" }
 extra_profiles = ["gruvbox", "i3"]
 vars = ["vars/desktop.toml"]
 
+[profiles.desktop.dots]
+firefox_css = { source = "config/firefox/userChrome.css", target = ".mozilla/firefox/skseyca9.default-release/chrome/userChrome.css" }
+
 [profiles.laptop]
 extra_profiles = ["gruvbox", "i3"]
 vars = ["vars/laptop.toml"]
