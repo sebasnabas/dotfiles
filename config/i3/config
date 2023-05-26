@@ -1,14 +1,14 @@
 font pango:Fira Code 11
 
-set $color_focus {{faded_aqua}}
-set $color_urgent {{faded_red}}
-#                           border     background text   indicator  child_border
-client.focused              $color_focus  $color_focus         {{light0}}     {{light0}}
-client.unfocused            {{dark1}}     {{dark1}}            {{light0}}     {{dark1}}
-client.focused_inactive     {{dark1}}     {{dark1}}            {{light0}}     {{dark1}}
-client.urgent               $color_urgent $color_urgent        {{light0}}     $color_focus
-client.placeholder          {{dark1}}     {{dark1}}            {{light0}}     {{dark1}}
-client.background           {{dark1}}
+set $color_focus {{aqua}}
+set $color_urgent {{red}}
+#                           border        background text   indicator  child_border
+client.focused              $color_focus  $color_focus      {{fg0}}     {{fg0}}
+client.unfocused            {{bg1}}       {{bg1}}           {{fg0}}     {{bg1}}
+client.focused_inactive     {{bg1}}       {{bg1}}           {{fg0}}     {{bg1}}
+client.urgent               $color_urgent $color_urgent     {{fg0}}     $color_focus
+client.placeholder          {{bg1}}       {{bg1}}           {{fg0}}     {{bg1}}
+client.background           {{bg1}}
 
 # #---Basic Definitions---# #
 # print all window titles bold
