@@ -29,7 +29,6 @@ zathura = { source = "config/zathura", target = ".config/zathura" }
 aliases = { source = "config/shell/aliases", target = ".aliases" }
 profile = { source = "config/shell/profile", target = ".profile" }
 tmux = { source = "config/tmux/tmux.conf", target = ".tmux.conf" }
-x = { source = "config/x/xinitrc", target = ".xinitrc" }
 zsh = { source = "config/shell/profile", target = ".zprofile" }
 
 # scripts
@@ -63,3 +62,4 @@ i3 = { source = "config/i3", target = ".config/i3" }
 polybar = { source = "config/polybar", target = ".config/polybar" }
 picom = { source = "config/picom", target = ".config/picom" }
 rofi = { source = "config/rofi", target = ".config/rofi" }
+x = { source = "config/x/xinitrc", target = ".xinitrc" }
