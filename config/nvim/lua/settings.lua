@@ -35,7 +35,6 @@ vim.opt.ruler                        = true                                     
 vim.opt.relativenumber               = true                                                                   --  Display relative line numbers on every line
 vim.opt.number                       = true                                                                   --  Display line numbers on current line
 vim.opt.signcolumn                   = "yes"                                                                  --  Separate column for signs "removes the jitter when warnings/errors flow in"
-vim.opt.foldcolumn="auto"
 ---
 
 --- Indentation
