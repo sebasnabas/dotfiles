@@ -18,6 +18,10 @@ setopt HIST_VERIFY               # Don't execute immediately upon history expans
 autoload -U compaudit compinit
 compinit
 
+# Bash autocomplete compatibility
+autoload -U +X bashcompinit
+bashcompinit
+
 for config_file ($ZDOTDIR/lib/*.zsh); do
   [ -f "$config_file" ] && source $config_file
 done
