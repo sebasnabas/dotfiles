@@ -11,7 +11,7 @@ local sources = {
     -- Diagnostics
     null_ls.builtins.diagnostics.ansiblelint,
     null_ls.builtins.diagnostics.chktex,
-    null_ls.builtins.diagnostics.codespell,
+    null_ls.builtins.diagnostics.typos,
     null_ls.builtins.diagnostics.cppcheck,
     null_ls.builtins.diagnostics.gitlint,
     null_ls.builtins.diagnostics.hadolint,
@@ -21,7 +21,6 @@ local sources = {
     null_ls.builtins.diagnostics.vale,
 
     -- Code Actions
-    null_ls.builtins.code_actions.cspell,
     null_ls.builtins.code_actions.gitsigns,
     null_ls.builtins.code_actions.shellcheck,
 
