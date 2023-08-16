@@ -1,13 +1,17 @@
 #!/bin/bash
 
-image_name="$HOME/Pictures/screenshots/$(date --iso-8601=seconds).png"
+get_image_name ()
+{
+    image_type="$1"
+    echo "${HOME}/Pictures/screenshots/screenshot_${image_type}_$(date --iso-8601=seconds).png"
+}
 
-selection="$(rofi -sep '|' -dmenu -p "Screenshot which area?" <<< "current window|a selected area|full screen|current window (copy)|a selected area (copy)|full screen (copy)")"
+selection="$(rofi -sep '|' -dmenu -p "Screenshot which area?" <<< "current window (copy)|a selected area (copy)|full screen (copy)|current window|a selected area|full screen")"
 
 case "$selection" in
-    "current window") maim --window "$(xdotool getactivewindow)" "$image_name" && notify-send "Screenshot '$image_name' taken." ;;
-    "a selected area") maim --select --nodrag "$image_name" && notify-send "Screenshot '$image_name' taken." ;;
-    "full screen") maim "$image_name" && notify-send "Screenshot '$image_name' taken." ;;
+    "current window") image_name="$(get_image_name current_window)"; maim --window "$(xdotool getactivewindow)" "$image_name" && notify-send "Screenshot '$image_name' taken." ;;
+    "a selected area") image_name="$(get_image_name selected_area)"; maim --select --nodrag "$image_name" && notify-send "Screenshot '$image_name' taken." ;;
+    "full screen") image_name="$(get_image_name full_screen)"; maim "$image_name" && notify-send "Screenshot '$image_name' taken." ;;
     "current window (copy)") maim --window "$(xdotool getactivewindow)" | xclip -selection clipboard -t image/png ;;
     "a selected area (copy)") maim --select --nodrag | xclip -selection clipboard -t image/png ;;
     "full screen (copy)") maim | xclip -selection clipboard -t image/png ;;
