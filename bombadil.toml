@@ -28,6 +28,7 @@ zathura = { source = "config/zathura", target = ".config/zathura" }
 # globals
 aliases = { source = "config/shell/aliases", target = ".aliases" }
 profile = { source = "config/shell/profile", target = ".profile" }
+tflint = { source = "config/tflint/tflint.hcl", target = ".config/tflint/tflint.hcl" }
 tmux = { source = "config/tmux/tmux.conf", target = ".tmux.conf" }
 zsh = { source = "config/shell/profile", target = ".zprofile" }
 
