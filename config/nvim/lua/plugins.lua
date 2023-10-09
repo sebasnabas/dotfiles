@@ -1,50 +1,28 @@
 --- Plugins
-require('packer').startup(function()
-  use{ 'wbthomason/packer.nvim' }
-  use { 'lewis6991/impatient.nvim' }                           --  Speed up neovim startup time
-  use { 'ellisonleao/gruvbox.nvim' }                           --  Theme
+require('lazy').setup({
+  { 'wbthomason/packer.nvim' },
+  { 'lewis6991/impatient.nvim' },                           --  Speed up neovim startup time
+  { 'ellisonleao/gruvbox.nvim' },                           --  Theme
   --- Statusline
-  use { -- lualine
+  { -- lualine
     'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-  }
-  use { 'akinsho/bufferline.nvim' }                            --  Bufferline
+    dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true }
+  },
+  { 'akinsho/bufferline.nvim' },                            --  Bufferline
   ---
-  use { --  Show Indentation
+  { --  Show Indentation
     'lukas-reineke/indent-blankline.nvim',
     config = function ()
-      require("indent_blankline").setup {
-          space_char_blankline = " ",
-          show_current_context = true,
-          show_current_context_start = true,
-        }
+      require("ibl").setup()
     end
-  }
-  use { 'p00f/nvim-ts-rainbow' }                               --  Rainbow parentheses for treesitter
-  use { -- Dim unused variables
-    "zbirenbaum/neodim",
-    config = function ()
-      require("neodim").setup({
-        alpha = 0.75,
-        blend_color = "#000000",
-        update_in_insert = {
-          enable = true,
-          delay = 100,
-        },
-        hide = {
-          virtual_text = true,
-          signs = true,
-          underline = true,
-        }
-      })
-    end
-  }
+  },
+  -- { 'p00f/nvim-ts-rainbow' }                               --  Rainbow parentheses for treesitter
   --- Language support
-  use { -- Treesitter
+  { -- Treesitter
       'nvim-treesitter/nvim-treesitter',
-      run = ':TSUpdate'
-  }
-  use { -- textobjects with treesitter support
+      build = ':TSUpdate'
+  },
+  { -- textobjects with treesitter support
     'nvim-treesitter/nvim-treesitter-textobjects',
     config = function ()
       require('nvim-treesitter.configs').setup {
@@ -84,81 +62,86 @@ require('packer').startup(function()
         }
       }
     end
-  }
-  use { --  Show code context
+  },
+  { --  Show code context
     'nvim-treesitter/nvim-treesitter-context',
     config = function ()
       require('treesitter-context').setup()
     end
-  }
-  use { 'neovim/nvim-lspconfig' }
-  use { -- Null-ls
+  },
+  { 'neovim/nvim-lspconfig' },
+  { -- Null-ls
     'jose-elias-alvarez/null-ls.nvim',
     config = function()
         require("null-ls").setup()
     end,
-    requires = { "nvim-lua/plenary.nvim" },
-  }
-  use { 'lvimuser/lsp-inlayhints.nvim'}
-  use({ "https://git.sr.ht/~whynothugo/lsp_lines.nvim", })
-  use { 'sheerun/vim-polyglot' }
-  use { 'brymer-meneses/grammar-guard.nvim' }                  -- Check writing
-  use { 'simrat39/rust-tools.nvim'}
-  use { 'gpanders/editorconfig.nvim' }                         -- Respect editorconfig
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+  {
+    'simrat39/inlay-hints.nvim',
+    config = function ()
+      require("inlay-hints").setup()
+    end
+  },
+  { "https://git.sr.ht/~whynothugo/lsp_lines.nvim" },
+  { 'b0o/SchemaStore.nvim' },                               -- Support for json & yaml schemas
+  { 'sheerun/vim-polyglot' },
+  { 'brymer-meneses/grammar-guard.nvim' },                  -- Check writing
+  { 'simrat39/rust-tools.nvim'},
+  { 'gpanders/editorconfig.nvim' },                         -- Respect editorconfig
   ---
-  use { 'kshenoy/vim-signature' }                              --  Show markers
+  { 'kshenoy/vim-signature' },                              --  Show markers
   --- Utility
   -- Git
-  use {  -- gitsigns
+  {  -- gitsigns
     'lewis6991/gitsigns.nvim',
     config = function()
       require('gitsigns').setup()
     end
-  }
-  use { 'tpope/vim-fugitive' }                                 --  Git commands
-  use { --  Visualize merge conflicts
+  },
+  { 'tpope/vim-fugitive' },                                 --  Git commands
+  { --  Visualize merge conflicts
     'akinsho/git-conflict.nvim',
     config = function ()
       require('git-conflict').setup()
     end
-  }
+  },
 
-   use { -- lsp-format -- Autoformatting
-     'lukas-reineke/lsp-format.nvim',
-     config = function ()
-       require('lsp-format').setup()
-     end
-   }
-  use { 'andymass/vim-matchup', event = 'VimEnter' }           --  Navigate and highlight matching words
-  use {                                                        --  Autoclose
+  { -- lsp-format -- Autoformatting
+    'lukas-reineke/lsp-format.nvim',
+    config = function ()
+      require('lsp-format').setup()
+    end
+  },
+  { 'andymass/vim-matchup', event = 'VimEnter' },           --  Navigate and highlight matching words
+  {                                                        --  Autoclose
     'windwp/nvim-autopairs',
     config = function()
       require("nvim-autopairs").setup {}
     end
-  }
-  use { 'tpope/vim-endwise' }                                  --  Auto end structures
-  use { 'tpope/vim-surround' }                                 --  Easy change of surroundings
-  use { 'tpope/vim-repeat' }                                   --  Repeat plugin commands with .
-  use { 'tpope/vim-unimpaired' }                               --  Handy bracket mappings
-  use { 'tpope/vim-commentary' }                               --  Easy commenting
-  use { 'vim-scripts/ReplaceWithRegister' }                    --  Replace things with register contents
-  use { 'christoomey/vim-tmux-navigator' }                     --  Tmux navigation
-  use { 'godlygeek/tabular' }                                  --  Easy formatting
-  use { 'junegunn/fzf.vim' }                                   --  Fuzzy file search
-  use { 'simnalamburt/vim-mundo' }                             --  Undo bar
-  use { 'ludovicchabant/vim-gutentags' }                       --  Tag generation
-  use { -- todo-comments
+  },
+  { 'tpope/vim-endwise' },                                  --  Auto end structures
+  { 'tpope/vim-surround' },                                 --  Easy change of surroundings
+  { 'tpope/vim-repeat' },                                   --  Repeat plugin commands with .
+  { 'tpope/vim-unimpaired' },                               --  Handy bracket mappings
+  { 'tpope/vim-commentary' },                               --  Easy commenting
+  { 'vim-scripts/ReplaceWithRegister' },                    --  Replace things with register contents
+  { 'christoomey/vim-tmux-navigator' },                     --  Tmux navigation
+  { 'godlygeek/tabular' },                                  --  Easy formatting
+  { 'junegunn/fzf.vim' },                                   --  Fuzzy file search
+  { 'simnalamburt/vim-mundo' },                             --  Undo bar
+  { -- todo-comments
     "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("todo-comments").setup()
     end
-  }
+  },
   ---
   --- Autocompletion
-  use { -- nvim-cmp
+  { -- nvim-cmp
     'hrsh7th/nvim-cmp',
-    requires = {
+    dependencies = {
       { 'hrsh7th/cmp-nvim-lsp' },                             --  Neovim LSP
       { 'hrsh7th/cmp-buffer' },                               --  Text from buffer
       { 'hrsh7th/cmp-path' },                                 --  File paths
@@ -168,42 +151,43 @@ require('packer').startup(function()
       { 'hrsh7th/cmp-omni' },                                 --  Omnifunc support (needed for e.g. vimtex)
       { 'onsails/lspkind.nvim' }                              --  Display pictograms in completion menu
     }
-  }
+  },
   ---
   --- Snippets
-  use {'hrsh7th/vim-vsnip',
-    requires = {
+  {'hrsh7th/vim-vsnip',
+    dependencies = {
       'hrsh7th/vim-vsnip-integ',
       'hrsh7th/cmp-vsnip',
       'rafamadriz/friendly-snippets'
     }
-  }
+  },
   ---
   --- Note taking and other things
-  use { -- neorg
-    'nvim-neorg/neorg',
-    requires = 'nvim-lua/plenary.nvim'
-  }
-  use { 'metakirby5/codi.vim' }                                --  Scratchpad
+  {
+    'vimwiki/vimwiki',
+    config = function()
+    end
+  },
+  { 'metakirby5/codi.vim' },                                --  Scratchpad
   ---
   --- File manager
-  use { -- ranger
+  { -- ranger
     'francoiscabrol/ranger.vim',
-    requires = 'rbgrouleff/bclose.vim'
-  }
+    dependencies = 'rbgrouleff/bclose.vim'
+  },
   ---
   --- Debugging
-  use { -- dap
+  { -- dap
     'mfussenegger/nvim-dap',
-    requires = 'theHamsta/nvim-dap-virtual-text'
-  }
-  use { 'mfussenegger/nvim-dap-python' }
-  use { 'rcarriga/nvim-dap-ui' }
+    dependencies = 'theHamsta/nvim-dap-virtual-text'
+  },
+  { 'mfussenegger/nvim-dap-python' },
+  { 'rcarriga/nvim-dap-ui' },
   ---
   --- Run tests
-  use {
+  {
     'nvim-neotest/neotest',
-    requires = {
+    dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
       'antoinemadec/FixCursorHold.nvim',
@@ -213,15 +197,20 @@ require('packer').startup(function()
       'rouge8/neotest-rust',
       'haydenmeade/neotest-jest'
     }
-  }
+  },
   ---
-  use { 'lervag/vimtex' }                                      --  Ultimate latex support
-  use {
+  { 'lervag/vimtex' },                                      --  Ultimate latex support
+  {
     'danymat/neogen',
     config = function()
       require('neogen').setup({
         enabled = true,
         languages = {
+          cs = {
+            template = {
+              annotation_convention = "xmldoc",
+            }
+          },
           python = {
             template = {
               annotation_convention = "reST",
@@ -231,65 +220,29 @@ require('packer').startup(function()
         snippet_engine = "vsnip",
       })
     end
-  }                                    --  Generate docstrings
-end)
+  },                                    --  Generate docstrings
+  {
+    "m4xshen/hardtime.nvim",
+    dependencies = { 'MunifTanjim/nui.nvim', "nvim-lua/plenary.nvim" },
+    config = function()
+      require("hardtime").setup({
+          disabled_filetypes = { "qf", "netrw", "lazy", "fugitive", "fugitiveblame", "neo-test", "dapui_scopes" },
+        })
+    end
+  },
+})
 
 --- Ranger
 vim.g.ranger_map_keys = 0
 ---
 
---- Gutentags
-vim.g.gutentags_modules           = { 'ctags' }
-vim.g.gutentags_cache_dir         = '~/.cache/nvim/tags'
-vim.g.gutentags_generate_on_write = 1
-vim.g.gutentags_ctags_exclude     = {
-  '*.git', '*.svg', '*.hg',
-  'build',
-  'dist',
-  '*sites/*/files/*',
-  'bin',
-  'node_modules',
-  'bower_components',
-  'cache',
-  'compiled',
-  'example',
-  'bundle',
-  'vendor',
-  '*-lock.json',
-  '*.lock',
-  '*bundle*.js',
-  '*build*.js',
-  '.*rc*',
-  '*.min.*',
-  '*.map',
-  '*.bak',
-  '*.zip',
-  '*.pyc',
-  '*.class',
-  '*.sln',
-  '*.Master',
-  '*.csproj',
-  '*.tmp',
-  '*.csproj.user',
-  '*.cache',
-  '*.pdb',
-  'tags*',
-  'cscope.*',
-  '*.less',
-  '*.exe', '*.dll',
-  '*.mp3', '*.ogg', '*.flac',
-  '*.swp', '*.swo',
-  '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
-  '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
-  '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
-}
----
+vim.cmd("let g:vimwiki_list = [{'path': '~/Notes', 'syntax': 'markdown', 'ext': '.md'}]")
+vim.cmd("let g:vimwiki_global_ext = 0")
 
 require('plugin-settings.lspconfig')
 require('plugin-settings.null-ls')
 require('plugin-settings.treesitter')
 require('plugin-settings.nvim-cmp')
 require('plugin-settings.fzf')
-require('plugin-settings.neorg')
 require('plugin-settings.dap')
 require('plugin-settings.neotest')
