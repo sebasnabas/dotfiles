@@ -1,8 +1,16 @@
 --- Plugins
 require('lazy').setup({
   { 'wbthomason/packer.nvim' },
-  { 'lewis6991/impatient.nvim' },                           --  Speed up neovim startup time
-  { 'ellisonleao/gruvbox.nvim' },                           --  Theme
+  {
+    'ellisonleao/gruvbox.nvim',
+    config = function()
+      require("gruvbox").setup({
+          overrides = {
+            DiffText = { link = "GruvboxPurple" } -- faded yellow
+          }
+      })
+    end
+  },                           --  Theme
   --- Statusline
   { -- lualine
     'nvim-lualine/lualine.nvim',
@@ -16,7 +24,7 @@ require('lazy').setup({
       require("ibl").setup()
     end
   },
-  -- { 'p00f/nvim-ts-rainbow' }                               --  Rainbow parentheses for treesitter
+  { 'p00f/nvim-ts-rainbow' },                               --  Rainbow parentheses for treesitter
   --- Language support
   { -- Treesitter
       'nvim-treesitter/nvim-treesitter',
@@ -128,8 +136,38 @@ require('lazy').setup({
   { 'vim-scripts/ReplaceWithRegister' },                    --  Replace things with register contents
   { 'christoomey/vim-tmux-navigator' },                     --  Tmux navigation
   { 'godlygeek/tabular' },                                  --  Easy formatting
-  { 'junegunn/fzf.vim' },                                   --  Fuzzy file search
+  -- { 'junegunn/fzf.vim' },                                   --  Fuzzy file search
+
+  {
+  'nvim-telescope/telescope.nvim', tag = '0.1.3',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'debugloop/telescope-undo.nvim',
+    },
+    config = function()
+      require("telescope").setup({
+        extensions = {
+          undo = {
+            side_by_side = true,
+            layout_strategy = "vertical",
+            -- layout_config = {
+              -- preview_height = 0.8,
+            -- },
+          },
+        },
+      })
+      require("telescope").load_extension("undo")
+    end
+  },
   { 'simnalamburt/vim-mundo' },                             --  Undo bar
+  {
+    'RRethy/vim-illuminate',
+    config = function()
+      require('illuminate').configure({
+        min_count_to_highlight = 2,
+      })
+    end
+  },                              --  Highlight other uses of word
   { -- todo-comments
     "folke/todo-comments.nvim",
     dependencies = "nvim-lua/plenary.nvim",

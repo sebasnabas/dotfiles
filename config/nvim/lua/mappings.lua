@@ -105,34 +105,17 @@ map("n", "<leader>gr", ":Git revert<Space>")
 map("n", "<leader>gs", ":Git<CR>")
 map("n", "<leader>gw", ":Gwrite<CR>")
 
--- Mundo
-map("n", "<C-u>", ":MundoToggle<CR>")
-
--- FZF
--- current file directory
-map("n", "<leader>-", ":FZF <c-r>=fnameescape(expand('%:p:h'))<CR>/<CR>")
--- current working directory
-map("n", "<leader>fb", ":Buffers<CR>")
-map("n", "<leader>ff", ":Files<CR>")
-map("n", "<leader>fl", ":Lines<CR>")
-map("n", "<leader>fbl", ":BLines<CR>")
-map("n", "<leader>ft", ":Tags<CR>")
-map("n", "<leader>fr", ":History<CR>")
-map("n", "<leader>fh", ":Helptags<CR>")
-map("n", "<leader>f:", ":History:<CR>")
-map("n", "<leader>f/", ":History/<CR>")
-map("n", "<leader>fg", ":GFiles<CR>")
-map("n", "<leader>fs", ":GFiles?<CR>")
-map("n", "<leader>fc", ":Commits<CR>")
-map("n", "<leader>fm", ":Marks<CR>")
-map("n", "<leader>fp", ":Maps<CR>")
-
-vim.cmd([[
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --hidden --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
-]])
+-- Telescope
+local builtin = require('telescope.builtin')
+-- find all files
+vim.keymap.set('n', '<leader>fa', builtin.find_files, {})
+-- find git files
+vim.keymap.set('n', '<leader>ff', builtin.git_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>fr', builtin.registers, {})
+map("n", "<leader>u", "<cmd>Telescope undo<cr>")
 
 --- Gitsigns
 -- Navigation
