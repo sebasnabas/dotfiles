@@ -290,6 +290,8 @@ for_window [class="^Droidcam$"] \
     resize set height 200px
 
 for_window [title="Hamster"] floating enable
+# Thunderbird Message Filters
+for_window [title="Message Filters"] floating enable
 
 for_window [title="^Save As$"] \
     floating enable, border none, \
