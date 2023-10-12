@@ -116,8 +116,20 @@ export AUTOSWITCH_VIRTUAL_ENV_DIR="venv"
 [ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
 [ -f "$HOME/.aliases_work" ] && source "$HOME/.aliases_work"
 
+# fzf
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow -g '!.git' -g '!.wine' -g'!*[sS]team*' -g '!lutris' -g '!Trash' -g '!.cache' -g '!node_modules' -g '!__pycache__' -g '!*.o' -g '!.pytest_cache' -g '!obj/' -g '!venv/' 2>/dev/null"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="--select-1 --exit-0"
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+export FZF_COMPLETION_OPTS='+c -x'
+
+# theme
+source $ZDOTDIR/theme.zsh-theme
+
 # Plugins
 source /usr/share/zsh/share/antigen.zsh
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
 
 antigen bundle git
 antigen bundle pip
@@ -128,16 +140,4 @@ antigen bundle "MichaelAquilina/zsh-autoswitch-virtualenv"
 
 antigen apply
 
-# thefuck
-eval $(thefuck --alias)
-
-# fzf
-export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow -g '!.git' -g '!.wine' -g'!*[sS]team*' -g '!lutris' -g '!Trash' -g '!.cache' -g '!node_modules' -g '!__pycache__' -g '!*.o' -g '!.pytest_cache' -g '!obj/' -g '!venv/' 2>/dev/null"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_OPTS="--select-1 --exit-0"
-export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
-export FZF_COMPLETION_OPTS='+c -x'
-
-[ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
-
-source $ZDOTDIR/theme.zsh-theme
+eval "$(zoxide init zsh)"
