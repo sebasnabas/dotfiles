@@ -157,8 +157,8 @@ bindsym $mod+s          exec --no-startup-id $i3cmds/ducksearch;; exec i3-msg "[
 bindsym $mod+c          exec --no-startup-id $TERMINAL --class codi_scratchpad codi
 
 # Call clipboard manager
-bindsym $mod+x exec clipcat-menu insert
-bindsym $mod+Shift+x exec clipcat-menu remove
+bindsym $mod+x exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+# TODO: bindsym $mod+Shift+x exec clipcat-menu remove
 
 # Grab OTPs from ykman oath
 bindsym $mod+y exec yubikey-oath-dmenu --notify --clipboard --clipboard-cmd "xclip -selection clipboard"
