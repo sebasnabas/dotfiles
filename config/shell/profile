@@ -21,6 +21,9 @@ export MPC_FORMAT="[[%artist% - ]%title%]"
 
 export MYVIMRC="$HOME/.config/nvim/init.lua"
 
+# neovim as man pager
+export MANPAGER='nvim +Man!'
+
 privateProfile="$HOME/.config/shell/private_profile"
 [ -f "$privateProfile" ] && source "$privateProfile"
 
