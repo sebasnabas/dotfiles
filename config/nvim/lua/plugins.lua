@@ -223,12 +223,18 @@ require('lazy').setup({
   },
   ---
   --- Snippets
-  {'hrsh7th/vim-vsnip',
+  {
+    'L3MON4D3/LuaSnip',
     dependencies = {
-      'hrsh7th/vim-vsnip-integ',
-      'hrsh7th/cmp-vsnip',
+      'saadparwaiz1/cmp_luasnip',
       'rafamadriz/friendly-snippets'
-    }
+    },
+    version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    -- install jsregexp (optional!).
+    build = "make install_jsregexp",
+    config = function()
+      require("luasnip.loaders.from_vscode").lazy_load()
+    end
   },
   ---
   --- Note taking and other things

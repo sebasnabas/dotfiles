@@ -29,7 +29,7 @@ cmp.setup({
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      require('luasnip').lsp_expand(args.body)
     end,
   },
   window = {
@@ -46,8 +46,8 @@ cmp.setup({
       function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
-        elseif vim.fn["vsnip#available"](1) == 1 then
-          feedkey("<Plug>(vsnip-expand-or-jump)", "")
+        elseif vim.fn["luasnip#expand_or_jumpable()"](1) == 1 then
+          feedkey("<Plug>(luasnip-expand-or-jump)", "")
         elseif has_words_before() then
           cmp.complete()
         else
@@ -59,8 +59,8 @@ cmp.setup({
       function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()
-        elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-          feedkey("<Plug>(vsnip-jump-prev)", "")
+        elseif vim.fn["luasnip#expand_or_jumpable()"](-1) == 1 then
+          feedkey("lua require('luasnip').jump(-1)", "")
         end
       end,
       { 'i', 's', --[[ "c" (to enable the mapping in command mode) ]] }
