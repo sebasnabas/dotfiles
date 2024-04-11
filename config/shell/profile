@@ -6,6 +6,7 @@ export PATH="$HOME/.scripts/tmux":$PATH
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 export PATH="/usr/lib/rustup/bin:$PATH"
+export PATH="$HOME/.dotnet/tools:$PATH"
 
 export GOPATH=$HOME/.local/share/go
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
