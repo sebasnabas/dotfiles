@@ -2,8 +2,6 @@
 
 udiskie &
 
-setxkbmap -layout us -variant altgr-intl -option nodeadkeys -option 'caps:escape'
-
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 
 # Set monitors
@@ -13,7 +11,7 @@ eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 feh --bg-fill ~/.config/wall.png &
 
 # Set caps lock as escape
-setxkbmap -option 'caps:escape' &
+setxkbmap -layout us -variant altgr-intl -option nodeadkeys -option 'caps:escape' &
 
 # Notifications
 dunst &
