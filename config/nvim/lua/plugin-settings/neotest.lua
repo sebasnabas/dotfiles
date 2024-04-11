@@ -30,6 +30,13 @@ cmd("NeoTestFile", function()
   neotest.run.run(vim.fn.expand("%"))
 end, {})
 
+cmd("NeoTestDebugFile", function(opt)
+  neotest.run.run({
+    vim.fn.expand("%"),
+    strategy = "dap"
+  })
+end, { nargs = "*" })
+
 cmd("NeoTestNearest", function(opt)
   neotest.run.run({
       env = parse_env_vars(opt.fargs)
