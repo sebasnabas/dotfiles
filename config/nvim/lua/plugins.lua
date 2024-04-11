@@ -1,6 +1,5 @@
 --- Plugins
 require('lazy').setup({
-  { 'wbthomason/packer.nvim' },
   {
     'ellisonleao/gruvbox.nvim',
     config = function()
