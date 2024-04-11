@@ -141,3 +141,13 @@ source $ZDOTDIR/theme.zsh-theme
 
 [ -f "$HOME/.aliases" ] && source "$HOME/.aliases" || true
 [ -f "$HOME/.aliases_work" ] && source "$HOME/.aliases_work" || true
+
+skim-git-branch() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
+
+    git branch --color=always --all --sort=-committerdate |
+        grep -v HEAD |
+        sk --height 50% --ansi --no-multi --preview-window right:65% \
+            --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
+        sed "s/.* //"
+}
