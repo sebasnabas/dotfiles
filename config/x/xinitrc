@@ -40,5 +40,8 @@ caffeine -a &
 
 playerctld daemon &
 
+# clipboard manager
+clipcatd &
+
 # Window manager
 exec i3

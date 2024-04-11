@@ -3,7 +3,7 @@ dotfiles_dir = "Projects/dotfiles"
 
 [settings]
 # An array of toml files paths containing the variables to inject in your templatized dotfiles
-# You can have multiple var files as long as variable names does not colide.
+# You can have multiple var files as long as variable names does not collide.
 vars = []
 
 # An array of post install shell commands
@@ -15,6 +15,7 @@ posthooks = ["tmux source-file ~/.config/tmux/theme.conf"]
 
 # .config/
 bat = { source = "config/bat", target = ".config/bat" }
+clipcat = { source = "config/clipcat", target = ".config/clipcat" }
 dunst = { source = "config/dunst", target = ".config/dunst" }
 kitty = { source = "config/kitty", target = ".config/kitty" }
 neovim = { source = "config/nvim", target = ".config/nvim" }
