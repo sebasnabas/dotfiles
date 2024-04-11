@@ -265,7 +265,7 @@ bindsym $mod+Shift+Right     move workspace to output right
 
 
 # #---Window Settings---# #
-assign [class="^Droidcam$"] $ws1
+assign [class="^firefox$"] $ws2
 assign [class="^Thunderbird$"] $ws3
 assign [class="^Chromium$"] $ws4
 assign [class="^Skype$"] $ws8
