@@ -9,11 +9,6 @@ vim.keymap.set('n', '<space>l', vim.diagnostic.setloclist, opts)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  require("lsp-inlayhints").on_attach(client, bufnr, true)
-
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
@@ -32,24 +27,30 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
+
+  require("inlay-hints").on_attach(client, bufnr)
 end
 
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 --- Server Settings
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = {
-  'clangd', 'omnisharp',
+  'clangd',
+  'omnisharp',
+  'jsonls',
   'jedi_language_server', 'pyright', 'ruff_lsp', -- python
-  'rome', -- javascript, javascriptreact, json, typescript, typescript.tsx, typescriptreact
   'rust_analyzer',
   'taplo',  -- toml
-  -- 'terraformls',
+  'terraformls',
   'tflint',
-  'tsserver'
+  'tsserver',
+  'yamlls'
 }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
@@ -58,38 +59,86 @@ for _, lsp in pairs(servers) do
   }
 end
 
--- Omnisharp config
-local omnisharp_bin = '/usr/bin/omnisharp'
-require('lspconfig').omnisharp.setup{
-  cmd = { omnisharp_bin },
-  -- enable_editorconfig_support = true,
-  -- enable_roslyn_analyzers = true,
-  -- organize_imports_on_format = true
+require('lspconfig').omnisharp.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  handlers = {
+    ["textDocument/definition"] = require('omnisharp_extended').handler,
+  },
+  cmd = { '/usr/bin/omnisharp' },
+  -- Enables support for reading code style, naming convention and analyzer
+  -- settings from .editorconfig.
+  enable_editorconfig_support = true,
+
+  -- If true, MSBuild project system will only load projects for files that
+  -- were opened in the editor. This setting is useful for big C# codebases
+  -- and allows for faster initialization of code navigation features only
+  -- for projects that are relevant to code that is being edited. With this
+  -- setting enabled OmniSharp may load fewer projects and may thus display
+  -- incomplete reference lists for symbols.
+  enable_ms_build_load_projects_on_demand = false,
+
+  -- Enables support for roslyn analyzers, code fixes and rulesets.
+  enable_roslyn_analyzers = true,
+
+  -- Specifies whether 'using' directives should be grouped and sorted during
+  -- document formatting.
+  organize_imports_on_format = true,
+  -- Enables support for showing unimported types and unimported extension
+  -- methods in completion lists. When committed, the appropriate using
+  -- directive will be added at the top of the current file. This option can
+  -- have a negative impact on initial completion responsiveness,
+  -- particularly for the first few completion sessions after opening a
+  -- solution.
+  enable_import_completion = true,
+
+  -- Specifies whether to include preview versions of the .NET SDK when
+  -- determining which version to use for project loading.
+  sdk_include_prereleases = false,
+
+  -- Only run analyzers against open files when 'enableRoslynAnalyzers' is
+  -- true
+  analyze_open_documents_only = false,
 }
 
--- ltex-ls config
-require('grammar-guard').init()
-require('lspconfig').grammar_guard.setup({
-  cmd = { '/usr/bin/ltex-ls' },
+require('lspconfig').jsonls.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
   settings = {
-    ltex = {
-      enabled = { 'bibtex', 'gitcommit', 'html', 'latex', 'markdown', 'norg', 'org' },
-      language = 'en',
-      diagnosticSeverity = 'information',
-      setenceCacheSize = 2000,
-      additionalRules = {
-        enablePickyRules = false,
-        motherTongue = 'de',
+    json = {
+      schemas = require('schemastore').json.schemas {
+        extra = {
+          {
+            description = 'JSON-schema schema',
+            fileMatch = '*.schema.json',
+            name = 'schema.json',
+            url = 'https://json-schema.org/draft/2020-12/schema',
+          },
+        }
       },
-      trace = { server = 'verbose' },
-      dictionary = {},
-      disabledRules = {},
-      hiddenFalsePositives = {},
+      validate = { enable = true },
     },
   },
-})
+}
+
+require('lspconfig').yamlls.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    yaml = {
+      schemaStore = {
+        -- You must disable built-in schemaStore support if you want to use
+        -- this plugin and its advanced options like `ignore`.
+        enable = false,
+      },
+      schemas = require('schemastore').yaml.schemas(),
+    },
+  },
+}
 
 require('rust-tools').setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
     -- all the opts to send to nvim-lspconfig
     -- these override the defaults set by rust-tools.nvim
     -- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rust_analyzer
@@ -103,15 +152,24 @@ require('rust-tools').setup({
               inlayHints = { locationLinks = false },
               checkOnSave = {  -- enable clippy on save
                 command = "clippy",
-                extraArgs = { "--all", "--", "-W", "clippy::all -D warnings" },
+                extraArgs = { "--all", "--", "-W", "clippy::all", "-D", "warnings" },
               },
             }
         }
     },
 })
 
+require'lspconfig'.tsserver.setup{
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+    client.resolved_capabilities.document_formatting = false
+  end,
+}
+
 require('lspconfig').tflint.setup({
-  cmd = { "tflint", "--langserver", "--config", "~/.config/tflint/tflint.hcl" },
+  capabilities = capabilities,
+  on_attach = on_attach,
+  cmd = { "tflint", "--langserver", "--config", vim.fn.expand("$HOME/.config/tflint/tflint.hcl") },
 })
 
 --- Ui
@@ -126,25 +184,4 @@ vim.diagnostic.config({
   underline = true,
   update_in_insert = true,
   severity_sort = true,
-})
-
--- HACK: https://github.com/OmniSharp/omnisharp-roslyn/issues/2483#issuecomment-1539809155
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(ev)
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    local function toSnakeCase(str)
-      return string.gsub(str, "%s*[- ]%s*", "_")
-    end
-
-    if client.name == 'omnisharp' then
-      local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
-      for i, v in ipairs(tokenModifiers) do
-        tokenModifiers[i] = toSnakeCase(v)
-      end
-      local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
-      for i, v in ipairs(tokenTypes) do
-        tokenTypes[i] = toSnakeCase(v)
-      end
-    end
-  end,
 })
