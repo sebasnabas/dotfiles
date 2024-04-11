@@ -366,19 +366,15 @@ require('lazy').setup({
         })
     end
   },
+ { 'norcalli/nvim-colorizer.lua' }
 })
+
+require('plugin-settings.lspconfig')
+require('plugin-settings.treesitter')
+require('plugin-settings.nvim-cmp')
+require('plugin-settings.dap')
+require('plugin-settings.neotest')
 
 --- Ranger
 vim.g.ranger_map_keys = 0
 ---
-
-vim.cmd("let g:vimwiki_list = [{'path': '~/Notes', 'syntax': 'markdown', 'ext': '.md'}]")
-vim.cmd("let g:vimwiki_global_ext = 0")
-
-require('plugin-settings.lspconfig')
-require('plugin-settings.null-ls')
-require('plugin-settings.treesitter')
-require('plugin-settings.nvim-cmp')
-require('plugin-settings.fzf')
-require('plugin-settings.dap')
-require('plugin-settings.neotest')
