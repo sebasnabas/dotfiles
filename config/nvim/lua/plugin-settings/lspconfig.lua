@@ -159,6 +159,7 @@ require('rust-tools').setup({
     },
 })
 
+-- Let rome do the formatting via null-ls
 require'lspconfig'.tsserver.setup{
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
