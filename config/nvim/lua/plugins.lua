@@ -218,7 +218,8 @@ require('lazy').setup({
       { 'lukas-reineke/cmp-under-comparator' },               --  Sorting of completions
       { 'hrsh7th/cmp-nvim-lsp-signature-help' },              --  Emphasize current param in preview
       { 'hrsh7th/cmp-omni' },                                 --  Omnifunc support (needed for e.g. vimtex)
-      { 'onsails/lspkind.nvim' }                              --  Display pictograms in completion menu
+      { 'onsails/lspkind.nvim' },                             --  Display pictograms in completion menu
+      { 'hrsh7th/cmp-calc' }                                  --  Math completion
     }
   },
   ---

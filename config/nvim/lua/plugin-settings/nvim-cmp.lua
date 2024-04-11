@@ -67,13 +67,12 @@ cmp.setup({
     ),
   },
   sources = cmp.config.sources({
-    { name = 'nvim_lsp', priority = 10 },
-    { name = 'nvim_lsp_signature_help' },
-    { name = 'vsnip' },
-    { name = 'path' },
-    { name = 'buffer' },
-    -- { name = 'omni' },
-    { name = 'neorg' },
+    { name = "path" },
+    { name = "nvim_lsp" },
+    { name = "nvim_lsp_signature_help" },
+    { name = "luasnip" },
+    { name = "buffer", keyword_length = 3, max_item_count = 3 },
+    { name = "calc" },
   }),
   sorting = {
     comparators = {
@@ -93,7 +92,7 @@ cmp.setup({
       menu = ({
         buffer = '[Buffer]',
         nvim_lsp = '[LSP]',
-        omni = '[Omni]'
+        omni = '[Omni]',
       })
     }),
   }
