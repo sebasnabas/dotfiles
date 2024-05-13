@@ -347,7 +347,7 @@ require('lazy').setup({
             }
           }
         },
-        snippet_engine = "vsnip",
+        snippet_engine = "luasnip",
       })
     end
   },                                    --  Generate docstrings
