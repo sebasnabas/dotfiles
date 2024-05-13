@@ -142,10 +142,6 @@ map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 ---
 
---- Ranger
-map('n', '<leader>rr', ':Ranger<CR>')
----
-
 --- neotest
 map('n', '[t', ':lua require("neotest").jump.prev({ status = "failed" })<CR>')
 map('n', ']t', ':lua require("neotest").jump.next({ status = "failed" })<CR>')

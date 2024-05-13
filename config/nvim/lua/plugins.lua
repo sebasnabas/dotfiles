@@ -298,10 +298,35 @@ require('lazy').setup({
   { 'metakirby5/codi.vim' },                                --  Scratchpad
   ---
   --- File manager
-  { -- ranger
-    'francoiscabrol/ranger.vim',
-    dependencies = 'rbgrouleff/bclose.vim'
-  },
+  {
+    "mikavilpas/yazi.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    event = "VeryLazy",
+    keys = {
+      -- 👇 in this section, choose your own keymappings!
+      {
+        "<leader>yy",
+        function()
+          require("yazi").yazi()
+        end,
+        desc = "Open the file manager",
+      },
+      {
+        -- Open in the current working directory
+        "<leader>cw",
+        function()
+          require("yazi").yazi(nil, vim.fn.getcwd())
+        end,
+        desc = "Open the file manager in nvim's working directory" ,
+      },
+    },
+    ---@type YaziConfig
+    opts = {
+      open_for_directories = false,
+    },
+  }
   ---
   --- Debugging
   { -- dap
@@ -369,7 +394,3 @@ require('plugin-settings.treesitter')
 require('plugin-settings.nvim-cmp')
 require('plugin-settings.dap')
 require('plugin-settings.neotest')
-
---- Ranger
-vim.g.ranger_map_keys = 0
----
