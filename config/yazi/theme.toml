@@ -1,0 +1,100 @@
+[manager]
+cwd = { fg = "{{ bright_blue }}" }
+
+# Hovered
+hovered         = { fg = "{{ dark0 }}", bg = "{{ bright_blue }}" }
+preview_hovered = { underline = true }
+
+# Find
+find_keyword  = { fg = "{{ bright_green }}", italic = true }
+find_position = { fg = "{{ bright_orange }}", bg = "reset", italic = true }
+
+# Marker
+marker_selected = { fg = "{{ bright_green }}", bg = "{{ bright_green }}" }
+marker_copied   = { fg = "{{ bright_green }}", bg = "{{ bright_green }}" }
+marker_cut      = { fg = "{{ bright_red }}", bg = "{{ bright_red }}" }
+
+# Tab
+tab_active   = { fg = "{{ dark0 }}", bg = "{{ dark2 }}" }
+tab_inactive = { fg = "{{ light4 }}", bg = "{{ dark1 }}" }
+tab_width    = 1
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "{{ dark3 }}" }
+
+[status]
+separator_open  = ""
+separator_close = ""
+separator_style = { fg = "{{ dark1 }}", bg = "{{ dark1 }}" }
+
+# Mode
+mode_normal = { fg = "{{ dark0 }}", bg = "{{ light4 }}", bold = true }
+mode_select = { fg = "{{ dark0 }}", bg = "{{ bright_green }}", bold = true }
+mode_unset  = { fg = "{{ dark0 }}", bg = "{{ bright_purple }}", bold = true }
+
+# Progress
+progress_label  = { fg = "{{ light1 }}", bold = true }
+progress_normal = { fg = "{{ dark2 }}", bg = "{{ dark1 }}" }
+progress_error  = { fg = "{{ bright_red }}", bg = "{{ dark1 }}" }
+
+# Permissions
+permissions_t = { fg = "{{ dark2 }}" }
+permissions_r = { fg = "{{ bright_green }}" }
+permissions_w = { fg = "{{ bright_red }}" }
+permissions_x = { fg = "{{ bright_green }}" }
+permissions_s = { fg = "{{ dark3 }}" }
+
+[input]
+border   = { fg = "{{ dark2 }}" }
+title    = {}
+value    = {}
+selected = { reversed = true }
+
+[select]
+border   = { fg = "{{ dark2 }}" }
+active   = { fg = "{{ bright_orange }}" }
+inactive = {}
+
+[tasks]
+border  = { fg = "{{ dark2 }}" }
+title   = {}
+hovered = { underline = true }
+
+[which]
+mask            = { bg = "{{ dark1 }}" }
+cand            = { fg = "{{ bright_blue }}" }
+rest            = { fg = "{{ gray }}" }
+desc            = { fg = "{{ bright_orange }}" }
+separator       = "  "
+separator_style = { fg = "{{ dark2 }}" }
+
+[help]
+on      = { fg = "{{ bright_orange }}" }
+exec    = { fg = "{{ bright_blue }}" }
+desc    = { fg = "{{ gray }}" }
+hovered = { bg = "{{ dark2 }}", bold = true }
+footer  = { fg = "{{ dark1 }}", bg = "{{ light4 }}" }
+
+[filetype]
+rules = [
+    # Images
+    { mime = "image/*", fg = "{{ bright_blue }}" },
+
+    # Videos
+    { mime = "video/*", fg = "{{ bright_green }}" },
+    { mime = "audio/*", fg = "{{ bright_green }}" },
+
+    # Archives
+    { mime = "application/zip",             fg = "{{ bright_orange }}" },
+    { mime = "application/gzip",            fg = "{{ bright_orange }}" },
+    { mime = "application/x-tar",           fg = "{{ bright_orange }}" },
+    { mime = "application/x-bzip",          fg = "{{ bright_orange }}" },
+    { mime = "application/x-bzip2",         fg = "{{ bright_orange }}" },
+    { mime = "application/x-7z-compressed", fg = "{{ bright_orange }}" },
+    { mime = "application/x-rar",           fg = "{{ bright_orange }}" },
+
+    # Fallback
+    { name = "*", fg = "{{ light4 }}" },
+    { name = "*/", fg = "{{ bright_blue }}" }
+]

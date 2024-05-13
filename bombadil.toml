@@ -25,6 +25,7 @@ shell = { source = "config/shell", target = ".config/shell" }
 tmux_dir = { source = "config/tmux", target = ".config/tmux" }
 wallpaper = { source = "config/wall.png", target = ".config/wall.png" }
 yay = { source = "config/yay/config.json", target = ".config/yay/config.json" }
+yazi = { source = "config/yazi", target = ".config/yazi" }
 zathura = { source = "config/zathura", target = ".config/zathura" }
 
 # globals
