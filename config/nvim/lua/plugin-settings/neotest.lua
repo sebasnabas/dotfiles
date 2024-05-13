@@ -5,7 +5,9 @@ neotest.setup({
     require("neotest-python")({
       dap = { justMyCode = false },
     }),
-    require("neotest-dotnet"),
+    require("neotest-dotnet")({
+      discovery_root = "solution"
+    }),
     require("neotest-rust"),
     require("neotest-jest"),
   },
