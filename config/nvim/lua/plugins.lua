@@ -326,7 +326,7 @@ require('lazy').setup({
     opts = {
       open_for_directories = false,
     },
-  }
+  },
   ---
   --- Debugging
   { -- dap
