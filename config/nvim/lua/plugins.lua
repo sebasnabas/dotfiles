@@ -133,6 +133,7 @@ require('lazy').setup({
   { 'brymer-meneses/grammar-guard.nvim' },                  -- Check writing
   { 'simrat39/rust-tools.nvim'},
   { 'gpanders/editorconfig.nvim' },                         -- Respect editorconfig
+  { 'tadmccorkle/markdown.nvim', ft = 'markdown' },
   ---
   { 'kshenoy/vim-signature' },                              --  Show markers
   --- Utility
