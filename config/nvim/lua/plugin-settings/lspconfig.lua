@@ -29,6 +29,15 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
 
   require("inlay-hints").on_attach(client, bufnr)
+
+  -- markdown-oxide
+  -- refresh codelens on TextChanged and InsertLeave as well
+  vim.api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave', 'CursorHold', 'LspAttach' }, {
+      buffer = bufnr,
+      callback = vim.lsp.codelens.refresh,
+  })
+  -- trigger codelens refresh
+  vim.api.nvim_exec_autocmds('User', { pattern = 'LspAttached' })
 end
 
 
@@ -36,6 +45,15 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+-- For markdown-oxide
+-- Ensure that dynamicRegistration is enabled! This allows the LS to take into account actions like the
+-- Create Unresolved File code action, resolving completions for unindexed code blocks, ...
+capabilities.workspace = {
+    didChangeWatchedFiles = {
+      dynamicRegistration = true,
+    },
+}
 
 --- Server Settings
 -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -45,6 +63,7 @@ local servers = {
   'omnisharp',
   'jsonls',
   'jedi_language_server', 'pyright', 'ruff_lsp', -- python
+  'markdown_oxide',
   'rust_analyzer',
   'taplo',  -- toml
   'terraformls',

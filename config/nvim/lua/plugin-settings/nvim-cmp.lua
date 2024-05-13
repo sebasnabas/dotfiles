@@ -68,7 +68,14 @@ cmp.setup({
   },
   sources = cmp.config.sources({
     { name = "path" },
-    { name = "nvim_lsp" },
+    {
+      name = "nvim_lsp",
+      option = {
+        markdown_oxide = {
+          keyword_pattern = [[\(\k\| \|\/\|#\)\+]]
+        }
+      }
+    },
     { name = "nvim_lsp_signature_help" },
     { name = "luasnip" },
     { name = "buffer", keyword_length = 3, max_item_count = 3 },

@@ -293,13 +293,7 @@ require('lazy').setup({
       require("luasnip.loaders.from_vscode").lazy_load()
     end
   },
-  ---
   --- Note taking and other things
-  {
-    'vimwiki/vimwiki',
-    config = function()
-    end
-  },
   { 'metakirby5/codi.vim' },                                --  Scratchpad
   ---
   --- File manager
