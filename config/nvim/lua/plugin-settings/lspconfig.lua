@@ -2,8 +2,11 @@
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+
+-- These two are default now with neovim 0.10.0
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+
 vim.keymap.set('n', '<space>l', vim.diagnostic.setloclist, opts)
 
 -- run code lens
@@ -30,8 +33,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
-
-  require("inlay-hints").on_attach(client, bufnr)
 
   -- markdown-oxide
   -- refresh codelens on TextChanged and InsertLeave as well

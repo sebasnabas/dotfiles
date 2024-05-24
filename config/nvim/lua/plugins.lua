@@ -121,12 +121,6 @@ require('lazy').setup({
       "Hoffs/omnisharp-extended-lsp.nvim"
     },
   },
-  {
-    'simrat39/inlay-hints.nvim',
-    config = function ()
-      require("inlay-hints").setup()
-    end
-  },
   { "https://git.sr.ht/~whynothugo/lsp_lines.nvim" },
   { 'b0o/SchemaStore.nvim' },                               -- Support for json & yaml schemas
   { 'sheerun/vim-polyglot' },
