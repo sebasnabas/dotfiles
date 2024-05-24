@@ -169,7 +169,6 @@ require('lazy').setup({
   { 'tpope/vim-surround' },                                 --  Easy change of surroundings
   { 'tpope/vim-repeat' },                                   --  Repeat plugin commands with .
   { 'tpope/vim-unimpaired' },                               --  Handy bracket mappings
-  { 'tpope/vim-commentary' },                               --  Easy commenting
   { 'vim-scripts/ReplaceWithRegister' },                    --  Replace things with register contents
   { 'christoomey/vim-tmux-navigator' },                     --  Tmux navigation
   { 'godlygeek/tabular' },                                  --  Easy formatting
