@@ -17,7 +17,17 @@ cd "$dir" || exit
 mdtype() { \
     default_format=pdf && \
     format="$(sed 5q "$file" | grep -i output | cut -d ' ' -f 2)" && \
-    pandoc -t "${format:-$default_format}" --highlight-style=kate -s -o "$base".pdf "$file"
+    # The `header-includes` adds Emoji support: https://tex.stackexchange.com/a/568356
+    pandoc -t "${format:-$default_format}" --pdf-engine=lualatex \
+        -V header-includes='
+\directlua{luaotfload.add_fallback(
+           "myfallback",
+           {"NotoColorEmoji:mode=harf;"}
+         )}
+\setmainfont[RawFeature={fallback=myfallback}]{LatinModernRoman}
+\setmonofont[RawFeature={fallback=myfallback}]{LatinModernMono}
+' \
+    --highlight-style=kate -s -o "$base".pdf "$file"
 }
 
 textype() { \
