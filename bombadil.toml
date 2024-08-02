@@ -18,6 +18,7 @@ bat = { source = "config/bat", target = ".config/bat" }
 clipcat = { source = "config/clipcat", target = ".config/clipcat" }
 dunst = { source = "config/dunst", target = ".config/dunst" }
 kitty = { source = "config/kitty", target = ".config/kitty" }
+markdown_oxide = { source = "config/moxide", target = ".config/moxide" }
 neovim = { source = "config/nvim", target = ".config/nvim" }
 ranger = { source = "config/ranger", target = ".config/ranger" }
 redshift = { source = "config/redshift", target = ".config/redshift" }
