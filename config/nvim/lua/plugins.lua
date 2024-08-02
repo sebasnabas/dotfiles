@@ -300,7 +300,7 @@ require('lazy').setup({
     keys = {
       -- 👇 in this section, choose your own keymappings!
       {
-        "<leader>yy",
+        "<leader>rr",
         function()
           require("yazi").yazi()
         end,
