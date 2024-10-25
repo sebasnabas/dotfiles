@@ -40,24 +40,21 @@ zsh = { source = "config/shell/profile", target = ".zprofile" }
 scripts = { source = "scripts", target = ".scripts" }
 
 [profiles.desktop]
-extra_profiles = ["gruvbox", "colorscheme_dark", "i3"]
+extra_profiles = ["gruvbox_dark", "i3"]
 vars = ["vars/desktop.toml"]
 
 [profiles.desktop.dots]
 firefox_css = { source = "config/firefox/userChrome.css", target = ".mozilla/firefox/skseyca9.default-release/chrome/userChrome.css" }
 
 [profiles.laptop]
-extra_profiles = ["gruvbox", "colorscheme_dark", "i3"]
+extra_profiles = ["gruvbox_dark", "i3"]
 vars = ["vars/laptop.toml"]
 
-[profiles.gruvbox]
-vars = ["vars/gruvbox.toml"]
+[profiles.gruvbox_dark]
+vars = ["vars/gruvbox.toml", "vars/gruvbox_dark.toml"]
 
-[profiles.colorscheme_dark]
-vars = ["vars/colorscheme_dark.toml"]
-
-[profiles.colorscheme_light]
-vars = ["vars/colorscheme_light.toml"]
+[profiles.gruvbox_light]
+vars = ["vars/gruvbox.toml", "vars/gruvbox_light.toml"]
 
 [profiles.i3]
 posthooks = ["i3-msg restart", "pgrep picom || picom -b"]
