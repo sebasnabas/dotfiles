@@ -1,3 +1,4 @@
+# {% raw %}
 # fixme - the load process here seems a bit bizarre
 zmodload -i zsh/complist
 
@@ -71,3 +72,4 @@ if [[ $COMPLETION_WAITING_DOTS = true ]]; then
   zle -N expand-or-complete-with-dots
   bindkey "^I" expand-or-complete-with-dots
 fi
+# {% endraw %}

@@ -1,3 +1,5 @@
+#!/bin/zsh
+# {% raw %}
 # vim: syntax=bash
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 
@@ -143,3 +145,4 @@ setopt prompt_subst
 PROMPT='$(get_prompt_indicator)'
 RPROMPT='$(git_prompt_short_sha) '
 
+# {% endraw %}
