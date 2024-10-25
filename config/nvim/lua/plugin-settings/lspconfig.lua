@@ -85,7 +85,7 @@ local servers = {
   'taplo',  -- toml
   'terraformls',
   'tflint',
-  'tsserver',
+  'ts_ls',
   'yamlls'
 }
 for _, lsp in pairs(servers) do
@@ -196,7 +196,7 @@ require('rust-tools').setup({
 })
 
 -- Let rome do the formatting via null-ls
-require'lspconfig'.tsserver.setup{
+require'lspconfig'.ts_ls.setup{
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
     client.resolved_capabilities.document_formatting = false
