@@ -5,6 +5,9 @@
 --_|""""|_|"""""|_|"""""| {======|_|"""""|_|"""""|_|"""""|_|""""|_|"""""|_|"""""|
 --`-0-0-'"`-0-0-'"`-0-0-'./o--000'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'
 
+-- Allow Lua to require installed luarocks packages
+-- package.path = package.path .. ";~/.luarocks/share/lua/5.1/magick/init.lua;"
+
 require('plugins')
 require('theme')
 require('settings')
