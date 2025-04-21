@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 PLAYER='playerctld'
+# {% raw %}
 FORMAT='{{ title }} - {{ artist }}'
+# {% endraw %}
 
 case "$(playerctl --player=$PLAYER status 2>/dev/null)" in
     Playing )
