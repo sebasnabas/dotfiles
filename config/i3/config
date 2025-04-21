@@ -194,8 +194,8 @@ bindsym $mod+bracketright     exec --no-startup-id lmc forward 10
 bindsym $mod+Shift+bracketright exec --no-startup-id lmc forward 120
 
 # For screenshots and recording
-bindsym $mod+Print  exec --no-startup-id maimpick
 bindsym Print       exec --no-startup-id maimpick
+bindsym $mod+Print  exec --no-startup-id flameshot gui
 
 # #---Function Buttons---# #
 bindsym $mod+F1        exec --no-startup-id ~/.scripts/statusbar/powermenu
