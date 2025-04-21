@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 sudo_path="/usr/bin/sudo"
-alias sudo="sudoer_lecture.py && \$sudo_path"
+alias sudo="sudoer_lecture.sh && \$sudo_path"
 
 alias ls='lsd'
 alias du='dust'
