@@ -27,6 +27,9 @@ mdtype() { \
 \setmainfont[RawFeature={fallback=myfallback}]{LatinModernRoman}
 \setmonofont[RawFeature={fallback=myfallback}]{LatinModernMono}
 ' \
+    --slide-level=2 \
+    --filter pandoc-include-code \
+    --syntax-definition "${HOME}/.config/syntax-definitions/terraform.xml" \
     --highlight-style=kate -s -o "$base".pdf "$file"
 }
 
