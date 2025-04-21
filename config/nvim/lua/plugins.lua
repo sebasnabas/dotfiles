@@ -128,6 +128,14 @@ require('lazy').setup({
   { 'simrat39/rust-tools.nvim'},
   { 'gpanders/editorconfig.nvim' },                         -- Respect editorconfig
   { 'tadmccorkle/markdown.nvim', ft = 'markdown' },
+  {
+    'OXY2DEV/markview.nvim',
+    lazy = false,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons"
+    }
+  },
   ---
   { 'kshenoy/vim-signature' },                              --  Show markers
   --- Utility
