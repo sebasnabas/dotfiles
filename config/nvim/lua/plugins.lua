@@ -374,7 +374,6 @@ require('lazy').setup({
     }
   },
   ---
-  { 'lervag/vimtex' },                                      --  Ultimate latex support
   {
     'danymat/neogen',
     config = function()
