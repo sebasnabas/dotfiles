@@ -23,7 +23,7 @@ require('lazy').setup({
       require("ibl").setup()
     end
   },
-  { 'p00f/nvim-ts-rainbow' },                               --  Rainbow parentheses for treesitter
+  { 'hiphish/rainbow-delimiters.nvim' }, --  Rainbow parentheses for treesitter
   --- Language support
   { -- Treesitter
       'nvim-treesitter/nvim-treesitter',
