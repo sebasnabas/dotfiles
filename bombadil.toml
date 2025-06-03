@@ -17,6 +17,7 @@ posthooks = ["tmux source-file ~/.config/tmux/theme.conf"]
 bat = { source = "config/bat", target = ".config/bat" }
 clipcat = { source = "config/clipcat", target = ".config/clipcat" }
 dunst = { source = "config/dunst", target = ".config/dunst" }
+ghostty = { source = "config/ghostty", target = ".config/ghostty" }
 kitty = { source = "config/kitty", target = ".config/kitty" }
 markdown_oxide = { source = "config/moxide", target = ".config/moxide" }
 neovim = { source = "config/nvim", target = ".config/nvim" }

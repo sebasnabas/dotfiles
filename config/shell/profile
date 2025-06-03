@@ -14,7 +14,7 @@ export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 export BROWSER="browser-selector"
 export MAIL_CLIENT="thunderbird"
-export TERMINAL="kitty"
+export TERMINAL="ghostty"
 export EDITOR="nvim"
 export READER="zathura"
 export FILE="ranger"
