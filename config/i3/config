@@ -98,7 +98,10 @@ bindsym $mod+Insert        exec --no-startup-id showclip
 bindsym $mod+Shift+q            [con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 bindsym $mod+Shift+Ctrl+q        [con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
 
-bindsym $mod+r        exec --no-startup-id $i3cmds/winresize
+bindsym $mod+r              exec --no-startup-id $i3cmds/winresize
+
+# Needs rofi-emoji to be installed
+bindsym $mod+e              exec "rofi -modes window,emoji -show emoji"
 
 bindsym $mod+t              split toggle
 bindsym $mod+Shift+t        layout tabbed
