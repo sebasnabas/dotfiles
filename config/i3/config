@@ -66,7 +66,7 @@ exec --no-startup-id system-config-printer-applet
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 
-exec --no-startup-id i3-msg 'workspace 1; exec $TERMINAL tm-sessions; gaps inner current set 0; gaps outer current set 0'
+exec --no-startup-id i3-msg 'workspace 1; exec $TERMINAL -e tm-sessions; gaps inner current set 0; gaps outer current set 0'
 exec --no-startup-id i3-msg 'workspace 2; exec $BROWSER'
 exec --no-startup-id i3-msg 'workspace 3; exec $MAIL_CLIENT'
 
@@ -78,7 +78,7 @@ workspace 3 output $left_monitor
 workspace 4 output $left_monitor
 
 # #---Basic Bindings---# #
-bindsym $mod+Return         exec --no-startup-id $TERMINAL tm-sessions
+bindsym $mod+Return         exec --no-startup-id $TERMINAL -e tm-sessions
 bindsym $mod+Shift+Return    exec --no-startup-id $i3cmds/samedir
 
 bindsym $mod+Shift+space     floating toggle
