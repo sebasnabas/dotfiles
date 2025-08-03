@@ -78,7 +78,7 @@ require('lazy').setup({
   },
   { 'neovim/nvim-lspconfig' },
   { -- Null-ls
-    'jose-elias-alvarez/null-ls.nvim',
+    'nvimtools/none-ls.nvim',
     config = function()
       local null_ls = require('null-ls')
 
@@ -86,33 +86,16 @@ require('lazy').setup({
       null_ls.setup({
           sources = {
             -- Formatting
-            null_ls.builtins.formatting.black,          -- python
-            null_ls.builtins.formatting.rome.with({
-              extra_args = {
-                indentStyle = "space"
-              }
-            }),           -- js, html & css, json
             null_ls.builtins.formatting.rustfmt,        -- rust
             null_ls.builtins.formatting.terraform_fmt,  -- terraform
 
             -- Diagnostics
             null_ls.builtins.diagnostics.ansiblelint,
-            null_ls.builtins.diagnostics.chktex,
-            null_ls.builtins.diagnostics.typos,
-            null_ls.builtins.diagnostics.cppcheck,
-            null_ls.builtins.diagnostics.gitlint,
             null_ls.builtins.diagnostics.hadolint,
             null_ls.builtins.diagnostics.shellcheck,
-            null_ls.builtins.diagnostics.terraform_validate,  -- terraform
-            null_ls.builtins.diagnostics.yamllint,
+            null_ls.builtins.diagnostics.opentofu_validate,
+            null_ls.builtins.diagnostics.trivy,
             null_ls.builtins.diagnostics.vale,
-
-            -- Code Actions
-            null_ls.builtins.code_actions.gitsigns,
-            null_ls.builtins.code_actions.shellcheck,
-
-            -- Hover
-            null_ls.builtins.hover.dictionary,
           },
       })
     end,
