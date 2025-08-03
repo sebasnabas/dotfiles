@@ -5,6 +5,7 @@ vim.cmd("filetype plugin on")
 vim.cmd("filetype plugin indent on")
 vim.cmd("syntax on")
 vim.wo.colorcolumn                   = '100'
+vim.opt.termguicolors                = true
 vim.opt.encoding                     = "utf-8"
 vim.opt.wrap                         = true
 vim.opt.fileformat                   = "unix"
