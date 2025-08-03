@@ -77,16 +77,21 @@ capabilities.workspace = {
 -- map buffer local keybindings when the language server attaches
 local servers = {
   'clangd',
+  'eslint',
   'omnisharp',
   'jsonls',
-  'jedi_language_server', 'pyright', 'ruff_lsp', -- python
+  'jsonnet_ls',
+  'jedi_language_server', 'pyright', 'ruff', -- python
+  'gopls',
+  'helm_ls',
   'markdown_oxide',
   'rust_analyzer',
   'taplo',  -- toml
   'terraformls',
   'tflint',
   'ts_ls',
-  'yamlls'
+  'yamlls',
+  'zls'
 }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
@@ -167,7 +172,16 @@ require('lspconfig').yamlls.setup {
         -- this plugin and its advanced options like `ignore`.
         enable = false,
       },
-      schemas = require('schemastore').yaml.schemas(),
+      schemas = require('schemastore').yaml.schemas {
+        extra = {
+          {
+            name = "tavern",
+            description = "Tavern testing",
+            url = "https://raw.githubusercontent.com/taverntesting/tavern/master/tavern/_core/schema/tests.jsonschema.yaml",
+            fileMatch = "*.tavern.yaml"
+          }
+        }
+      },
     },
   },
 }
@@ -194,14 +208,6 @@ require('rust-tools').setup({
         }
     },
 })
-
--- Let rome do the formatting via null-ls
-require'lspconfig'.ts_ls.setup{
-  on_attach = function(client, bufnr)
-    on_attach(client, bufnr)
-    client.resolved_capabilities.document_formatting = false
-  end,
-}
 
 require('lspconfig').tflint.setup({
   capabilities = capabilities,
