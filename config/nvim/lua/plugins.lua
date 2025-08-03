@@ -27,56 +27,17 @@ require('lazy').setup({
   --- Language support
   { -- Treesitter
       'nvim-treesitter/nvim-treesitter',
-      build = ':TSUpdate'
-  },
-  { -- textobjects with treesitter support
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    config = function ()
-      require('nvim-treesitter.configs').setup {
-        textobjects = {
-          move = {
-            enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = {
-              ["]m"] = "@function.outer",
-              ["]]"] = "@class.outer",
-            },
-            goto_next_end = {
-              ["]M"] = "@function.outer",
-              ["]["] = "@class.outer",
-            },
-            goto_previous_start = {
-              ["[m"] = "@function.outer",
-              ["[["] = "@class.outer",
-            },
-            goto_previous_end = {
-              ["[M"] = "@function.outer",
-              ["[]"] = "@class.outer",
-            },
-          },
-          select = {
-            enable = true,
-            -- Automatically jump forward to textobj, similar to targets.vim
-            lookahead = true,
-            keymaps = {
-              -- You can use the capture groups defined in textobjects.scm
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = "@class.inner",
-            },
-          }
-        }
+      build = ':TSUpdate',
+      dependencies = {
+        'OXY2DEV/markview.nvim'
       }
-    end
   },
-  { --  Show code context
-    'nvim-treesitter/nvim-treesitter-context',
-    config = function ()
-      require('treesitter-context').setup()
-    end
+  {
+    'neovim/nvim-lspconfig',
+    dependencies = {
+      "Hoffs/omnisharp-extended-lsp.nvim"
+    }
   },
-  { 'neovim/nvim-lspconfig' },
   { -- Null-ls
     'nvimtools/none-ls.nvim',
     config = function()
@@ -151,15 +112,6 @@ require('lazy').setup({
   { 'brymer-meneses/grammar-guard.nvim' },                  -- Check writing
   { 'simrat39/rust-tools.nvim'},
   { 'gpanders/editorconfig.nvim' },                         -- Respect editorconfig
-  { 'tadmccorkle/markdown.nvim', ft = 'markdown' },
-  {
-    'OXY2DEV/markview.nvim',
-    lazy = false,
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons"
-    }
-  },
   ---
   { 'kshenoy/vim-signature' },                              --  Show markers
   --- Utility
