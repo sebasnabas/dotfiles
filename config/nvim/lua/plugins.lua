@@ -179,7 +179,6 @@ require('lazy').setup({
   'nvim-telescope/telescope.nvim', tag = '0.1.3',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      'debugloop/telescope-undo.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
     },
     config = function()
@@ -235,28 +234,12 @@ require('lazy').setup({
           case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
                                            -- the default case_mode is "smart_case"
           },
-          undo = {
-            side_by_side = true,
-            layout_strategy = "vertical",
-            -- layout_config = {
-              -- preview_height = 0.8,
-            -- },
-          },
         },
       })
-      require("telescope").load_extension("undo")
       require('telescope').load_extension('fzf')
     end
   },
-  { 'simnalamburt/vim-mundo' },                             --  Undo bar
-  {
-    'RRethy/vim-illuminate',
-    config = function()
-      require('illuminate').configure({
-        min_count_to_highlight = 2,
-      })
-    end
-  },                              --  Highlight other uses of word
+  { 'mbbill/undotree' },
   { -- todo-comments
     "folke/todo-comments.nvim",
     dependencies = "nvim-lua/plenary.nvim",
