@@ -8,8 +8,9 @@
 -- Allow Lua to require installed luarocks packages
 -- package.path = package.path .. ";~/.luarocks/share/lua/5.1/magick/init.lua;"
 
+-- Load settings before plugins so that <leader> key is defined
+require('settings')
 require('plugins')
 require('theme')
-require('settings')
 require('mappings')
 require('autocommands')
