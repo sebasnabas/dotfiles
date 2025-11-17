@@ -4,3 +4,20 @@ polybar_fontsize = "10"
 polybar_powerline_fontsize = "29"
 
 rofi_fontsize = "12"
+
+hyprland_monitors = """
+monitorv2 {
+    output = DP-1
+    mode = preferred
+    position = 0x0
+    scale = 1.666
+}
+
+monitorv2 {
+    output = HDMI-A-2
+    mode = preferred
+    position = auto-center-right
+    scale = 1
+    transform = 1
+}
+"""

@@ -4,3 +4,5 @@ polybar_fontsize = "13"
 polybar_powerline_fontsize = "32"
 
 rofi_fontsize = "18"
+
+hyprland_monitors = "monitor = ,preferred,auto,auto"

@@ -23,9 +23,11 @@ markdown_oxide = { source = "config/moxide", target = ".config/moxide" }
 neovim = { source = "config/nvim", target = ".config/nvim" }
 ranger = { source = "config/ranger", target = ".config/ranger" }
 redshift = { source = "config/redshift", target = ".config/redshift" }
+rofi = { source = "config/rofi", target = ".config/rofi" }
 shell = { source = "config/shell", target = ".config/shell" }
 tmux_dir = { source = "config/tmux", target = ".config/tmux" }
 wallpaper = { source = "config/wall.png", target = ".config/wall.png" }
+waybar = { source = "config/waybar", target = ".config/waybar" }
 yay = { source = "config/yay/config.json", target = ".config/yay/config.json" }
 yazi = { source = "config/yazi", target = ".config/yazi" }
 zathura = { source = "config/zathura", target = ".config/zathura" }
@@ -41,7 +43,7 @@ zsh = { source = "config/shell/profile", target = ".zprofile" }
 scripts = { source = "scripts", target = ".scripts" }
 
 [profiles.desktop]
-extra_profiles = ["gruvbox_dark", "i3"]
+extra_profiles = ["gruvbox_dark", "hyprland"]
 vars = ["vars/desktop.toml"]
 
 [profiles.desktop.dots]
@@ -64,5 +66,10 @@ posthooks = ["i3-msg restart", "pgrep picom || picom -b"]
 i3 = { source = "config/i3", target = ".config/i3" }
 polybar = { source = "config/polybar", target = ".config/polybar" }
 picom = { source = "config/picom", target = ".config/picom" }
-rofi = { source = "config/rofi", target = ".config/rofi" }
 x = { source = "config/x/xinitrc", target = ".xinitrc" }
+
+[profiles.hyprland]
+# posthooks = ["pkill waybar && nohup waybar &"]
+
+[profiles.hyprland.dots]
+hyprland = { source = "config/hypr", target = ".config/hypr" }

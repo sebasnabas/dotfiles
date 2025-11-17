@@ -35,10 +35,6 @@ export HISTFILE="$HOME/.cache/zsh/zsh_history"
 
 export ENABLE_VKBASALT=1
 
-# for screen saver inhibitation
-export DESKTOP_SESSION=xfce
-export XDG_CURRENT_DESKTOP=xfce
-
 # enable rootless docker-compose with podman
 export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
 
