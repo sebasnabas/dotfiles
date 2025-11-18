@@ -81,7 +81,7 @@ local servers = {
   'omnisharp',
   'jsonls',
   'jsonnet_ls',
-  'jedi_language_server', 'pyright', 'ruff', -- python
+  'pyright', 'ruff', -- python
   'gopls',
   'helm_ls',
   'markdown_oxide',
@@ -94,55 +94,22 @@ local servers = {
   'zls'
 }
 for _, lsp in pairs(servers) do
-  require('lspconfig')[lsp].setup {
+  vim.lsp.config(lsp, {
     capabilities = capabilities,
     on_attach = on_attach,
-  }
+  })
+  vim.lsp.enable(lsp)
 end
 
-require('lspconfig').omnisharp.setup {
+vim.lsp.config('omnisharp', {
   capabilities = capabilities,
   on_attach = on_attach,
   handlers = {
     ["textDocument/definition"] = require('omnisharp_extended').handler,
   },
-  cmd = { '/usr/bin/omnisharp' },
-  -- Enables support for reading code style, naming convention and analyzer
-  -- settings from .editorconfig.
-  enable_editorconfig_support = true,
+})
 
-  -- If true, MSBuild project system will only load projects for files that
-  -- were opened in the editor. This setting is useful for big C# codebases
-  -- and allows for faster initialization of code navigation features only
-  -- for projects that are relevant to code that is being edited. With this
-  -- setting enabled OmniSharp may load fewer projects and may thus display
-  -- incomplete reference lists for symbols.
-  enable_ms_build_load_projects_on_demand = false,
-
-  -- Enables support for roslyn analyzers, code fixes and rulesets.
-  enable_roslyn_analyzers = true,
-
-  -- Specifies whether 'using' directives should be grouped and sorted during
-  -- document formatting.
-  organize_imports_on_format = true,
-  -- Enables support for showing unimported types and unimported extension
-  -- methods in completion lists. When committed, the appropriate using
-  -- directive will be added at the top of the current file. This option can
-  -- have a negative impact on initial completion responsiveness,
-  -- particularly for the first few completion sessions after opening a
-  -- solution.
-  enable_import_completion = true,
-
-  -- Specifies whether to include preview versions of the .NET SDK when
-  -- determining which version to use for project loading.
-  sdk_include_prereleases = false,
-
-  -- Only run analyzers against open files when 'enableRoslynAnalyzers' is
-  -- true
-  analyze_open_documents_only = false,
-}
-
-require('lspconfig').jsonls.setup {
+vim.lsp.config('jsonls', {
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -160,9 +127,9 @@ require('lspconfig').jsonls.setup {
       validate = { enable = true },
     },
   },
-}
+})
 
-require('lspconfig').yamlls.setup {
+vim.lsp.config('yamlls', {
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -184,32 +151,9 @@ require('lspconfig').yamlls.setup {
       },
     },
   },
-}
-
-require('rust-tools').setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-    -- all the opts to send to nvim-lspconfig
-    -- these override the defaults set by rust-tools.nvim
-    -- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rust_analyzer
-    server = {
-        -- on_attach is a callback called when the language server attaches to the buffer
-        on_attach = on_attach,
-        settings = {
-            -- to enable rust-analyzer settings visit:
-            -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-            ["rust-analyzer"] = {
-              inlayHints = { locationLinks = false },
-              checkOnSave = {  -- enable clippy on save
-                command = "clippy",
-                extraArgs = { "--all", "--", "-W", "clippy::all", "-D", "warnings" },
-              },
-            }
-        }
-    },
 })
 
-require('lspconfig').tflint.setup({
+vim.lsp.config('tflint', {
   capabilities = capabilities,
   on_attach = on_attach,
   cmd = { "tflint", "--langserver", "--config", vim.fn.expand("$HOME/.config/tflint/tflint.hcl") },
