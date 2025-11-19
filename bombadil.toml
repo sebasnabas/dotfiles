@@ -50,7 +50,7 @@ vars = ["vars/desktop.toml"]
 firefox_css = { source = "config/firefox/userChrome.css", target = ".mozilla/firefox/skseyca9.default-release/chrome/userChrome.css" }
 
 [profiles.laptop]
-extra_profiles = ["gruvbox_dark", "i3"]
+extra_profiles = ["gruvbox_dark", "hyprland"]
 vars = ["vars/laptop.toml"]
 
 [profiles.gruvbox_dark]
