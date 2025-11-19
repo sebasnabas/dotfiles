@@ -72,4 +72,5 @@ x = { source = "config/x/xinitrc", target = ".xinitrc" }
 # posthooks = ["pkill waybar && nohup waybar &"]
 
 [profiles.hyprland.dots]
+chromium_flags = { source = "config/chromium-flags.conf", target = ".config/chromium-flags.conf" }
 hyprland = { source = "config/hypr", target = ".config/hypr" }
