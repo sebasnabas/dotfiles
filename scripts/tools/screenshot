@@ -1,0 +1,18 @@
+#!/bin/bash
+
+get_image_name ()
+{
+    image_type="$1"
+    echo "${HOME}/Pictures/screenshots/screenshot_${image_type}_$(date --iso-8601=seconds).png"
+}
+
+selection="$(rofi -sep '|' -dmenu -p "Screenshot which area?" <<< "current window (copy)|a selected area (copy)|full screen (copy)|current window|a selected area|full screen")"
+
+case "$selection" in
+    "current window") image_name="$(get_image_name current_window)"; hyprshot -m window -m active -f "$image_name" ;;
+    "a selected area") image_name="$(get_image_name selected_area)"; hyprshot -m region -f "$image_name" ;;
+    "full screen") image_name="$(get_image_name full_screen)"; hyprshot -m output -m active -f "$image_name" ;;
+    "current window (copy)") hyprshot -m window -m active --clipboard-only ;;
+    "a selected area (copy)") hyprshot -m region --clipboard-only ;;
+    "full screen (copy)") hyprshot -m output -m active --clipboard-only ;;
+esac

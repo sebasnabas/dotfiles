@@ -5,4 +5,32 @@ polybar_powerline_fontsize = "32"
 
 rofi_fontsize = "18"
 
-hyprland_monitors = "monitor = ,preferred,auto,auto"
+# hyprland_monitors = "monitor = ,preferred,auto,auto"
+hyprland_monitors = """
+monitorv2 {
+    output = eDP-1
+    mode = preferred
+    position = auto-center-left
+    scale = 1.56667
+}
+
+monitorv2 {
+    output = DP-6
+    mode = preferred
+    position = 0x0
+    scale = auto
+}
+
+monitorv2 {
+    output = DP-5
+    mode = preferred
+    position = auto-center-right
+    transform = 1
+}
+"""
+hyprland_workspace_rules = """
+workspace = 1, monitor:DP-5
+workspace = 2, monitor:DP-6
+workspace = 3, monitor:eDP-1
+workspace = 4, monitor:DP-6
+"""

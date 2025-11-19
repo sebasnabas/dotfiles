@@ -21,3 +21,7 @@ monitorv2 {
     transform = 1
 }
 """
+hyprland_workspace_rules = """
+workspace = 1, monitor:HDMI-A-2
+workspace = 2, monitor:DP-1
+"""
