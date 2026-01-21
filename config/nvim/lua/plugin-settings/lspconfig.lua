@@ -88,6 +88,7 @@ local servers = {
   'rust_analyzer',
   'taplo',  -- toml
   'terraformls',
+  'tinymist',
   'tflint',
   'ts_ls',
   'yamlls',
@@ -100,6 +101,15 @@ for _, lsp in pairs(servers) do
   })
   vim.lsp.enable(lsp)
 end
+
+vim.lsp.config('tinymist', {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = {
+      exportPdf = "onType",
+      outputPath = "$root/target/$dir/$name",
+    }
+  })
 
 vim.lsp.config('omnisharp', {
   capabilities = capabilities,
