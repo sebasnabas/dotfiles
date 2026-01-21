@@ -2,11 +2,25 @@
 require('lazy').setup({
   {
     'ellisonleao/gruvbox.nvim',
+    lazy = false,
+    priority = 1000,
     config = function()
       require("gruvbox").setup({
-          overrides = {
-            DiffText = { link = "GruvboxPurple" } -- faded yellow
-          }
+        overrides = {
+          DiffText = { link = "GruvboxPurple" }, -- default: faded yellow
+
+          markdownCode = {link = "GruvboxGray"},
+          markdownCodeBlock = {link = "GruvboxGray"},
+        }
+      })
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'markdown', -- To set custom colors in Markdown files, fonts are defined by the terminal.
+        callback = function()
+          vim.api.nvim_set_hl(0, '@markup.italic.markdown_inline', { fg = '#fabd2f', italic = true }) -- make it yellow
+          vim.api.nvim_set_hl(0, '@markup.strong.markdown_inline', { fg = '#f95c4a', bold = true }) -- make it red
+          vim.api.nvim_set_hl(0, '@markup.strikethrough.markdown_inline', { fg = '#928374', strikethrough = true }) -- make it grey
+          vim.api.nvim_set_hl(0, '@markup.code_blocks.markdown', { bg = '#928374' }) -- make it grey
+        end,
       })
     end
   },                           --  Theme
