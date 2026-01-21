@@ -69,7 +69,7 @@ picom = { source = "config/picom", target = ".config/picom" }
 x = { source = "config/x/xinitrc", target = ".xinitrc" }
 
 [profiles.hyprland]
-# posthooks = ["pkill waybar && nohup waybar &"]
+posthooks = ["hyprctl reload", "pgrep waybar && pkill waybar; setsid waybar"]
 
 [profiles.hyprland.dots]
 chromium_flags = { source = "config/chromium-flags.conf", target = ".config/chromium-flags.conf" }
