@@ -14,5 +14,4 @@ alias l="ls -lAht"
 alias r="ranger"
 alias vim="nvim"
 
-alias techdocs="podman run -it --rm --network host -v \$PWD:/app techdocs:latest techdocs serve"
 alias gibip="curl --fail-with-body https://icanhazip.com"
