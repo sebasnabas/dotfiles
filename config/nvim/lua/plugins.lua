@@ -40,11 +40,23 @@ require('lazy').setup({
   { 'hiphish/rainbow-delimiters.nvim' }, --  Rainbow parentheses for treesitter
   --- Language support
   { -- Treesitter
-      'nvim-treesitter/nvim-treesitter',
-      build = ':TSUpdate',
-      dependencies = {
-        'OXY2DEV/markview.nvim'
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    dependencies = {
+      {
+        'OXY2DEV/markview.nvim',
+        config = function()
+          require("markview").setup({
+            callbacks = {
+              on_enable = function (_, win)
+                vim.wo[win].conceallevel = 2;
+                vim.wo[win].concealcursor = "nc";
+              end
+            }
+          })
+        end
       }
+    }
   },
   {
     'neovim/nvim-lspconfig',
