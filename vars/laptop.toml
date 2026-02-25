@@ -7,6 +7,10 @@ rofi_fontsize = "18"
 
 # hyprland_monitors = "monitor = ,preferred,auto,auto"
 hyprland_monitors = """
+
+$centerMonitor=DP-8
+$rightMonitor=DP-7
+
 monitorv2 {
     output = eDP-1
     mode = preferred
@@ -15,22 +19,22 @@ monitorv2 {
 }
 
 monitorv2 {
-    output = DP-6
+    output = $centerMonitor
     mode = preferred
     position = 0x0
     scale = auto
 }
 
 monitorv2 {
-    output = DP-5
+    output = $rightMonitor
     mode = preferred
     position = auto-center-right
     transform = 1
 }
 """
 hyprland_workspace_rules = """
-workspace = 1, monitor:DP-5
-workspace = 2, monitor:DP-6
+workspace = 1, monitor:$rightMonitor
+workspace = 2, monitor:$centerMonitor
 workspace = 3, monitor:eDP-1
-workspace = 4, monitor:DP-6
+workspace = 4, monitor:$centerMonitor
 """
