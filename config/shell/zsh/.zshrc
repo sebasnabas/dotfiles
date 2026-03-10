@@ -127,7 +127,6 @@ antigen use oh-my-zsh
 
 antigen bundle git
 antigen bundle pip
-antigen bundle fzf
 antigen bundle "zsh-users/zsh-autosuggestions"
 antigen bundle "zsh-users/zsh-syntax-highlighting"
 antigen bundle "MichaelAquilina/zsh-autoswitch-virtualenv"
@@ -135,6 +134,7 @@ antigen bundle "MichaelAquilina/zsh-autoswitch-virtualenv"
 antigen apply
 
 eval "$(zoxide init zsh)"
+source <(fzf --zsh)
 
 # theme
 source $ZDOTDIR/theme.zsh-theme
