@@ -1,10 +1,10 @@
 # My dotfiles
 
 My tech stack:
-- [i3](https://github.com/i3/i3)
-- [neovim](https://github.com/neovim/neovim)
-- [polybar](https://github.com/polybar/polybar)
-- [zsh](https://www.zsh.org/)
+- [Hyprland](https://github.com/hyprwm/Hyprland)
+- [Neovim](https://github.com/neovim/neovim)
+- [Waybar](https://github.com/Alexays/Waybar)
+- [ZSH](https://www.zsh.org/)
 
 And a few more...
 
