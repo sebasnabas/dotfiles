@@ -1,6 +1,4 @@
-local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
-
-require("nvim-treesitter.configs").setup {
+require("nvim-treesitter").setup {
   -- One of "all", "maintained" (parsers with maintainers), or a list of languages
   ensure_installed = {
     "bash", "c", "c_sharp", "comment", "css",
@@ -42,4 +40,3 @@ require("nvim-treesitter.configs").setup {
       enable = true,
   }
 }
-require("nvim-treesitter.install").prefer_git = true
