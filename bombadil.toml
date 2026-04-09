@@ -18,16 +18,13 @@ bat = { source = "config/bat", target = ".config/bat" }
 clipcat = { source = "config/clipcat", target = ".config/clipcat" }
 dunst = { source = "config/dunst", target = ".config/dunst" }
 ghostty = { source = "config/ghostty", target = ".config/ghostty" }
-kitty = { source = "config/kitty", target = ".config/kitty" }
 markdown_oxide = { source = "config/moxide", target = ".config/moxide" }
 neovim = { source = "config/nvim", target = ".config/nvim" }
 ranger = { source = "config/ranger", target = ".config/ranger" }
 redshift = { source = "config/redshift", target = ".config/redshift" }
-rofi = { source = "config/rofi", target = ".config/rofi" }
 shell = { source = "config/shell", target = ".config/shell" }
 tmux_dir = { source = "config/tmux", target = ".config/tmux" }
 wallpaper = { source = "config/wall.png", target = ".config/wall.png" }
-waybar = { source = "config/waybar", target = ".config/waybar" }
 yay = { source = "config/yay/config.json", target = ".config/yay/config.json" }
 yazi = { source = "config/yazi", target = ".config/yazi" }
 zathura = { source = "config/zathura", target = ".config/zathura" }
@@ -37,7 +34,8 @@ aliases = { source = "config/shell/aliases", target = ".aliases" }
 profile = { source = "config/shell/profile", target = ".profile" }
 tflint = { source = "config/tflint/tflint.hcl", target = ".config/tflint/tflint.hcl" }
 tmux = { source = "config/tmux/tmux.conf", target = ".tmux.conf" }
-zsh = { source = "config/shell/profile", target = ".zprofile" }
+zsh_profile = { source = "config/shell/profile", target = ".zprofile" }
+zshrc = { source = "config/shell/zsh/.zshrc", target = ".zshrc" }
 
 # scripts
 scripts = { source = "scripts", target = ".scripts" }
@@ -53,6 +51,9 @@ firefox_css = { source = "config/firefox/userChrome.css", target = ".mozilla/fir
 extra_profiles = ["gruvbox_dark", "hyprland"]
 vars = ["vars/laptop.toml"]
 
+[profiles.work-laptop]
+extra_profiles = ["gruvbox_dark"]
+
 [profiles.gruvbox_dark]
 vars = ["vars/gruvbox.toml", "vars/gruvbox_dark.toml"]
 
@@ -66,6 +67,7 @@ posthooks = ["i3-msg restart", "pgrep picom || picom -b"]
 i3 = { source = "config/i3", target = ".config/i3" }
 polybar = { source = "config/polybar", target = ".config/polybar" }
 picom = { source = "config/picom", target = ".config/picom" }
+rofi = { source = "config/rofi", target = ".config/rofi" }
 x = { source = "config/x/xinitrc", target = ".xinitrc" }
 
 [profiles.hyprland]
@@ -74,3 +76,5 @@ posthooks = ["hyprctl reload", "pgrep waybar && pkill waybar; setsid waybar"]
 [profiles.hyprland.dots]
 chromium_flags = { source = "config/chromium-flags.conf", target = ".config/chromium-flags.conf" }
 hyprland = { source = "config/hypr", target = ".config/hypr" }
+rofi = { source = "config/rofi", target = ".config/rofi" }
+waybar = { source = "config/waybar", target = ".config/waybar" }
