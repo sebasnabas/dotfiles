@@ -1,6 +1,7 @@
 #!/bin/zsh
 # {% raw %}
-# vim: syntax=bash
+# vim: ft=zsh
+
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 
 # Colors: black|red|blue|green|yellow|magenta|cyan|white
@@ -112,6 +113,16 @@ function get_ssh_prompt {
     fi
 }
 
+function get_aws_prompt {
+    if [[ -n "${AWS_PROFILE}" ]]; then
+        local color="%{$yellow_bold%}"
+        if [[ "${LEAPP_SESSION}" == *"prod"* ]]; then
+            color="%{$red_bold%}"
+        fi
+        echo "%{$yellow%}${CUSTOM_ROLE}@${color}${LEAPP_SESSION}%{$reset_color%} %{$yellow%}(${AWS_REGION})%{$reset_color%}"
+    fi
+}
+
 # Prompt: VIRTUAL_ENV USER@MACHINE: DIRECTORY <BRANCH [STATUS]> --- (TIME_STAMP)
 # > command
 function print_prompt_head {
@@ -121,11 +132,12 @@ function print_prompt_head {
 %{$cyan_bold%}@\
 %{$blue_bold%}$(get_box_name): \
 %{$yellow%}$(get_current_dir)%{$reset_color%}\
-$(get_git_prompt) "
+$(get_git_prompt)%{$reset_color%}\
+$(get_aws_prompt)%{$reset_color%}"
 
-    local right_prompt="%{$blue%}($(get_time_stamp))%{$reset_color%} "
+    local right_prompt="%{$blue%}($(get_time_stamp))%{$reset_color%}"
 
-    local short_left_prompt="%{$cyan_bold%}$(get_virtualenv)$(get_usr_name)$(get_ssh_prompt)%{$blue%}: %{$cyan%}$(get_current_dir)%{$reset_color%}$(get_git_prompt) "
+    local short_left_prompt="%{$cyan_bold%}$(get_virtualenv)$(get_usr_name)$(get_ssh_prompt)%{$blue%}: %{$cyan%}$(get_current_dir)%{$reset_color%}$(get_git_prompt)$(get_aws_prompt)"
 
     print -rP "$short_left_prompt$(get_space $short_left_prompt $right_prompt)$right_prompt"
 }
@@ -143,6 +155,6 @@ add-zsh-hook precmd print_prompt_head
 setopt prompt_subst
 
 PROMPT='$(get_prompt_indicator)'
-RPROMPT='$(git_prompt_short_sha) '
+RPROMPT=''
 
 # {% endraw %}
