@@ -121,3 +121,9 @@ skim-git-branch() {
             --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
         sed "s/.* //"
 }
+
+sudo() {
+    local sudo_path='/bin/sudo'
+    sudoer_lecture.sh </dev/null >&2
+    command "$sudo_path" "$@"
+}
