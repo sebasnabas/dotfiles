@@ -39,7 +39,7 @@ autoload -Uz zmv
 
 # Edit line in nvim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
+bindkey "^E" edit-command-line
 
 autoload -U select-quoted
 zle -N select-quoted
@@ -126,4 +126,8 @@ sudo() {
     local sudo_path='/bin/sudo'
     sudoer_lecture.sh </dev/null >&2
     command "$sudo_path" "$@"
+}
+
+zvm_after_init() {
+  bindkey "^E" edit-command-line
 }
