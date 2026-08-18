@@ -103,8 +103,18 @@ antigen bundle jeffreytse/zsh-vi-mode
 
 antigen apply
 
-eval "$(zoxide init zsh)"
-source <(fzf --zsh)
+# Re-run compinit first: antigen replaces `compdef` with a no-op stub during load
+# and only restores the real one at the first prompt, so completions sourced here
+# would otherwise be silently discarded.
+autoload -Uz compinit && compinit
+command -v zoxide  >/dev/null && eval "$(zoxide init zsh)"
+command -v fzf >/dev/null && source <(fzf --zsh)
+command -v mise >/dev/null && eval "$(mise activate zsh)"
+# These depend on mise
+command -v kubectl >/dev/null && source <(kubectl completion zsh)
+command -v helm >/dev/null && source <(helm completion zsh)
+command -v ct >/dev/null && source <(ct completion zsh)
+command -v k9s >/dev/null && source <(k9s completion zsh)
 
 # theme
 source $ZDOTDIR/theme.zsh-theme
