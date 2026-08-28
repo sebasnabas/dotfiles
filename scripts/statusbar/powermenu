@@ -4,7 +4,7 @@ MENU="$(rofi -sep "|" -dmenu -i -p 'System' -location 3 -yoffset 32 -xoffset -10
 
 case "$MENU" in
    *Lock)        hyprlock            ;;
-   *Logout)      hyprctl             dispatch exit        ;;
+   *Logout)      hyprctl             dispatch 'hl.dsp.exit()'        ;;
    *Suspend)     systemctl          suspend     ;;
    *Hibernate)   notify-send "No swap file" ;; # systemctl          hibernate   ;;
    *Reboot)      systemctl          reboot      ;;

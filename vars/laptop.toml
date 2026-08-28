@@ -5,36 +5,40 @@ polybar_powerline_fontsize = "32"
 
 rofi_fontsize = "18"
 
-# hyprland_monitors = "monitor = ,preferred,auto,auto"
+# hyprland_monitors = """hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "auto" })"""
 hyprland_monitors = """
+local centerMonitor = "DP-8"
+local rightMonitor = "DP-7"
 
-$centerMonitor=DP-8
-$rightMonitor=DP-7
+hl.monitor({
+    output   = "eDP-1",
+    mode     = "preferred",
+    position = "auto-center-left",
+    scale    = 1.56667,
+})
 
-monitorv2 {
-    output = eDP-1
-    mode = preferred
-    position = auto-center-left
-    scale = 1.56667
-}
+hl.monitor({
+    output   = centerMonitor,
+    mode     = "preferred",
+    position = "0x0",
+    scale    = "auto",
+})
 
-monitorv2 {
-    output = $centerMonitor
-    mode = preferred
-    position = 0x0
-    scale = auto
-}
-
-monitorv2 {
-    output = $rightMonitor
-    mode = preferred
-    position = auto-center-right
-    transform = 1
-}
+hl.monitor({
+    output   = rightMonitor,
+    mode     = "preferred",
+    position = "auto-center-right",
+    transform = 1,
+})
 """
+# Monitor names are repeated here because Lua locals do not cross `require()`
+# boundaries the way hyprlang's `$variables` used to.
 hyprland_workspace_rules = """
-workspace = 1, monitor:$rightMonitor
-workspace = 2, monitor:$centerMonitor
-workspace = 3, monitor:eDP-1
-workspace = 4, monitor:$centerMonitor
+local centerMonitor = "DP-8"
+local rightMonitor = "DP-7"
+
+hl.workspace_rule({ workspace = "1", monitor = rightMonitor })
+hl.workspace_rule({ workspace = "2", monitor = centerMonitor })
+hl.workspace_rule({ workspace = "3", monitor = "eDP-1" })
+hl.workspace_rule({ workspace = "4", monitor = centerMonitor })
 """

@@ -6,23 +6,23 @@ polybar_powerline_fontsize = "29"
 rofi_fontsize = "12"
 
 hyprland_monitors = """
-monitorv2 {
-    output = DP-1
-    mode = preferred
-    position = 0x0
-    scale = 1.666
-}
+hl.monitor({
+    output   = "DP-1",
+    mode     = "preferred",
+    position = "0x0",
+    scale    = 1.666,
+})
 
-monitorv2 {
-    output = HDMI-A-2
-    mode = preferred
-    position = auto-center-right
-    scale = 1
-    transform = 1
-}
+hl.monitor({
+    output   = "HDMI-A-2",
+    mode     = "preferred",
+    position = "auto-center-right",
+    scale    = 1,
+    transform = 1,
+})
 """
 hyprland_workspace_rules = """
-workspace = 1, monitor:HDMI-A-2
-workspace = 2, monitor:DP-1
-workspace = 9, monitor:DP-1
+hl.workspace_rule({ workspace = "1", monitor = "HDMI-A-2" })
+hl.workspace_rule({ workspace = "2", monitor = "DP-1" })
+hl.workspace_rule({ workspace = "9", monitor = "DP-1" })
 """
