@@ -7,7 +7,10 @@ dotfiles_dir = "Projects/dotfiles"
 vars = []
 
 # An array of post install shell commands
-posthooks = ["tmux source-file ~/.config/tmux/theme.conf"]
+posthooks = [
+  "tmux source-file ~/.config/tmux/theme.conf",
+  "herdr server reload-config || true",
+]
 
 [settings.dots]
 # A dot entry representing a symlink, `source` is relative to `dotfiles_dir`
@@ -18,6 +21,7 @@ bat = { source = "config/bat", target = ".config/bat" }
 clipcat = { source = "config/clipcat", target = ".config/clipcat" }
 dunst = { source = "config/dunst", target = ".config/dunst" }
 ghostty = { source = "config/ghostty", target = ".config/ghostty" }
+herdr = { source = "config/herdr/config.toml", target = ".config/herdr/config.toml" }
 markdown_oxide = { source = "config/moxide", target = ".config/moxide" }
 neovim = { source = "config/nvim", target = ".config/nvim" }
 ranger = { source = "config/ranger", target = ".config/ranger" }

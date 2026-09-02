@@ -1,0 +1,47 @@
+#!/bin/bash
+# Recreate the Mochi layout as a herdr workspace.
+# Ported from scripts/tmux/create-Mochi-session.
+set -euo pipefail
+
+WORKSPACE="Mochi"
+DOTFILES="$HOME/Projects/dotfiles"
+NOTES="$HOME/Notes"
+
+if ! herdr status server >/dev/null 2>&1; then
+    echo "No herdr server is running. Start herdr first." >&2
+    exit 1
+fi
+
+workspace_id() {
+    herdr workspace list | jq -r --arg label "$WORKSPACE" \
+        '.result.workspaces[] | select(.label == $label) | .workspace_id' | head -n1
+}
+
+# Attaching to an existing workspace is the whole point of the original script:
+# it only builds the layout when the session is not already there.
+existing="$(workspace_id)"
+if [ -n "$existing" ]; then
+    herdr workspace focus "$existing" >/dev/null
+    echo "$WORKSPACE already exists, focused $existing"
+    exit 0
+fi
+
+created="$(herdr workspace create --label "$WORKSPACE" --cwd "$DOTFILES" --no-focus)"
+ws="$(jq -r '.result.workspace.workspace_id' <<<"$created")"
+root_tab="$(jq -r '.result.tab.tab_id' <<<"$created")"
+root_pane="$(jq -r '.result.root_pane.pane_id' <<<"$created")"
+
+herdr tab rename "$root_tab" dotfiles >/dev/null
+herdr pane run "$root_pane" "nvim config/nvim/init.lua" >/dev/null
+
+new_tab() {
+    herdr tab create --workspace "$ws" --label "$1" --cwd "$2" --no-focus \
+        | jq -r '.result.root_pane.pane_id'
+}
+
+herdr pane run "$(new_tab top "$DOTFILES")" btop >/dev/null
+herdr pane run "$(new_tab notes "$NOTES")" "nvim index.md" >/dev/null
+new_tab shell "$DOTFILES" >/dev/null
+
+herdr workspace focus "$ws" >/dev/null
+echo "Created $WORKSPACE ($ws)"
