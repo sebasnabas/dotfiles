@@ -27,12 +27,47 @@ swap_pane_left = ""
 swap_pane_right = ""
 
 # tmux: bind v split-window -h (side by side), bind h split-window -v (stacked).
-# prefix+h is pane focus here, so the stacked split keeps the herdr default.
+# prefix+h is pane focus, so the splits pair up on prefix+v and prefix+s.
 split_vertical = "prefix+v"
-split_horizontal = "prefix+minus"
+split_horizontal = "prefix+s"
+
+# prefix+s is herdr's settings surface by default. herdr only reports a
+# conflict between two bindings that are both set, so settings is moved
+# explicitly here rather than left to lose the key silently.
+settings = "prefix+shift+s"
+
+# tmux: bind-key -r +/-/</> resize-pane. Deliberately not ported. prefix+r
+# resize mode stays open across repeated h/j/k/l or arrow presses, which is
+# what the repeatable tmux bindings were for.
 
 # tmux: unbind [; bind Escape copy-mode
 copy_mode = ["prefix+[", "prefix+esc"]
+
+# tmux: bind -n C-h/j/k/l via vim-tmux-navigator. The plugin forwards the chord
+# to neovim panes, which navigate their own splits first, and moves herdr's
+# pane focus everywhere else. See config/herdr/plugins/navigate.
+# A plugin rather than type = "shell" because herdr spawns plugin actions as
+# argv, skipping the /bin/sh -lc login shell that cost about 100ms per press.
+
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "seb.navigate.left"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "seb.navigate.down"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "seb.navigate.up"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "seb.navigate.right"
 
 [terminal]
 # tmux: bind h/v split-window -c "#{pane_current_path}"
@@ -95,6 +130,11 @@ tab_bar_right_separator = " | "
 
 [ui.toast]
 delivery = "system"
+
+# herdr plays a sound when an agent changes state in a background workspace.
+# Desktop notifications above cover the same events, so the audio is off.
+[ui.sound]
+enabled = false
 
 [experimental]
 # tmux: set -g allow-passthrough on, for yazi image previews.

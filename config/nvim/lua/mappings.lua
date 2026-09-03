@@ -8,13 +8,23 @@ end
 
 map("n", "Y", "y$")
 
-vim.cmd("let g:tmux_navigator_no_mappings = 1")
+-- Window navigation, vim-tmux-navigator style. herdr leaves ctrl+h/j/k/l
+-- unbound, so they reach neovim, and neovim hands off at its own edge.
+local function navigate(wincmd, direction)
+    local from = vim.api.nvim_get_current_win()
+    vim.cmd.wincmd(wincmd)
+    -- Same window means there was no neovim split that way, so we are at the
+    -- edge and the move belongs to herdr. Skipped when neovim runs outside it.
+    if vim.api.nvim_get_current_win() == from and vim.env.HERDR_PANE_ID then
+        vim.system({"herdr", "pane", "focus", "--direction", direction, "--current"})
+    end
+end
 
-map("n", "<C-h>", ":TmuxNavigateLeft<CR>", {silent = true})
-map("n", "<C-j>", ":TmuxNavigateDown<CR>", {silent = true})
-map("n", "<C-k>", ":TmuxNavigateUp<CR>", {silent = true})
-map("n", "<C-l>", ":TmuxNavigateRight<CR>", {silent = true})
-map("n", "<C-\\>", ":TmuxNavigatePrevious<CR>", {silent = true})
+vim.keymap.set("n", "<C-h>", function() navigate("h", "left") end, {silent = true})
+vim.keymap.set("n", "<C-j>", function() navigate("j", "down") end, {silent = true})
+vim.keymap.set("n", "<C-k>", function() navigate("k", "up") end, {silent = true})
+vim.keymap.set("n", "<C-l>", function() navigate("l", "right") end, {silent = true})
+map("n", "<C-\\>", "<C-w>p", {silent = true})
 
 -- Copy & paste
 map("v", "<C-c>", "\"+y")

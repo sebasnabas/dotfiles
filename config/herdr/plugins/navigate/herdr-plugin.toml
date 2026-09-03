@@ -1,0 +1,40 @@
+# vim-tmux-navigator's multiplexer half, as a herdr plugin.
+#
+# A plugin rather than a [[keys.command]] type = "shell" entry because herdr
+# runs custom commands through /bin/sh -lc, and the login shell cost about
+# 100ms per keypress. Plugin actions are spawned as argv with no shell.
+#
+# Register once per machine, from the repo checkout:
+#   herdr plugin link ~/Projects/dotfiles/config/herdr/plugins/navigate
+#
+# Bound to ctrl+h/j/k/l by config/herdr/config.toml.
+id = "seb.navigate"
+name = "Pane navigate"
+version = "0.1.0"
+min_herdr_version = "0.8.2"
+description = "Forward ctrl+h/j/k/l to neovim panes and move herdr pane focus elsewhere"
+platforms = ["linux"]
+
+[[actions]]
+id = "left"
+title = "Focus or forward left"
+contexts = ["pane"]
+command = ["./navigate", "left"]
+
+[[actions]]
+id = "down"
+title = "Focus or forward down"
+contexts = ["pane"]
+command = ["./navigate", "down"]
+
+[[actions]]
+id = "up"
+title = "Focus or forward up"
+contexts = ["pane"]
+command = ["./navigate", "up"]
+
+[[actions]]
+id = "right"
+title = "Focus or forward right"
+contexts = ["pane"]
+command = ["./navigate", "right"]

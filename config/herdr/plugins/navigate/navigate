@@ -1,0 +1,31 @@
+#!/bin/sh
+# Forward the navigation chord to neovim panes, move herdr's pane focus in the
+# rest. Neovim navigates its own splits first and calls herdr back only at its
+# edge, so the two halves compose.
+set -eu
+
+# Recover the chord that produced this direction, to forward it unchanged.
+case "${1:-}" in
+    left)  key="ctrl+h" ;;
+    down)  key="ctrl+j" ;;
+    up)    key="ctrl+k" ;;
+    right) key="ctrl+l" ;;
+    *)
+        echo "usage: navigate left|down|up|right" >&2
+        exit 2
+        ;;
+esac
+
+# herdr injects both for plugin actions. Without a pane there is nothing to do.
+pane="${HERDR_PANE_ID:-}"
+[ -n "$pane" ] || exit 0
+herdr="${HERDR_BIN_PATH:-herdr}"
+
+# An editor in the foreground handles the move itself.
+if "$herdr" pane process-info --pane "$pane" | jq -e '
+        [.result.process_info.foreground_processes[]?.name]
+        | any(test("^(n?vim|view|vimdiff)$"))' >/dev/null 2>&1; then
+    "$herdr" pane send-keys "$pane" "$key" >/dev/null
+else
+    "$herdr" pane focus --direction "$1" --pane "$pane" >/dev/null
+fi
