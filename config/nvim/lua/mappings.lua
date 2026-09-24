@@ -10,13 +10,38 @@ map("n", "Y", "y$")
 
 -- Window navigation, vim-tmux-navigator style. herdr leaves ctrl+h/j/k/l
 -- unbound, so they reach neovim, and neovim hands off at its own edge.
+-- The navigate plugin's helper wraps around the layout edges, which herdr's
+-- own focus does not. It reads HERDR_PANE_ID, which neovim already has.
+local wrap_focus = vim.env.HOME .. "/Projects/dotfiles/config/herdr/plugins/navigate/focus"
+local opposite = {h = "l", j = "k", k = "j", l = "h"}
+
+-- Walk to the far window, which is where wrapping lands.
+local function wrap_windows(wincmd)
+    local previous
+    repeat
+        previous = vim.api.nvim_get_current_win()
+        vim.cmd.wincmd(opposite[wincmd])
+    until vim.api.nvim_get_current_win() == previous
+end
+
 local function navigate(wincmd, direction)
     local from = vim.api.nvim_get_current_win()
     vim.cmd.wincmd(wincmd)
     -- Same window means there was no neovim split that way, so we are at the
     -- edge and the move belongs to herdr. Skipped when neovim runs outside it.
     if vim.api.nvim_get_current_win() == from and vim.env.HERDR_PANE_ID then
-        vim.system({"herdr", "pane", "focus", "--direction", direction, "--current"})
+        -- Without the checkout there is no wrapping, but navigation still works.
+        if vim.uv.fs_stat(wrap_focus) then
+            -- "stayed" means herdr had nowhere to go either, so crossing out of
+            -- neovim has already lost and the wrap belongs between these splits.
+            vim.system({wrap_focus, direction}, {text = true}, function(done)
+                if vim.trim(done.stdout or "") == "stayed" then
+                    vim.schedule(function() wrap_windows(wincmd) end)
+                end
+            end)
+        else
+            vim.system({"herdr", "pane", "focus", "--direction", direction, "--current"})
+        end
     end
 end
 

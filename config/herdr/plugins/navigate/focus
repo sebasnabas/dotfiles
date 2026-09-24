@@ -1,0 +1,62 @@
+#!/bin/sh
+# Focus the neighbouring pane, wrapping to the far one when there is none.
+#
+# tmux did this with select-pane; herdr 0.8.2 answers a move off the edge with
+# no_neighbor and stops. Wrapping means walking back the other way until
+# nothing moves, which is where repeated presses already land.
+#
+# Prints "stayed" when nothing moved at all, and nothing otherwise. Neovim uses
+# that to decide whether to wrap between its own splits instead. Staying silent
+# when it cannot tell, as without jq, keeps neovim on its old behaviour.
+set -eu
+
+# Recover the direction to walk back along when the pressed one runs out.
+case "${1:-}" in
+    left)  opposite=right ;;
+    down)  opposite=up ;;
+    up)    opposite=down ;;
+    right) opposite=left ;;
+    *)
+        echo "usage: focus left|down|up|right" >&2
+        exit 2
+        ;;
+esac
+
+# herdr injects both for plugin actions, and neovim inherits them in a pane.
+pane="${HERDR_PANE_ID:-}"
+[ -n "$pane" ] || exit 0
+herdr="${HERDR_BIN_PATH:-herdr}"
+
+# Without jq the response cannot be read, so fall back to the plain move rather
+# than losing navigation altogether.
+command -v jq >/dev/null 2>&1 || exec "$herdr" pane focus --direction "$1" --pane "$pane" >/dev/null
+
+# Move from $pane and leave the response in $out. Capturing before jq sees it
+# matters: a pipeline would report jq's status, and a jq failure read as "no
+# neighbour" would send the walk off the opposite way.
+move() {
+    out=$("$herdr" pane focus --direction "$1" --pane "$pane") || exit 1
+}
+
+# A neighbour in the pressed direction is an ordinary move.
+move "$1"
+[ "$(printf '%s' "$out" | jq -r '.result.focus.changed')" = false ] || exit 0
+
+# A zoomed tab shows one pane, so walking through the others would be invisible.
+if [ "$(printf '%s' "$out" | jq -r '.result.focus.layout.zoomed')" != false ]; then
+    echo stayed
+    exit 0
+fi
+
+# At the edge. Walk back until a hop reports no new pane: that is the far one.
+outcome=stayed
+while :; do
+    move "$opposite"
+    next=$(printf '%s' "$out" \
+        | jq -r 'if .result.focus.changed then .result.focus.focused_pane_id // empty else empty end')
+    [ -n "$next" ] || break
+    pane="$next"
+    outcome=moved
+done
+
+[ "$outcome" = moved ] || echo stayed

@@ -27,5 +27,8 @@ if "$herdr" pane process-info --pane "$pane" | jq -e '
         | any(test("^(n?vim|view|vimdiff)$"))' >/dev/null 2>&1; then
     "$herdr" pane send-keys "$pane" "$key" >/dev/null
 else
-    "$herdr" pane focus --direction "$1" --pane "$pane" >/dev/null
+    # Wrapping lives in its own script so neovim's edge handoff shares it.
+    # The manifest invokes this as ./navigate, so argv[0] locates the sibling.
+    # The "stayed" report is only for neovim, so keep the action quiet.
+    exec "${0%/*}/focus" "$1" >/dev/null
 fi
