@@ -41,6 +41,7 @@ require('lazy').setup({
   --- Language support
   { -- Treesitter
     'nvim-treesitter/nvim-treesitter',
+    lazy = false, --  the `main` branch does not support lazy-loading
     build = ':TSUpdate',
     dependencies = {
       {
@@ -380,7 +381,8 @@ require('lazy').setup({
       })
     end
   },                                    --  Generate docstrings
- { 'norcalli/nvim-colorizer.lua' }
+ { 'norcalli/nvim-colorizer.lua' },
+ { 'grafana/vim-alloy'},
 })
 
 require('plugin-settings.lspconfig')
