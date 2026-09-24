@@ -12,7 +12,7 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export GOPATH=$HOME/.local/share/go
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
-export BROWSER="browser-selector"
+export BROWSER="zen"
 export MAIL_CLIENT="thunderbird"
 export TERMINAL="ghostty"
 export EDITOR="nvim"
