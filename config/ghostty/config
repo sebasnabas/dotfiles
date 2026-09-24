@@ -42,9 +42,11 @@
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 
-font-family = "FiraCode Nerd Font Mono"
+font-family = "FiraCode Nerd Font"
+font-family-italic = "JetBrainsMono Nerd Font"
+font-family-bold-italic = "JetBrainsMono Nerd Font"
 
-window-decoration = server
+window-decoration = none
 
 background-opacity = 0.9
 
