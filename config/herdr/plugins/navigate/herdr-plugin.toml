@@ -7,12 +7,13 @@
 # Register once per machine, from the repo checkout:
 #   herdr plugin link ~/Projects/dotfiles/config/herdr/plugins/navigate
 #
-# Bound to ctrl+h/j/k/l by config/herdr/config.toml.
+# config/herdr/config.toml binds the four directional actions to ctrl+h/j/k/l
+# and the global jump to prefix+backtick.
 id = "seb.navigate"
-name = "Pane navigate"
-version = "0.1.0"
+name = "Navigate"
+version = "0.2.0"
 min_herdr_version = "0.8.2"
-description = "Forward ctrl+h/j/k/l to neovim panes and move herdr pane focus elsewhere"
+description = "Pane navigation that cooperates with neovim, and a jump to the agent waiting on you"
 platforms = ["linux"]
 
 [[actions]]
@@ -38,3 +39,9 @@ id = "right"
 title = "Focus or forward right"
 contexts = ["pane"]
 command = ["./navigate", "right"]
+
+[[actions]]
+id = "last-waiting-agent"
+title = "Focus the agent waiting on you, blocked before finished"
+contexts = ["global"]
+command = ["./last-waiting-agent"]

@@ -1,0 +1,37 @@
+#!/bin/sh
+# Focus the agent most recently waiting on you: blocked first, then finished.
+#
+# herdr settles an agent into "blocked" when it recognises an approval or
+# question UI, and into "done" when it finished work in a tab that has not been
+# seen yet. Blocked wins however recent the finished one is, because a blocked
+# agent is stalled on you and a finished one is not.
+#
+# The two react differently to being focused, which is what makes repeated
+# presses walk the queue: focusing marks a tab seen, so a done agent turns idle
+# on arrival and the next press moves on, while a blocked agent stays blocked
+# until it is answered and the next press comes back to it.
+#
+# "unknown" is left out because herdr says it does not prove completion.
+# state_change_seq is a server-wide counter, so the highest one is the newest.
+set -eu
+
+herdr="${HERDR_BIN_PATH:-herdr}"
+
+# Read the list on its own line rather than piping it straight into jq: at the
+# head of a pipeline its exit status is discarded, so a herdr that is down
+# would reach jq as empty input and read as an empty queue. ./focus aborts on a
+# herdr failure too, so both scripts fail loudly rather than looking idle; this
+# one exits with herdr's own status where ./focus uses a plain 1.
+agents=$("$herdr" agent list)
+
+# max_by compares the pair lexicographically: status rank first, recency second.
+# A winner carrying no pane_id must not become the literal string "null".
+target=$(printf '%s' "$agents" | jq -r '
+    [.result.agents[]? | select(.agent_status == "blocked" or .agent_status == "done")]
+    | max_by([(if .agent_status == "blocked" then 1 else 0 end), .state_change_seq])
+    | .pane_id // empty')
+
+# Nothing is waiting; do nothing rather than jump somewhere arbitrary.
+[ -n "$target" ] || exit 0
+
+"$herdr" agent focus "$target" >/dev/null

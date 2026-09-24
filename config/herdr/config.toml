@@ -13,11 +13,29 @@ prefix = "ctrl+q"
 focus_pane_left = ["prefix+h", "ctrl+alt+h"]
 focus_pane_down = ["prefix+j", "ctrl+alt+j"]
 focus_pane_up = ["prefix+k", "ctrl+alt+k"]
-focus_pane_right = ["prefix+l", "ctrl+alt+l"]
+focus_pane_right = ["ctrl+alt+l"]
+
+# prefix+l is the last-pane toggle, so pane-right keeps only its direct chord.
+# tmux reached the same thing with select-pane -l, which neovim mirrors as
+# <C-\> -> <C-w>p.
+last_pane = "prefix+l"
 
 # tmux: bind-key -r H/L select-window -t :-/:+
 previous_tab = ["prefix+p", "prefix+shift+h"]
 next_tab = ["prefix+n", "prefix+shift+l"]
+
+# tmux had no workspace concept. Sidebar order is vertical, so k is previous
+# and j is next. alt rather than ctrl+shift: in legacy encoding ctrl+shift+j
+# is the same byte as ctrl+j, which the navigate plugin already owns.
+previous_workspace = "alt+k"
+next_workspace = "alt+j"
+
+# Agent navigation ships unbound. prefix+alt keeps the j/k family coherent:
+# ctrl is panes via the plugin, ctrl+alt panes direct, alt workspaces,
+# prefix+alt agents. Order follows ui.agent_panel_sort below.
+previous_agent = "prefix+alt+k"
+next_agent = "prefix+alt+j"
+focus_agent = "prefix+alt+1..9"
 
 # tmux: bind-key -r J/K swap-pane -D/-U. Left/right are unbound because
 # prefix+shift+h/l now select tabs.
@@ -69,6 +87,17 @@ key = "ctrl+l"
 type = "plugin_action"
 command = "seb.navigate.right"
 
+# tmux had no equivalent. Jumps to the agent waiting on you: one herdr
+# recognised an approval or question UI for, or failing that one that finished
+# work in a tab not looked at yet. Focusing marks a tab seen, so a finished
+# agent drops out of the queue on arrival and repeated presses walk through
+# them, while a blocked agent stays blocked and presses hold on it until it is
+# answered. "grave" is not a herdr key name.
+[[keys.command]]
+key = "prefix+backtick"
+type = "plugin_action"
+command = "seb.navigate.last-waiting-agent"
+
 [terminal]
 # tmux: bind h/v split-window -c "#{pane_current_path}"
 new_cwd = "follow"
@@ -105,6 +134,10 @@ accent = "{{neutral_aqua}}"
 # Distinct glyphs rather than colour dots for agent state.
 status_indicators = "symbols"
 show_agent_labels_on_pane_borders = true
+
+# Attention queue rather than layout order, so previous_agent/next_agent walk
+# the agents waiting on input first.
+agent_panel_sort = "priority"
 
 # tmux-style splitters: panes share a single divider line and the pane area
 # has no outer frame, instead of each pane being drawn as a separate box.
