@@ -50,7 +50,7 @@ vim.autoindent                       = true
 vim.opt.foldlevel                    = 1
 vim.opt.foldnestmax                  = 10
 vim.o.foldmethod                     = 'expr'
-vim.o.foldexpr                       = 'nvim_treesitter#foldexpr()'
+vim.o.foldexpr                       = 'v:lua.vim.treesitter.foldexpr()'
 ---
 
 vim.opt.conceallevel                 = 2
