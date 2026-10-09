@@ -5,10 +5,10 @@
 
 local langs = {
   "bash", "c", "c_sharp", "comment", "css",
-  "dockerfile", "go", "groovy", "helm", "hcl", "html", "javascript", "json", "jsonnet", "latex",
-  "lua", "make", "markdown", "markdown_inline", "python", "regex", "rego", "rust", "scss",
-  "sql", "terraform", "toml", "tsx", "typescript", "typst", "vim", "yaml", "zig",
-  "river",
+  "dockerfile", "go", "groovy", "helm", "hcl", "html", "java", "javascript", "json", "jsonnet",
+  "kotlin", "latex", "lua", "make", "markdown", "markdown_inline", "python", "regex", "rego",
+   "river", "rust", "scss", "sql", "terraform", "toml", "tsx", "typescript", "typst", "vim",
+   "yaml", "zig",
 }
 
 -- Register the out-of-tree grammar. `install()` emits this event from
