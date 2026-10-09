@@ -48,10 +48,20 @@ require('lazy').setup({
         'OXY2DEV/markview.nvim',
         config = function()
           require("markview").setup({
-            callbacks = {
-              on_enable = function (_, win)
-                vim.wo[win].conceallevel = 2;
-                vim.wo[win].concealcursor = "nc";
+            preview = {
+              callbacks = {
+                on_enable = function (_, wins)
+                  for _, win in ipairs(wins) do
+                    vim.wo[win].conceallevel = 2;
+                    vim.wo[win].concealcursor = "nc";
+                  end
+                end
+              }
+            },
+            renderers = {
+              -- mkdocs admonition bodies parse as indented code; see lua/mkdocs-admonitions.lua.
+              markdown_indented_code_block = function (buffer, item)
+                require("mkdocs-admonitions").markview_indented_code_block(buffer, item)
               end
             }
           })
