@@ -26,6 +26,7 @@ export MYVIMRC="$HOME/.config/nvim/init.lua"
 
 # neovim as man pager
 export MANPAGER='nvim +Man!'
+export PAGER="nvim -R -c 'set nomodified' -"
 
 privateProfile="$HOME/.config/shell/private_profile"
 [ -f "$privateProfile" ] && source "$privateProfile"
