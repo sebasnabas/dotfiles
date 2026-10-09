@@ -3,6 +3,7 @@ export PATH="$HOME/.local/share/go/bin":$PATH
 export PATH="$HOME/.scripts/tools":$PATH
 export PATH="$HOME/.scripts/i3cmds":$PATH
 export PATH="$HOME/.scripts/tmux":$PATH
+export PATH="$HOME/.scripts/herdr":$PATH
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 export PATH="/usr/lib/rustup/bin:$PATH"
